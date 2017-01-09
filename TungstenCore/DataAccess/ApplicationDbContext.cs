@@ -7,9 +7,9 @@ namespace TungstenCore.DataAccess
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, ISchoolContext
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext(DbContextOptions options) : base (options)
         {
+
         }
 
         public DbSet<Group> Groups { get; set; }
@@ -18,11 +18,6 @@ namespace TungstenCore.DataAccess
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<FilePath> FilePaths { get; set; }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
 
         //public System.Data.Entity.DbSet<TungstenCore.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
