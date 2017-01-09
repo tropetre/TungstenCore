@@ -1,12 +1,19 @@
 ﻿namespace TungstenCore.Models
 {
+    using Enums;
+
+    using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class FilePath
     {
-        public int FilePathId { get; set; }
+        public string FilePathId { get; set; } = Guid.NewGuid().ToString();
         [StringLength(255)]
         public string FileName { get; set; }
         public FileType FileType { get; set; }
-        public ApplicationUser Owner { get; set; }
+        [Required, ForeignKey("Owner")]
+        public string OwnderId { get; set; }
+        public virtual ApplicationUser Owner { get; set; }
     }
 }

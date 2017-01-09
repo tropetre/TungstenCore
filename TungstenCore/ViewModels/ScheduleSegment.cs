@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TungstenCore.Models
+namespace TungstenCore.ViewModels
 {
     /// <summary>
     /// Viewmodel for client-side schedule rendering

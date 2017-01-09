@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TungstenCore.Models
+namespace TungstenCore.ViewModels
 {
     public class EditViewModel
     {

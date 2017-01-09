@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TungstenCore.Models
 {
+    using JoinModels;
+
     public class Course : Entity<string>
     {
         /// <summary>
@@ -38,7 +40,7 @@ namespace TungstenCore.Models
         /// <summary>
         /// Navigational property to the associated Group
         /// </summary>
-        public Group Group { get; set; }
+        public virtual Group Group { get; set; }
 
         /// <summary>
         /// Navigational property for the Course's Segments
@@ -49,7 +51,7 @@ namespace TungstenCore.Models
         /// Navigational property for the Course's Participants. 
         /// Note that this includes both students and teachers.
         /// </summary>
-        public virtual ICollection<ApplicationUser> Participants { get; set; } = new List<ApplicationUser>();
+        public virtual ICollection<ApplicationUserCourse> Participants { get; set; } = new List<ApplicationUserCourse>();
 
         /// <summary>
         /// Navigational property for Lessons used when Generating Schedules 

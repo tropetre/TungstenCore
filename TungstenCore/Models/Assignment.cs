@@ -11,7 +11,7 @@ namespace TungstenCore.Models
 
         [Required, ForeignKey("Segment")]
         public string SegmentId { get; set; }
-        public Segment Segment { get; set; }
+        public virtual Segment Segment { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }

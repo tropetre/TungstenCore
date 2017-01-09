@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace TungstenCore.Models
 {
+    using JoinModels;
+    using ViewModels;
+
     /// <summary>
     /// The Group class represents a collection of users, such as a class of students.
     /// </summary>
@@ -28,9 +31,9 @@ namespace TungstenCore.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Navigational property for a Group's participating Users, both Teachers and Students
+        /// Navigational property for a Group's participating Users, both Teachers and Studenst
         /// </summary>
-        public virtual ICollection<ApplicationUser> Participants { get; set; } = new List<ApplicationUser>();
+        public virtual ICollection<ApplicationUserGroup> Participants { get; set; } = new List<ApplicationUserGroup>();
 
         /// <summary>
         /// Navigational property for a Group's Courses, e.g. English 1, Math 1, Math 2
@@ -40,26 +43,19 @@ namespace TungstenCore.Models
         /// <summary>
         /// ScheduleSegments for all lessons in a Group
         /// </summary>
-        public IEnumerable<ScheduleSegment> Schedule
-        {
-            get
+        public IEnumerable<ScheduleSegment> Schedule() =>
+            from course in Courses
+            from lesson in course.Lessons
+            orderby lesson.StartTime
+            select new ScheduleSegment
             {
-                var r = new Random();
-                return
-                from course in Courses
-                from lesson in course.Lessons
-                orderby lesson.StartTime
-                select new ScheduleSegment
-                {
-                    CourseName = course.ToString(),
-                    Day = lesson.StartTime.DayOfWeek,
-                    StartTime = lesson.StartTime.TimeOfDay,
-                    EndTime = lesson.EndTime.TimeOfDay,
-                    Classroom = lesson.Classroom,
+                CourseName = course.ToString(),
+                Day = lesson.StartTime.DayOfWeek,
+                StartTime = lesson.StartTime.TimeOfDay,
+                EndTime = lesson.EndTime.TimeOfDay,
+                Classroom = lesson.Classroom,
                     // Perhaps implement a predefined list of colors to ensure that the colors are suitable for humans.
                     Color = $"#{(course.ToString().GetHashCode() % 0x1000000):X6}".Substring(0, 7)
-                };
-            }
-        }
+            };
     }
 }

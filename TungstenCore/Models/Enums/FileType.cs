@@ -1,4 +1,4 @@
-﻿namespace TungstenCore.Models
+﻿namespace TungstenCore.Models.Enums
 {
     public enum FileType
     {
