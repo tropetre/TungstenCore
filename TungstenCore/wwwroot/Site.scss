@@ -1,0 +1,141 @@
+﻿@import 'mixins';
+@import 'variables';
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+body {
+    padding-top: 65px;
+    padding-bottom: 20px;
+    background-color: $color-background;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+.navbar {
+    background-color: $color-primary;
+}
+
+.navbar-inverse .navbar-nav > li > a 
+{
+    color: $color-panel;
+}
+.navbar-inverse .navbar-brand
+{
+    color: $color-panel;
+}
+.navbar-brand {
+    font-family: 'Baloo', cursive;
+    padding-left: 40px;
+    vertical-align: middle;
+}
+@media (min-width: 768px){
+    .navbar > .container .navbar-brand {
+        margin-left: 0;
+    }
+}
+/*Set svg-logo to be behind brand name and always in the top left corner*/
+.navbar-header>svg {
+    position: absolute;
+    vertical-align: middle;
+    padding: 5px; /*Svg might be wrong but the top gets cut off with no padding*/
+    height: 50px;
+    z-index: -1;
+    fill: $color-dark;
+}
+
+.navbar-inverse {
+    border: none;
+}
+
+.navbar-toggle>.icon-bar{
+    display:none;
+}
+.navbar-toggle>.menu-text{
+    font-weight: normal;
+    color: $color-button;
+}
+.navbar-inverse .navbar-toggle {
+    margin-top:5px;
+    margin-bottom: 5px;
+    border-color: $color-button;
+}
+.navbar-toggle:hover, .navbar-toggle:focus{
+    background-color: $color-primary !important;
+}
+
+.panel-group .panel {
+/*Simple boxshadow for extra skeuomorphism*/
+    @include box-shadow($shadow-panel);
+
+    background-image: none;
+    background-color: $color-panel;
+    border-radius: $panel-border-radius;
+
+}
+
+.panel-collapse{
+    padding:0;
+}
+.panel-collapse-content {
+    padding: 15px;
+}
+
+.panel-group{
+    padding: 10px 15px;
+}
+
+.panel-default {
+    border-color: none;
+
+    .panel-heading {
+        background-color: $color-panel;
+    }
+}
+
+.panel button {
+    border-radius: $panel-border-radius;
+    @include box-shadow($shadow-button);
+}
+
+.btn-primary {
+  color: $color-button-text;
+  background-color: $color-button;
+  border-color: $color-button-border;
+}
+
+.btn-primary.disabled,
+.btn-primary[disabled] {
+    color: $color-button-text;
+  background-color: $color-button;
+  border-color: $color-button-border;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: $color-button-text;
+  background-color: $color-button;
+  border-color: $color-button-border;
+}
+
+.btn-active, .btn:active {
+    @include box-shadow(none);
+}
+
+/*
+    ***
+    *** Dropdownbox Component
+    ***
+*/
