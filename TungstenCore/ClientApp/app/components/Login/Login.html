@@ -1,0 +1,52 @@
+﻿<!-- Login as a panel, not part of menu
+<div [ngSwitch]="LoginPanelIsOpen">
+    <div class="panel">
+        <button class="btn" *ngSwitchCase="false" (click)="OpenPanel()">Login</button>
+    </div>
+    <form *ngSwitchCase="true" #loginForm="ngForm">
+        <input type="text" placeholder="User Name" (blur)="ClosePanel()" (focus)="StopHidingPanel()" [(ngModel)]="_user.Username" name="username" [autofocus] required />
+        <input type="password" placeholder="Password" (blur)="ClosePanel()" (focus)="StopHidingPanel()" [(ngModel)]="_user.Password" name="password" required />
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" [(ngModel)]="_user.RememberMe" name="remember"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-primary" [disabled]="!loginForm.form.valid" (click)="login()">Login</button>
+    </form>
+</div>
+    (blur)="ClosePanel()" (focus)="StopHidingPanel()"
+-->
+
+<div class="panel panel-default text-center">
+    <div class="panel-heading">
+            <h4 class="panel-title">
+        <a href="#" data-toggle="collapse" data-target="#login">
+                Log In
+        </a>
+            </h4>
+
+    </div>
+    
+        <div id="login" class="panel-collapse collapse">
+        <div class="panel-collapse-content">
+
+        <form #loginForm="ngForm">
+            <input type="text" placeholder="User Name" [(ngModel)]="loginmodel.Username" name="username" [autofocus] required />
+            <input type="password" placeholder="Password" [(ngModel)]="loginmodel.Password" name="password" required />
+            <div class="checkbox">
+                <input class="checkbox-inline" type="checkbox" [(ngModel)]="loginmodel.RememberMe" name="remember">
+                <label for="remember">
+                    Remember me
+                </label>
+            </div>
+            <button class="btn btn-primary" [disabled]="!loginForm.form.valid" (click)="login()">Login</button>
+        </form>
+        </div>
+    
+        </div>
+</div>
+
+
+
+
+

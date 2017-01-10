@@ -1,0 +1,17 @@
+﻿<form class="form-horizontal" #newgroupForm="ngForm">
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Name">Name</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Name" name="Name" type="text" value="" [(ngModel)]="group.Name" required>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Description</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="group.Description" required>
+        </div>
+    </div>
+    <hr>
+    <button class="btn btn-primary" [disabled]="!newgroupForm.form.valid" (click)="Create()">Create</button>
+</form>

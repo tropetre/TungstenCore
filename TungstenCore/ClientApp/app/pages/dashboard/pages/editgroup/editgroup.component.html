@@ -1,0 +1,19 @@
+﻿<div *ngIf="Group">
+    <form class="form-horizontal" #editgroupForm="ngForm">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Name">Name</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Name" name="Name" type="text" value="" [(ngModel)]="Group.Name" required>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Description">Description</label>
+            <div class="col-md-10">
+                <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="Group.Description" required>
+            </div>
+        </div>
+        <hr>
+        <button class="btn btn-primary" [disabled]="!editgroupForm.form.valid" (click)="Save()">Save</button>
+    </form>
+</div>

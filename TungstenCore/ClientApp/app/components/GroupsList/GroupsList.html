@@ -1,0 +1,46 @@
+﻿<button class="btn btn-primary" [routerLink]="['/dashboard', { outlets: { dashboard: ['creategroup'] } }]">Create Group</button>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-target="#"
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+
+<table *ngIf="Groups">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let group of Groups">
+            <td>
+                {{group.Id}}
+            </td>
+            <td>
+                {{group.Name}}
+            </td>
+            <td>
+                {{group.Description}}
+            </td>
+            <td>
+                <button class="btn btn-primary" [routerLink]="['/dashboard', 'group', group.Id]">Open</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p *ngIf="!Groups">Loading...</p>

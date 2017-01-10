@@ -35,10 +35,10 @@ namespace TungstenCore.DataAccess
                 .WithMany(rel => rel.Participants)
                 .HasForeignKey(rel => rel.ApplicationUserId);
 
-            applicationUserCourse
-                .HasOne(rel => rel.ApplicationUser)
-                .WithMany(rel => rel.Courses)
-                .HasForeignKey(rel => rel.CourseId);
+            //applicationUserCourse
+            //    .HasOne(rel => rel.ApplicationUser)
+            //    .WithMany(rel => rel.Courses)
+            //    .HasForeignKey(rel => rel.CourseId);
             #endregion
 
             #region ApplicationUserGroup Building

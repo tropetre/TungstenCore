@@ -21,7 +21,7 @@ namespace TungstenCore.Models
         public string Address { get; set; }
 
         // EF7 Workaround
-        public virtual ICollection<ApplicationUserCourse> Courses { get; set; }
+        //public virtual ICollection<ApplicationUserCourse> Courses { get; set; }
         public virtual ICollection<ApplicationUserGroup> Groups { get; set; }
         public virtual ICollection<FilePath> FilePaths { get; set; }
     }

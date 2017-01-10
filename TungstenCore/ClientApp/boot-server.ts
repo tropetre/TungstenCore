@@ -2,7 +2,7 @@ import 'angular2-universal-polyfills';
 import 'zone.js';
 import { enableProdMode } from '@angular/core';
 import { platformNodeDynamic } from 'angular2-universal';
-import { AppModule } from './app/app.module';
+import { AppModule } from './app/lms.module';
 
 enableProdMode();
 const platform = platformNodeDynamic();

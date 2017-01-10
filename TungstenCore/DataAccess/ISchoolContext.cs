@@ -11,6 +11,7 @@
         DbSet<Assignment> Assignments { get; set; }
         DbSet<Lesson> Lessons { get; set; }
         DbSet<FilePath> FilePaths { get; set; }
+        DbSet<ApplicationUser> Users { get; set; }
         int SaveChanges();
     }
 }

@@ -1,0 +1,30 @@
+﻿<div class="col-xs-12 col-md-12">
+    <div class="form-group-sm">
+        <label for="search">Search</label>
+        <input name="search" id="search" type="text" placeholder="Search" [(ngModel)]="search" value="" class="form-control" />
+    </div>
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>User Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of users | FilterUserByName:search ">
+            <tr>
+                <td>
+                    {{user.Name}}
+                </td>
+                <td>{{user.UserName}}</td>
+                <td>
+                    <button (click)="addUser(user)"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

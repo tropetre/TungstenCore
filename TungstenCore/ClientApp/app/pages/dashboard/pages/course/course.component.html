@@ -1,0 +1,98 @@
+﻿<h1>Segments</h1>
+<div *ngIf="Course">
+    <button class="btn btn-primary" [routerLink]="['/dashboard', 'createsegment', Course.Id]">Create Segment</button>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Segment Id
+                </th>
+                <th>
+                    Subject
+                </th>
+                <th>
+                    Descreption
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Segment of Course.Segments">
+                <td>
+                    {{Segment.Id}}
+                </td>
+                <td>
+                    {{Segment.Name}}
+                </td>
+                <td>
+                    {{Segment.Description}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h1>Participants</h1>
+<div *ngIf="Course">
+    <button class="btn btn-primary" [routerLink]="['/dashboard', { outlets: { dashboard: ['addparticipant', Course.Id] } }]">Add Participant</button>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Participant Id
+                </th>
+                <th>
+                    Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Participant of Course.Participants">
+                <td>
+                    {{Participant.Id}}
+                </td>
+                <td>
+                    {{Participant.Name}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h1>Lessons</h1>
+<div *ngIf="Course">
+    <button class="btn btn-primary" [routerLink]="['/dashboard', { outlets: { dashboard: ['createlesson', Course.Id] } }]">Create Lesson</button>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Lesson Id
+                </th>
+                <th>
+                    StartTime
+                </th>
+                <th>
+                    EndTime
+                </th>
+                <th>
+                    Classroom
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let Lesson of Course.Lessons">
+                <td>
+                    {{Lesson.Id}}
+                </td>
+                <td>
+                    {{Lesson.StartTime}}
+                </td>
+                <td>
+                    {{Lesson.EndTime}}
+                </td>
+                <td>
+                    {{Lesson.Classroom}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

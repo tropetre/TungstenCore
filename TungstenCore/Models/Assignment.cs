@@ -16,5 +16,7 @@ namespace TungstenCore.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime EndTime { get; set; }
+
+        //TODO: Add File Linking.
     }
 }

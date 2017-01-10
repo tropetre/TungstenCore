@@ -1,0 +1,24 @@
+﻿<form class="form-horizontal" #newcourseForm="ngForm">
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Description</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="course.Description" required>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Subject">Subject</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Subject" name="Subject" type="text" [(ngModel)]="course.Subject" required>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Level</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Level" name="Level" type="text" [(ngModel)]="course.Level" required>
+        </div>
+    </div>
+    <hr>
+    <button class="btn btn-primary" [disabled]="!newcourseForm.form.valid" (click)="Create()">Create</button>
+</form>

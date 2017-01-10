@@ -1,0 +1,17 @@
+<div *ngIf="Group">
+    <dropdownbox [title]="'Participants'" [content]="Group.Participants"  [role]="user.Roles" [content-type]="'participant'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'addparticipant', Group.Id]" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+
+    <dropdownbox [title]="'Courses'" [content]="Group.Courses" [role]="user.Roles" [content-type]="'course'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createcourse', Group.Id]" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+
+    <!--<div *ngFor="let Course of Group.Courses">
+        <dropdownbox [title]="Course.Subject" [content]="Course.Segments" [content-type]="'segment'" [create-id]="Course.Id"></dropdownbox>
+    </div>-->
+</div>
