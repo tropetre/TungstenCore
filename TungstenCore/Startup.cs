@@ -11,11 +11,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc.Formatters.Json;
 
 namespace TungstenCore
 {
     using DataAccess;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc.Formatters;
     using Models;
+    using Models.JoinModels;
 
     public class Startup
     {
@@ -34,17 +38,6 @@ namespace TungstenCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFramework()
-                .AddEntityFrameworkSqlServer()
-                .AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Tungsten")));
-
-            services.AddScoped<ISchoolContext, ApplicationDbContext>();
-
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
-
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
@@ -68,6 +61,17 @@ namespace TungstenCore
             });
 
             services.AddMvc();
+
+            services.AddEntityFramework()
+                .AddEntityFrameworkSqlServer()
+                .AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Tungsten")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+            
+            services.AddScoped<ISchoolContext, ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +87,11 @@ namespace TungstenCore
                 {
                     HotModuleReplacement = true
                 });
+
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                   DataSeeder.seedData(serviceScope);
+                }
             }
             else
             {
