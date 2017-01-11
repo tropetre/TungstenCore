@@ -31,7 +31,6 @@ import { DropdownBox } from './components/dropdownbox/dropdownbox';
 import { IndexPage } from './lms.component';
 import { AccountPage } from './pages/account/AccountPage.component';
 import { HomePage } from './pages/home/HomePage.component';
-import { RegisterPage } from './pages/register/register.component';
 
 // directives
 import { Autofocus } from './directives/autofocus';
@@ -57,7 +56,6 @@ import { GroupsResolver } from './services/resolvers/groupsresolver';
         IndexPage,
         HomePage,
         AccountPage,
-        RegisterPage,
         Login,
         Autofocus
     ],

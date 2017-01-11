@@ -61,7 +61,7 @@ export class Login implements OnInit {
             },
             error => console.error('Error: ' + <any>error),
             () => {
-                if (_authenticationResult.Succeeded) {
+                if (_authenticationResult.succeeded) {
                     this.membershipService.getUserInfo()
                         .subscribe(ress => {
                             this._user = ress;
@@ -79,7 +79,7 @@ export class Login implements OnInit {
                             localStorage.setItem('user', JSON.stringify(this._user));
                             this.router.navigate(['/dashboard']);
 
-                            this.LoggedIn = _authenticationResult.Succeeded;
+                            this.LoggedIn = _authenticationResult.succeeded;
                         });
                 }
                 else {

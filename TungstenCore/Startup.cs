@@ -11,15 +11,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Mvc.Formatters.Json;
 
 namespace TungstenCore
 {
     using DataAccess;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc.Formatters;
     using Models;
-    using Models.JoinModels;
 
     public class Startup
     {
@@ -97,6 +93,8 @@ namespace TungstenCore
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseIdentity();
 
             app.UseStaticFiles();
 

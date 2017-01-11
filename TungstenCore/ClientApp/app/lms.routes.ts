@@ -12,7 +12,6 @@ import { isAuthenticatedGuard } from './services/guards/isAuthenticated';
 
 export const routes: Routes = [
     { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#Dashboard' },
-    { path: 'register', component: RegisterPage },
     { path: 'accountpage', component: AccountPage, canActivate: [isAuthenticatedGuard] },
     { path: '', component: HomePage }, // / base url
     { path: '**', redirectTo: '', pathMatch: 'full' } // not found

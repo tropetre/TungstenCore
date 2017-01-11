@@ -25,13 +25,12 @@ export class RegisterPage implements OnInit {
         var _registrationResult: OperationResult = new OperationResult(false, '');
         this.membershipService.register(this._newUser)
             .subscribe(res => {
-                _registrationResult.Succeeded = res.Succeeded;
-                _registrationResult.Message = res.Message;
+                _registrationResult = res;
 
             },
             error => console.error('Error: ' + error),
             () => {
-                if (_registrationResult.Succeeded) {
+                if (_registrationResult.succeeded) {
                     console.log('Registration Successful');
                     this.router.navigate(['home']);
                 }
