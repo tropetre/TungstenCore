@@ -2,7 +2,7 @@ import 'angular2-universal-polyfills';
 import 'zone.js';
 import { enableProdMode } from '@angular/core';
 import { platformNodeDynamic } from 'angular2-universal';
-import { AppModule } from './app/lms.module';
+import { AppModule } from './app/lms.module'; // TODO: Create A Server-Side AppModule That Replaces the membership-services that utilizes localstorage.
 
 enableProdMode();
 const platform = platformNodeDynamic();

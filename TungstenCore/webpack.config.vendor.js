@@ -24,6 +24,7 @@ module.exports = {
             '@angular/platform-browser-dynamic',
             '@angular/router',
             '@angular/platform-server',
+            'angular2-router-loader',
             'angular2-universal',
             'angular2-universal-polyfills',
             'bootstrap',
