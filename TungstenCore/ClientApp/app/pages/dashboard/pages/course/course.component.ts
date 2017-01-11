@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CourseService } from '../../../../services/course.service';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/course/course.component.html',
+    template: require('./course.component.html'),
     providers: [CourseService]
 })
 export class CoursePage implements OnInit {

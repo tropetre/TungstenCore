@@ -5,7 +5,7 @@ import { GroupService } from '../../../../services/groupservice';
 import { IGroup } from '../../../../interfaces/group';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/removegroup/removegroup.component.html'
+    template: require('./removegroup.component.html')
 })
 export class RemoveGroupPage implements OnInit {
     private Group;

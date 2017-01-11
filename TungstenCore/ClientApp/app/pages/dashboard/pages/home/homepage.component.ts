@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/home/homepage.component.html',
+    template: require('./homepage.component.html'),
     host: { '[@routeAnimation]': 'true' },
     styles: [':host { display: block; position: absolute; }'],//[':host { width: 300px; display: block; position: absolute; }'],
     animations: [

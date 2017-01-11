@@ -5,7 +5,7 @@ import { IGroup } from '../../../../interfaces/group';
 import { GroupService } from '../../../../services/groupservice';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/editgroup/editgroup.component.html'
+    template: require('./editgroup.component.html')
 })
 export class EditGroupPage implements OnInit {
     private Group: IGroup;

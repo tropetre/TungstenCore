@@ -2,7 +2,7 @@
 import { Router } from '@angular/router';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/groups/groups.component.html'
+    template: require('./groups.component.html')
 
 })
 export class GroupsPage {

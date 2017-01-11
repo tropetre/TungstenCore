@@ -6,7 +6,7 @@ import { IGroup } from '../../../../interfaces/group';
 import { Http } from '@angular/http';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/addparticipant/addparticipant.component.html'
+    template: require('./addparticipant.component.html')
 })
 export class AddParticipantPage implements OnInit {
     private Group: IGroup;

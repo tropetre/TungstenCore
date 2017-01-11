@@ -7,7 +7,7 @@ import { IGroup } from '../../../../interfaces/group';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/group/group.component.html'
+    template: require('./group.component.html')
 })
 export class GroupPage implements OnInit {
     private Group: IGroup;

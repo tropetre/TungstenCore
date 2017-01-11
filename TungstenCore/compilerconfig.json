@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/Site.css",
     "inputFile": "wwwroot/Site.scss"
+  },
+  {
+    "outputFile": "ClientApp/app/components/dropdownbox/dropdownbox.css",
+    "inputFile": "ClientApp/app/components/dropdownbox/dropdownbox.scss"
   }
 ]

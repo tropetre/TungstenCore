@@ -10,7 +10,7 @@ import { HomePageModel } from '../../../../../classes/homepagemodel';
 import { UserAnnouncer } from '../../../../../services/userannouncer';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/home/teacher/teacher.component.html',
+    template: require('./teacher.component.html'),
     host: { '[@routeAnimation]': 'true' },
     styles: [':host { width:100%; display: block;  }'],//[':host { width: 300px; display: block; position: absolute; }'],
     animations: [

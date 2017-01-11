@@ -1,5 +1,5 @@
-﻿@import '../../../Content/_mixins.scss';
-@import '../../../Content/_variables';
+﻿@import "../../../../wwwroot/mixins";
+@import "../../../../wwwroot/variables";
 
 /*Component specific selectors:
     :host
@@ -9,82 +9,84 @@
     plunges the style down the child component tree, that is, any component this component contains will also be affected
 */
 
-:host /deep/ .dropdownbox {
-    position: relative;
-    background-color: $color-panel;
-    margin-top: 1em;
-    width: 100%;
-    overflow-y: hidden;
-    padding: 0;
-    display: flex;
-    flex-flow: column;
-    border-radius: 7px;
-    @include box-shadow($shadow-panel);
-    text-shadow: 1px 1px 3px #b3b3b3;
-}
+:host /deep/ {
 
-:host /deep/ div{
-    width:100%;
-    display:inline;
-}
+    .dropdownbox {
+        position: relative;
+        background-color: $color-panel;
+        margin-top: 1em;
+        width: 100%;
+        overflow-y: hidden;
+        padding: 0;
+        display: flex;
+        flex-flow: column;
+        border-radius: 7px;
+        @include box-shadow($shadow-panel);
+        text-shadow: 1px 1px 3px #b3b3b3;
+    }
 
-:host /deep/ h3{
-    display: inline-block;
-    margin-top:10px;
-}
+    div {
+        width: 100%;
+        display: inline;
+    }
 
-:host /deep/ .top-container {
-    display: flex;
-    flex-flow: row;
-}
+    h3 {
+        display: inline-block;
+        margin-top: 10px;
+    }
 
-:host /deep/ .titlecontainer {
-    display: inline-block;
-    flex-grow: 8;
-    justify-content: center;
-    padding-left: 0.5em;
-}
+    .top-container {
+        display: flex;
+        flex-flow: row;
+    }
 
-:host /deep/ .title {
-    
-}
+    .titlecontainer {
+        display: inline-block;
+        flex-grow: 8;
+        justify-content: center;
+        padding-left: 0.5em;
+    }
 
-:host /deep/ .top-buttons-container {
-    display: flex;
-    flex-flow: row-reverse;
-    flex-grow: 4;
-    width:auto;
-}
+    .title {
+    }
 
-:host /deep/ .itemscontainer {
-    background-color: $color-panel;
-    display: flex;
-    flex-flow: row;
-}
+    .top-buttons-container {
+        display: flex;
+        flex-flow: row-reverse;
+        flex-grow: 4;
+        width: auto;
+    }
 
-:host /deep/ .item {
-    display: flex;
-    flex-flow: row;
-    background-color: rgba(228, 106, 26, 0.21);
-    margin-top:1px;
-    border-radius: 3px;
-    width:100%;
-}
+    .itemscontainer {
+        background-color: $color-panel;
+        display: flex;
+        flex-flow: row;
+    }
 
-:host /deep/ .item-link-container {
-    display: inline-block;
-    flex-grow: 8;
-    justify-content: center;
-    padding-left: 0.5em;
-}
+    .item {
+        display: flex;
+        flex-flow: row;
+        background-color: rgba(228, 106, 26, 0.21);
+        margin-top: 1px;
+        border-radius: 3px;
+        width: 100%;
+    }
 
-:host /deep/ .item-link {
-    display: inline-block;
-}
+    .item-link-container {
+        display: inline-block;
+        flex-grow: 8;
+        justify-content: center;
+        padding-left: 0.5em;
+    }
 
-:host /deep/ .item-buttons {
-    display: flex;
-    flex-flow: row;
-    justify-content:flex-end;
-    width:auto;
+    .item-link {
+        display: inline-block;
+    }
+
+    .item-buttons {
+        display: flex;
+        flex-flow: row;
+        justify-content: flex-end;
+        width: auto;
+    }
 }

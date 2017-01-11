@@ -8,7 +8,7 @@ import { Course } from '../../../../../classes/course'
 import { UserAnnouncer } from '../../../../../services/userannouncer';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/home/student/student.component.html',
+    template: require('./student.component.html'),
     host: { '[@routeAnimation]': 'true' },
     styles: [':host { display: block;  }'],//[':host { width: 300px; display: block; position: absolute; }'],
     animations: [

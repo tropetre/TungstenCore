@@ -4,7 +4,7 @@ import { Course } from '../../../../classes/Course';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/createcourse/createcourse.component.html'
+    template: require('./createcourse.component.html')
 })
 export class CreateCourse implements OnInit {
     private course: Course = new Course('', '', '', '', '');

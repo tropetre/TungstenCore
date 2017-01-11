@@ -5,7 +5,7 @@ import { User } from '../../../../classes/user';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-    templateUrl: './lms/pages/dashboard/pages/creategroup/creategroup.component.html'
+    template: require('./creategroup.component.html')
 })
 export class CreateGroup {
     private group: Group = new Group('', '');
