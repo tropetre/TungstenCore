@@ -4,6 +4,7 @@ It features Webpack bundling, Hot Module Replacement, Serverside Pre-rendering a
 
 ## Prerequisites
 > .NET Core SDK >= 1.0.1 (With Tooling)
+
 > Node.js >= 4.0
 
 ## Building
