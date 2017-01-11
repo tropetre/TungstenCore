@@ -48,39 +48,29 @@ namespace TungstenCore.Controllers
                 Succeeded = result.Succeeded,
                 Message = result.Succeeded ? "Login Success" : "Login Failed"
             };
-            /*, UserRole = Roles.GetRolesForUser(model.Username)*/ 
         }
 
-
-        [Route("GetUserInfo")]
-        [Authorize(Roles ="Admin")]
-        public async Task<ApplicationUser> GetUserInfoByIdAdmin(string id)
+        /// <summary>
+        /// Gets the user info for the logged in user
+        /// </summary>
+        /// <returns>
+        ///     Anonymous { Name, Username, Email, Roels[] } as Json
+        /// </returns>
+        [Authorize]
+        public async Task<UserInfo> GetUserInfo()
         {
-            try //TODO: Do we need a try-catch block here?
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            return new UserInfo
             {
-                return await _userManager.FindByIdAsync(id);
-            }
-            catch
-            {
-                return null;
-            }
+                Name = user.Name,
+                Username = user.UserName,
+                Email = user.Email,
+                Roles = await _userManager.GetRolesAsync(user)
+            };
         }
 
-        [Route("GetUserInfo")]
-        [Authorize(Roles = "Student")]
-        public async Task<ApplicationUser> GetUserInfoByIdStudent(string id)
-        {
-            try //TODO: Do we need a try-catch block here?
-            {
-                return await _userManager.FindByIdAsync(id);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        public bool IsAuthenticated() => User.Identity.IsAuthenticated;
+        public bool IsAuthenticated() => 
+            User.Identity.IsAuthenticated;
 
 
         // TODO: Implement Registration Logic.

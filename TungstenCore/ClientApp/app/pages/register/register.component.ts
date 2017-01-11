@@ -20,7 +20,7 @@ export class RegisterPage implements OnInit {
     ngOnInit() {
         this._newUser = new Registration('', '', '');
     }
-
+    
     register(): void {
         var _registrationResult: OperationResult = new OperationResult(false, '');
         this.membershipService.register(this._newUser)
@@ -30,7 +30,7 @@ export class RegisterPage implements OnInit {
             },
             error => console.error('Error: ' + error),
             () => {
-                if (_registrationResult.succeeded) {
+                if (_registrationResult.Succeeded) {
                     console.log('Registration Successful');
                     this.router.navigate(['home']);
                 }

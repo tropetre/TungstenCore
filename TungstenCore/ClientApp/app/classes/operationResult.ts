@@ -1,9 +1,9 @@
 ﻿export class OperationResult {
-    succeeded: boolean;
-    message: string;
+    Succeeded: boolean;
+    Message: string;
 
     constructor(succeeded: boolean, message: string) {
-        this.succeeded = succeeded;
-        this.message = message;
+        this.Succeeded = succeeded;
+        this.Message = message;
     }
 }

@@ -56,7 +56,9 @@ namespace TungstenCore
                 options.User.RequireUniqueEmail = true;
             });
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = 
+                    new Newtonsoft.Json.Serialization.DefaultContractResolver()); // Prevents CamelCasing.
 
             services.AddEntityFramework()
                 .AddEntityFrameworkSqlServer()

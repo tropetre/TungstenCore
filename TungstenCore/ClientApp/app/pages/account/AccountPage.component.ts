@@ -39,7 +39,7 @@ export class AccountPage implements OnInit {
         },
             error => console.error('Error: ' + <any>error),
             () => {
-                if (_authenticationResult.succeeded) {
+                if (_authenticationResult.Succeeded) {
                     if (this.newuser.Email)
                         this.user.Email = this.newuser.Email;
                     if (this.newuser.UserName)
