@@ -21,18 +21,18 @@ namespace TungstenCore.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
-        private readonly ISchoolContext _context;
+        private readonly ISchoolRepository _repository;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILoggerFactory loggerFactory,
-            ISchoolContext context)
+            ISchoolRepository repository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _context = context;
+            _repository = repository;
         }
 
         // POST: /Account/Login
@@ -55,16 +55,39 @@ namespace TungstenCore.Controllers
             };
         }
 
+        [HttpPost]
+        public async Task<SignInResultViewModel> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            return new SignInResultViewModel
+            {
+                Succeeded = true,
+                Message = "Should be loggedoff!"
+            };
+        }
+        
         /// <summary>
         /// Gets the user info for the logged in user
         /// </summary>
         /// <returns>
         ///     UserInfo ViewModel.
         /// </returns>
-        [Authorize]
         public async Task<UserInfo> GetUserInfo()
         {
             ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
+            return new UserInfo
+            {
+                Name = user.Name,
+                Username = user.UserName,
+                Email = user.Email,
+                Roles = await _userManager.GetRolesAsync(user)
+            };
+        }
+
+        [Authorize(Roles = "Admin, Teacher")]
+        public async Task<UserInfo> GetUserInfoById(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
             return new UserInfo
             {
                 Name = user.Name,
@@ -80,13 +103,7 @@ namespace TungstenCore.Controllers
         public async Task<HomePageViewModel> GetHomePage()
         {
             ApplicationUser identityUser = await _userManager.GetUserAsync(HttpContext.User);
-            ApplicationUser contextUser = await _context.Users
-                .Include(user => user.Groups)
-                    .ThenInclude(userGroup => userGroup.Group)
-                        .ThenInclude(group => group.Courses)
-                        .ThenInclude(group => group.Segments)
-                            .ThenInclude(segment => segment.Assignments)
-                            .Where(u => u.Id == identityUser.Id).FirstAsync();
+            ApplicationUser contextUser = await _repository.GetAttachedUser(identityUser);
 
             IList<string> roles = await _userManager.GetRolesAsync(identityUser);
 
@@ -115,11 +132,6 @@ namespace TungstenCore.Controllers
                     }
             }
         }
-
-
-
-
-
 
         // TODO: Implement Registration Logic.
         //[HttpPost]
