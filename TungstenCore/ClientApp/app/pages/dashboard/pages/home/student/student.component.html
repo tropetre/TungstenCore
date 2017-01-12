@@ -1,20 +1,29 @@
 ﻿<div class="row">
     <div class="col-xs-12 col-md-12">
-        <dropdownbox [title]="'Assignments'" [content]="page.Assignments" [content-type]="'group'">
+        <dropdownbox [title]="'Assignments'" [content]="page.Assignments" [content-type]="'assignment'">
+            <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createassignment']" ddb-create>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
         </dropdownbox>
 
         <div *ngFor="let item of page.Courses">
             <dropdownbox [title]="item.Description" [content]="item.Segments" [content-type]="'course'">
+                <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createcourse', item.GroupId]" ddb-create>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                </button>
             </dropdownbox>
         </div>
 
         <dropdownbox [title]="'Schedule'">
-            <div *ngIf="page.Groups && page.Groups[0] && page.Groups[0].Id">
-                <div ddb-item>
-                    <lms-schedule-app [groupId]="page.Groups[0].Id" class="."></lms-schedule-app>
-                </div>
+            <div ddb-item>
+                <lms-schedule-app [groupId]="page.Groups[0].Id" class="."></lms-schedule-app>
             </div>
         </dropdownbox>
+
+        <div *ngIf="!page.Groups?.length">
+            You're not in any class, ask the teacher to add you to the class.
+            When added just refresh the page.
+        </div>
 
     </div>
 </div>
