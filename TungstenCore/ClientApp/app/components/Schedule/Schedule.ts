@@ -13,8 +13,8 @@ import { ScheduleService } from '../../services/schedule.service';
     selector: 'lms-schedule-app',
     styles: [require('./Schedule.css')],
     template: `
-    <div class="schedule-wrapper">
-        <div class="content">
+    <div class="schedule-wrapper" id="shedule-wrapper">
+        <div class="content" id="content">
             <canvas id="schedule-canvas" style="">
                 Your browser does not support HTML5 Canvas.
             </canvas>
@@ -39,6 +39,7 @@ export class Schedule implements AfterViewInit {
     // DOM Variables
     private htmlCanvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
+    private content: HTMLDivElement;
 
     // Schedule Size Information
     private height: number;
@@ -64,9 +65,16 @@ export class Schedule implements AfterViewInit {
         // DOM Setup
         this.htmlCanvas = <HTMLCanvasElement>document.getElementById('schedule-canvas');
         this.ctx = this.htmlCanvas.getContext('2d');
+        this.content = <HTMLDivElement>document.getElementById("content");
 
-        // Add EventListener to Re-render on Resize. Perhaps set a timeout on this?
-        window.addEventListener('resize', (e) => this.drawSchedule(segments));
+        // Due to unreliability in firing of resize-event the resizing is now handled with a timeout.
+        setInterval(() => {
+            if (this.htmlCanvas.offsetWidth != this.ctx.canvas.width)
+            {
+                console.log(this.htmlCanvas.offsetWidth);
+                this.drawSchedule(segments);
+            }
+        }, 250);
 
         // Render Schedule
         this.drawSchedule(segments);
@@ -75,13 +83,13 @@ export class Schedule implements AfterViewInit {
     drawSchedule(segments: ScheduleSegment[]): void {
 
         // Scaling Workaround
-        this.width = this.ctx.canvas.width = this.htmlCanvas.offsetWidth;
-        this.height = this.ctx.canvas.height = this.htmlCanvas.offsetHeight;
+        this.width = this.ctx.canvas.width = this.content.offsetWidth;
+        this.height = this.ctx.canvas.height = Math.floor(this.content.offsetWidth * 0.5625);
 
         // Setup Dynamic Properties
-        this.hourHeight = this.height / this.dayLength;
-        this.smallFont = this.width / 72 + 'px ' + this.fontName;
-        this.largeFont = this.width / 56 + 'px ' + this.fontName;
+        this.hourHeight = Math.round(this.height / this.dayLength);
+        this.smallFont = Math.round(this.width / 72) + 'px ' + this.fontName;
+        this.largeFont = Math.round(this.width / 56) + 'px ' + this.fontName;
 
         // Fill Background
         // this.ctx.fillStyle = this.backgroundColor;
@@ -92,17 +100,18 @@ export class Schedule implements AfterViewInit {
         this.ctx.strokeRect(0, 0, rulerWidth, this.height);
 
         // Style Setup for Side-Ruler
+        this.ctx.textAlign = "center";
         this.ctx.textBaseline = 'middle';
         this.ctx.fillStyle = this.fontColor;
-        this.ctx.font = this.smallFont;
+        this.ctx.font = this.largeFont;
 
         // Start Rendering Side-Ruler
         this.ctx.beginPath();
 
         for (let hour = 1; hour < this.dayLength; hour++) {
-            this.ctx.moveTo(rulerWidth * 3 / 4, hour * this.hourHeight);
+            this.ctx.moveTo(rulerWidth * 7 / 8, hour * this.hourHeight);
             this.ctx.lineTo(rulerWidth, hour * this.hourHeight);
-            this.ctx.fillText(hour + this.scheduleOffset + ':00', rulerWidth / 6, hour * this.hourHeight);
+            this.ctx.fillText(hour + this.scheduleOffset + ':00', rulerWidth / 2, hour * this.hourHeight);
         }
 
         this.ctx.stroke();
@@ -150,12 +159,16 @@ export class Schedule implements AfterViewInit {
                 this.ctx.font = this.smallFont;
 
                 // Draw timestamps
-                this.ctx.fillText(segment.StartTime, colWidth / 16, segmentStart * this.hourHeight);
-                this.ctx.fillText(segment.EndTime, colWidth / 16, segmentEnd * this.hourHeight);
+                this.ctx.textAlign = "left";
+                this.ctx.shadowColor = "white";
+                this.ctx.shadowBlur = 3;
+                this.ctx.fillText(segment.StartTime.slice(0, -3), colWidth / 16, segmentStart * this.hourHeight);
+                this.ctx.fillText(segment.EndTime.slice(0, -3), colWidth / 16, segmentEnd * this.hourHeight);
 
                 // Draw coursename
+                this.ctx.textAlign = "center";
                 this.ctx.font = this.largeFont;
-                this.ctx.fillText(segment.CourseName, colWidth / 12, (segmentStart + segmentEnd) / 2 * this.hourHeight);
+                this.ctx.fillText(segment.CourseName, colWidth / 2, (segmentStart + segmentEnd) / 2 * this.hourHeight);
             }
         );
 

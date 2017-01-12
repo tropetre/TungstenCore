@@ -1,5 +1,5 @@
-﻿import { Component, Inject, OnInit, trigger } from '@angular/core';
-import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, NavigationEnd, NavigationError } from '@angular/router';
+﻿import { Component, Inject, OnInit, trigger, ViewChild, Renderer, ElementRef, AfterViewInit } from '@angular/core';
+import { ActivatedRoute, Router, ActivatedRouteSnapshot, RouterState, NavigationEnd, NavigationError, NavigationStart } from '@angular/router';
 import { User } from '../../classes/user';
 import { UserAnnouncer } from '../../services/UserAnnouncer';
 
@@ -11,20 +11,31 @@ import { UserAnnouncer } from '../../services/UserAnnouncer';
         trigger('routeAnimation', [])
     ]
 })
-export class Dashboard_Index implements OnInit {
+export class Dashboard_Index implements OnInit, AfterViewInit {
     user: User;
+    @ViewChild('loadingalert') LoadingAlert: ElementRef;
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
-        @Inject(Router) private router: Router
+        @Inject(Router) private router: Router,
+        @Inject(Renderer) private renderer: Renderer
     ) { 
-        router.events.subscribe((val) => {
+
+    }
+
+    ngAfterViewInit() {
+        this.router.events.subscribe((val) => {
+            if (val instanceof NavigationStart)
+                this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'block');
+
+            console.log(this.LoadingAlert.nativeElement.offsetWidth);
+
             if (val instanceof NavigationEnd || val instanceof NavigationError) {
+                this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'none');
                 if (val.url === '/dashboard')
                     this.reRoute();
             }
         });
     }
-
 
     ngOnInit() {
         //console.log('should load');

@@ -20,6 +20,9 @@ body {
     padding-right: 15px;
 }
 
+footer{
+
+}
 
 .navbar {
     background-color: $color-primary;
@@ -139,3 +142,37 @@ body {
     *** Dropdownbox Component
     ***
 */
+
+.navbar-toggle {
+    float: left;
+    margin-left: 15px;
+}
+
+@media (min-width: 0) { // small devices
+    .navbar-toggle {
+        display: block; /* force showing the toggle */
+    }
+
+    .navbar {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) { // medium and bigger
+    body {
+        padding: 0;
+    }
+
+    .body-content {
+        padding-right: 315px;
+    }
+
+    .navbar-toggle {
+        display: block; /* force showing the toggle */
+    }
+
+    .navbar {
+        display: none;
+    }
+
+}

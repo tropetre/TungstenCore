@@ -1,7 +1,4 @@
-﻿.schedule-wrapper {
-  position: relative;
-}
-.schedule-wrapper:before {
+﻿.schedule-wrapper:before {
   display: block;
   content: "";
   width: 100%;

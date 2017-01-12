@@ -1,10 +1,10 @@
 ﻿import { DataService } from './data.service';
 import { Injectable, Inject } from '@angular/core';
-import { EditModel } from '../classes/editmodel';
+import { User } from '../classes/user';
 
 @Injectable()
 export class AccountService {
-    private _CreateAccountAPI: string = '/Manage/Register/';
+    private _CreateAccountAPI: string = '/Account/Register/';
     private _EditAccountAPI: string = '/Manage/EditAccount/';
     private _DeleteAccountAPI: string = '/Manage/DeleteUser/';
 
@@ -12,11 +12,12 @@ export class AccountService {
 
 
 
-    CreateAccount() {
+    CreateAccount(user: User) {
         this._dataservice.set(this._CreateAccountAPI);
+        return this._dataservice.post(user);
     }
 
-    EditAccount(user: EditModel): any {
+    EditAccount(user: User): any {
         this._dataservice.set(this._EditAccountAPI);
         return this._dataservice.post(user);
     }

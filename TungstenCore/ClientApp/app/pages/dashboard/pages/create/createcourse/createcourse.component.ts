@@ -1,6 +1,7 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
-import { CourseService } from '../../../../services/course.service';
-import { Course } from '../../../../classes/Course';
+import { CourseService } from '../../../../../services/course.service';
+import { Course } from '../../../../../classes/Course';
+import { Group } from '../../../../../classes/group';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,18 +9,27 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CreateCourse implements OnInit {
     private course: Course = new Course('', '', '', '', '');
+    private groups: Group[];
     constructor(
         @Inject(CourseService) private _CourseService: CourseService,
         @Inject(Router) private router: Router,
-        @Inject(ActivatedRoute) private route: ActivatedRoute,
+        @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
     ) { }
 
     ngOnInit() {
-        let id = this.route.snapshot.params['groupid'];
-        if (!id)
-            this.router.navigate(['/dashboard', 'groups']);
-
-        this.course.GroupId = id;
+        let id = this._ActivatedRoute.snapshot.params['id'];
+        if (id) {
+            this.course.GroupId = id;
+        }
+        else
+        {
+            this._ActivatedRoute.data.subscribe((data: { groups: Group[] }) => {
+                this.groups = data.groups;
+            }, error => console.error(error), () => {
+                if (!this.groups.length)
+                    this.router.navigate(['/dashboard']);
+            });
+        }
     }
 
     Create() {

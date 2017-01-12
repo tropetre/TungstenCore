@@ -2,6 +2,7 @@
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/rx';
 import { ICourse } from '../interfaces/Course';
+import { Course } from '../classes/course';
 
 import 'rxjs/rx';
 
@@ -33,6 +34,12 @@ export class CourseService {
 
     deleteCourse(id: string) {
         return this._http.post('/Home/DeleteCourse', id)
+            .do(this.logData)
+            .catch(this.handleError);
+    }
+
+    edit(course: Course) {
+        return this._http.post('/Home/EditCourse', course)
             .do(this.logData)
             .catch(this.handleError);
     }

@@ -1,0 +1,75 @@
+﻿<div class="row">
+    <div class="col-md-12 col-xs-12">
+        <form class="form-horizontal col-md-12 col-xs-12" #epForm="ngForm">
+            <div class="form-group form-group-lg" *ngIf="users">
+                <select name="Users" [ngModel]="user" class="form-control" required>
+                    <option *ngFor="let user of users" [value]="user" title="Required">
+                        {{user.Name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <input type="text" class="form-control" name="UserName" [(ngModel)]="user.UserName" placeholder="UserName" disabled required title="Required" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-lg btn-default" type="button" (click)="generateUsername()">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group form-group-lg">
+                <input type="text" class="form-control" pattern=".+ .+" name="Name" [(ngModel)]="user.Name" placeholder="Name" required title="First and lastname and/or more!" />
+            </div>
+
+            <div class="form-group form-group-lg">
+                <input type="text" pattern="\d{6}[-]\d{4}" class="form-control" name="SSM" [(ngModel)]="user.SSN" placeholder="SSN" required title="Swedish SSN ex: '123456-1234'/'123456 1234'" />
+            </div>
+
+            <div class="form-group form-group-lg">
+                <input type="text" class="form-control" name="Address" [(ngModel)]="user.Address" placeholder="Address" required />
+            </div>
+
+            <div class="form-group form-group-lg">
+                <input type="email" pattern="[\S]+@[\S]+\.[\S]+" class="form-control" name="Email" [(ngModel)]="user.Email" placeholder="Email" title="Ex: something@something.something" />
+            </div>
+
+            <div class="form-group form-group-lg">
+                <div class="input-group input-group-btn">
+                    <input type="text" class="form-control" name="Password" [(ngModel)]="user.Password" placeholder="Password" disabled required title="Required" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-lg btn-default" type="button" (click)="generatePassword()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group form-group-lg">
+                <select multiple name="Groups" [ngModel]="user.Groups" class="form-control" required>
+                    <option *ngFor="let group of groups" [value]="group" title="Required">
+                        {{group.Name}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group form-group-lg">
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" name="role" value="teacher" [ngModel]="user.Roles[0]">
+                        Teacher
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="radio" name="role" value="student" [ngModel]="user.Roles[0]">
+                        Student
+                    </label>
+                </div>
+            </div>
+        </form>
+        <button class="btn btn-lg btn-primary" type="submit" (click)="create()" [disabled]="!epForm.form.valid">Save</button>
+    </div>
+</div>

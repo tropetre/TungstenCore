@@ -24,8 +24,73 @@ export class isProperRoleGuard implements CanActivateChild {
         let routes = [];
 
         routes['student'] = ['dashboard', 'student', 'assignments', 'groups', 'group/:id', 'course/:courseid'];
-        routes['teacher'] = ['dashboard', 'teacher', 'assignments', 'groups', 'group/:id', 'editgroup/:id', 'removegroup/:id', 'creategroup', 'createcourse/:groupid', 'course/:courseid', 'addparticipant/:id'];
-        routes['admin'] = ['dashboard', 'teacher', 'assignments', 'groups', 'group/:id', 'editgroup/:id', 'removegroup/:id', 'creategroup', 'createcourse/:groupid', 'course/:courseid'];
+        routes['teacher'] = [
+            'dashboard',
+            'teacher',
+            'assignments',
+            'groups',
+            'group/:id',
+            'course/:id',
+            'addparticipant/:id',
+
+            // Create
+            'creategroup',
+            'createparticipant',
+
+            'createcourse',
+            'createcourse/:id',
+            
+            'createassignment',
+            'createassignment/:id',
+
+            'createlesson',
+            'createlesson/:id',
+
+            'createsegment',
+            'createsegment/:id',
+
+            // Edit
+            'editgroup',
+            'editgroup/:id',
+
+            'editcourse',
+            'editcourse/:id',
+
+            'editassignment',
+            'editassignment/:id',
+
+            'editlesson',
+            'editlesson/:id',
+
+            'editparticipant',
+            'editparticipant/:id',
+
+            'editsegment',
+            'editsegment/:id',
+
+            // Delete
+            'removegroup',
+            'removegroup/:id',
+
+            'removecourse',
+            'removecourse/:id',
+
+            'removeassignment',
+            'removeassignment/:id',
+
+            'removelesson',
+            'removelesson/:id',
+
+            'removeparticipant',
+            'removeparticipant/:id',
+
+            'removesegment',
+            'removesegment/:id'
+
+
+        ];
+
+        routes['admin'] = ['dashboard', 'teacher', 'assignments', 'groups', 'group/:id', 'editgroup/:id', 'removegroup/:id', 'creategroup', 'createcourse/:id', 'course/:id'];
 
         return routes[role];
     }

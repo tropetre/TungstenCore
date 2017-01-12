@@ -3,7 +3,7 @@
 @Component({
     selector: 'dropdownbox',
     template: require('./dropdownbox.html'),
-    styleUrls: [require('./dropdownbox.css')],
+    styles: [require('./dropdownbox.css')],
     animations: [
         trigger('openClose', [
             state('open', style({ height: '*', opacity: 1})),

@@ -1,0 +1,25 @@
+﻿<form class="form-horizontal" #csForm="ngForm">
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Subject">Subject</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Name" name="Name" type="text" [(ngModel)]="segment.Name" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Description</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="segment.Description" required>
+        </div>
+    </div>
+    <div *ngIf="courses">
+        <div class="form-group form-group-lg">
+            <select multiple name="Courses" [ngModel]="lesson.CourseId" class="form-control" required>
+                <option *ngFor="let course of courses" [value]="course.ID" title="Required">
+                    {{course.Name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <hr>
+    <button class="btn btn-primary" [disabled]="!csForm.form.valid" (click)="Create()">Create</button>
+</form>

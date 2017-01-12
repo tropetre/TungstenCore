@@ -1,0 +1,12 @@
+﻿<div class="form-group form-group-lg" *ngIf="assignments">
+    <select name="Assignment" [ngModel]="assignment" class="form-control" required>
+        <option *ngFor="let assignment of assignments" [value]="assignment" title="Required">
+            {{assignment.Name}}
+        </option>
+    </select>
+</div>
+
+<label>{{assignment.Name}}</label><br />
+<label>{{assignment.Description}}</label><br />
+
+<button class="btn btn-lg btn-danger" (Click)="Remove()">Remove</button>

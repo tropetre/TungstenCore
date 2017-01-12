@@ -12,10 +12,10 @@ export class GroupsResolver implements Resolve<IGroup[]> {
         @Inject(Router) private _Router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IGroup[]> {
-        let group = this._GroupService.getGroups();
+        let groups = this._GroupService.getGroups();
 
-        if (group) {
-            return group;
+        if (groups) {
+            return groups;
         } else {
             this._Router.navigate(['/']);
             return null;

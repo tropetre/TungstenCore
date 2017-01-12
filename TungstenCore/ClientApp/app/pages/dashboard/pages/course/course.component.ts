@@ -15,7 +15,7 @@ export class CoursePage implements OnInit {
     ) { };
 
     ngOnInit() {
-        let id = this.route.snapshot.params['courseid'];
+        let id = this.route.snapshot.params['id'];
 
         this._CourseService.getCourseById(id)
             .subscribe((course) => { this.Course = course; },

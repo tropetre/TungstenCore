@@ -14,11 +14,24 @@
     </div>
     <hr>
     <div class="form-group">
-        <label class="col-md-2 control-label" for="Description">Level</label>
+        <label class="col-md-2 control-label" for="Level">Level</label>
         <div class="col-md-10">
             <input class="form-control" id="Level" name="Level" type="text" [(ngModel)]="course.Level" required>
         </div>
     </div>
     <hr>
+    <div *ngIf="groups">
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="Groups">Group</label>
+            <div class="col-md-10">
+                <select multiple name="Groups" [ngModel]="course.GroupId" class="form-control" required>
+                    <option *ngFor="let group of groups" [value]="group.Id" title="Required">
+                        {{group.Name}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <hr>
+    </div>
     <button class="btn btn-primary" [disabled]="!newcourseForm.form.valid" (click)="Create()">Create</button>
 </form>

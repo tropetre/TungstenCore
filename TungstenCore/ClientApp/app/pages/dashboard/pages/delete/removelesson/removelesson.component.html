@@ -1,0 +1,13 @@
+﻿<div class="form-group form-group-lg" *ngIf="lessons">
+    <select name="Lesson" [ngModel]="lesson" class="form-control" required>
+        <option *ngFor="let lesson of lessons" [value]="lesson" title="Required">
+            {{lesson.Classroom}}
+        </option>
+    </select>
+</div>
+
+<label>{{lesson.Classroom}}</label><br />
+<label>{{lesson.StartTime}}</label><br />
+<label>{{lesson.EndTime}}</label><br />
+
+<button class="btn btn-lg btn-danger" (Click)="Remove()">Remove</button>

@@ -1,7 +1,7 @@
 ﻿import { Component, Inject } from '@angular/core';
-import { GroupService } from '../../../../services/groupservice';
-import { Group } from '../../../../classes/group';
-import { User } from '../../../../classes/user';
+import { GroupService } from '../../../../../services/groupservice';
+import { Group } from '../../../../../classes/group';
+import { User } from '../../../../../classes/user';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

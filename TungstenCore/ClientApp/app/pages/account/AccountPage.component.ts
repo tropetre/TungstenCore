@@ -1,6 +1,5 @@
 ﻿import { Component, OnInit, Inject, Output } from '@angular/core';
 import { MembershipService } from '../../services/membership.service';
-import { EditModel } from '../../classes/editmodel';
 import { User } from '../../classes/user';
 import { AccountService } from '../../services/account.service';
 import { OperationResult } from '../../classes/operationresult';
@@ -13,7 +12,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class AccountPage implements OnInit {
     user: User;
-    newuser: EditModel = new EditModel('', '', '', '', '');
+    newuser: User = new User('', '', '', '', []);
     subscription: Subscription;
 
     constructor( @Inject(MembershipService) private _MembershipService: MembershipService,

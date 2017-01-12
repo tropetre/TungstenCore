@@ -1,0 +1,26 @@
+﻿<form class="form-horizontal" #caForm="ngForm">
+    <div class="form-group form-group-lg">
+        <div class="col-md-10">
+            <input class="form-control" id="Name" name="Name" type="text" placeholder="Name" [(ngModel)]="assignment.Name" required>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group form-group-lg">
+        <div class="col-md-10">
+            <input class="form-control" id="Description" name="Description" placeholder="Description" type="text" [(ngModel)]="assignment.Description" required>
+        </div>
+    </div>
+    <hr>
+    <div *ngIf="segments">
+        <div class="form-group form-group-lg">
+            <select name="Segment" [ngModel]="assignment.SegmentId" class="form-control" required>
+                <option *ngFor="let segment of segments" [value]="segment.Id" title="Required">
+                    {{segment.Name}}
+                </option>
+            </select>
+        </div>
+        <hr>
+    </div>
+    
+    <button class="btn btn-primary" [disabled]="!caForm.form.valid" (click)="Create()">Create</button>
+</form>

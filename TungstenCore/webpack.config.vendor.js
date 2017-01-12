@@ -33,6 +33,8 @@ module.exports = {
             'es6-promise',
             'jquery',
             'zone.js',
+            'jasny-bootstrap/dist/js/jasny-bootstrap.js',
+            'jasny-bootstrap/dist/css/jasny-bootstrap.css'
         ]
     },
     output: {
