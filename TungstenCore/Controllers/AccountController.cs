@@ -54,7 +54,7 @@ namespace TungstenCore.Controllers
         /// Gets the user info for the logged in user
         /// </summary>
         /// <returns>
-        ///     Anonymous { Name, Username, Email, Roels[] } as Json
+        ///     UserInfo ViewModel.
         /// </returns>
         [Authorize]
         public async Task<UserInfo> GetUserInfo()
