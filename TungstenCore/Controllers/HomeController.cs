@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace TungstenCore.Controllers
 {
     using DataAccess;
+    using Microsoft.EntityFrameworkCore;
     using Models;
+    using ViewModels;
 
     [Authorize]
     public class HomeController : Controller
@@ -31,6 +33,15 @@ namespace TungstenCore.Controllers
         public IAsyncEnumerable<ApplicationUser> GetUserList() =>
             _context.Users.Where(u => !u.Groups.Any()).ToAsyncEnumerable(); // TODO: Not Role teacher Maybe move to seperate controller.
 
+        [AllowAnonymous]
+        public async Task<IEnumerable<ScheduleSegment>> GetSchedule(string id)
+        {
+            Group group = await _context.Groups
+                .Include(g => g.Courses)
+                    .ThenInclude(c => c.Lessons)
+                    .Where(g => g.Id == id).FirstOrDefaultAsync();
 
+            return group.Schedule();
+        }
     }
 }

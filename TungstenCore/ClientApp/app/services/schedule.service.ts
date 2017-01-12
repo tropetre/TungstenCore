@@ -8,7 +8,7 @@ export class ScheduleService {
     constructor( @Inject(Http) private http: Http) { }
 
     getSchedule(groupId: string): Observable<ScheduleSegment[]> {
-        return this.http.post('/Home/GetSchedule', { id: groupId })
+        return this.http.get('/Home/GetSchedule/' + groupId)
             .do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroups);
