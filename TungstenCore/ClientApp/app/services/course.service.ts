@@ -47,12 +47,12 @@ export class CourseService {
     }
 
     private extractCourses(res: Response) {
-        let body = <ICourse[]>JSON.parse(res.json());
+        let body = <ICourse[]>res.json();
         return body || [];
     }
 
     private extractCourse(res: Response) {
-        let body = <ICourse>JSON.parse(res.json());
+        let body = <ICourse>res.json();
         return body || null;
     }
 }
