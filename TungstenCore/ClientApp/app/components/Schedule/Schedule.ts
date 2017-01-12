@@ -11,7 +11,7 @@ import { ScheduleService } from '../../services/schedule.service';
 
 @Component({
     selector: 'lms-schedule-app',
-    styleUrls: ['./lms/components/Schedule/Schedule.css'],
+    styles: [require('./Schedule.css')],
     template: `
     <div class="schedule-wrapper">
         <div class="content">
