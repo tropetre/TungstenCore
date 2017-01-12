@@ -57,8 +57,14 @@ namespace TungstenCore
             });
 
             services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = 
-                    new Newtonsoft.Json.Serialization.DefaultContractResolver()); // Prevents CamelCasing.
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver =
+                        new Newtonsoft.Json.Serialization.DefaultContractResolver(); // Prevents CamelCasing.
+
+                    options.SerializerSettings.ReferenceLoopHandling = 
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
 
             services.AddEntityFramework()
                 .AddEntityFrameworkSqlServer()

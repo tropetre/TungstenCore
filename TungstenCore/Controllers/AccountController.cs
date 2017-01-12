@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using TungstenCore.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
+using TungstenCore.DataAccess;
 using TungstenCore.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,15 +21,18 @@ namespace TungstenCore.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
+        private readonly ISchoolContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            ISchoolContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _context = context;
         }
 
         // POST: /Account/Login
@@ -71,6 +76,49 @@ namespace TungstenCore.Controllers
 
         public bool IsAuthenticated() => 
             User.Identity.IsAuthenticated;
+
+        public async Task<HomePageViewModel> GetHomePage()
+        {
+            ApplicationUser identityUser = await _userManager.GetUserAsync(HttpContext.User);
+            ApplicationUser contextUser = await _context.Users
+                .Include(user => user.Groups)
+                    .ThenInclude(userGroup => userGroup.Group)
+                        .ThenInclude(group => group.Courses)
+                        .ThenInclude(group => group.Segments)
+                            .ThenInclude(segment => segment.Assignments)
+                            .Where(u => u.Id == identityUser.Id).FirstAsync();
+
+            IList<string> roles = await _userManager.GetRolesAsync(identityUser);
+
+            switch (roles.FirstOrDefault())
+            {
+                case "Teacher":
+                case "Admin":
+                default: // Student
+                    {
+                        // Select used to complete many-to-many relationship.
+                        
+                        var groups = contextUser.Groups.Select(g => g.Group);
+                        var courses = groups.First().Courses.Take(3);
+                        var assignments =
+                            groups.First().Courses
+                                .SelectMany(c => c.Segments)
+                                .SelectMany(s => s.Assignments);
+
+
+                        return new HomePageViewModel
+                        {
+                            Groups = groups,
+                            Courses = courses,
+                            Assignments = assignments
+                        };
+                    }
+            }
+        }
+
+
+
+
 
 
         // TODO: Implement Registration Logic.
