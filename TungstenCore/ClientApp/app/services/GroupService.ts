@@ -12,7 +12,7 @@ export class GroupService {
     constructor( @Inject(Http) private _http: Http) { }
 
     getGroups(): Observable<IGroup[]> {
-        return this._http.get('/Home/GetGroups')
+        return this._http.get('/Group/GetGroups')
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroups);
@@ -20,34 +20,34 @@ export class GroupService {
     }
 
     getGroupById(id: string): Observable<IGroup> {
-        return this._http.post('/Home/GetGroup/', { id: id })
+        return this._http.post('/Group/GetGroup/', { Id: id })
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroup);
     }
 
     createGroup(group: IGroup) {
-        return this._http.post('/Home/CreateGroup/', group)
+        return this._http.post('/Group/CreateGroup/', group)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroup);
     }
 
     deleteGroup(id: string) {
-        return this._http.post('/Home/DeleteGroup', id)
+        return this._http.post('/Group/DeleteGroup', id)
             .do(this.logData)
             .catch(this.handleError);
     }
 
     editGroup(group: IGroup) {
-        return this._http.post('/Home/EditGroup', group)
+        return this._http.post('/Group/EditGroup', group)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroup);
     }
 
     addUser(id: string, gid: string) {
-        return this._http.post('/Home/AddUserToGroup', { userid : id, groupid : gid})
+        return this._http.post('/Group/AddUserToGroup', { userid : id, groupid : gid})
             //.do(this.logData)
             .catch(this.handleError)
             .map(result => {
@@ -56,7 +56,7 @@ export class GroupService {
     }
 
     removeUser(id: string, gid:string) {
-        return this._http.post('/Home/RemoveUserFromGroup', { userid: id, groupid: gid })
+        return this._http.post('/Group/RemoveUserFromGroup', { userid: id, groupid: gid })
             //.do(this.logData)
             .catch(this.handleError)
             .map(result => {
