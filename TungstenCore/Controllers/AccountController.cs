@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using TungstenCore.DataAccess;
 using TungstenCore.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -103,7 +102,7 @@ namespace TungstenCore.Controllers
         public async Task<HomePageViewModel> GetHomePage()
         {
             ApplicationUser identityUser = await _userManager.GetUserAsync(HttpContext.User);
-            ApplicationUser contextUser = await _repository.GetAttachedUser(identityUser);
+            ApplicationUser contextUser = await _repository.GetAttachedUserAsync(identityUser);
 
             IList<string> roles = await _userManager.GetRolesAsync(identityUser);
 
@@ -132,6 +131,9 @@ namespace TungstenCore.Controllers
                     }
             }
         }
+        
+        public IAsyncEnumerable<ApplicationUser> GetUserList() =>
+            _repository.GetNotAssignedUsers().ToAsyncEnumerable(); // TODO: Not Role teacher Maybe move to seperate controller.
 
         // TODO: Implement Registration Logic.
         //[HttpPost]
