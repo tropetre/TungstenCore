@@ -64,8 +64,8 @@ namespace TungstenCore.DataAccess
                             .ThenInclude(segment => segment.Assignments);
         }
 
-        public async Task<ApplicationUser> GetAttachedUserAsync(ApplicationUser user) =>
-            await UsersWithIncludedProperties().Where(u => u.Id == user.Id).FirstOrDefaultAsync();
+        public async Task<ApplicationUser> GetAttachedUserAsync(string userId) =>
+            await UsersWithIncludedProperties().Where(u => u.Id == userId).FirstOrDefaultAsync();
 
 
         public IQueryable<ApplicationUser> GetNotAssignedUsers() =>
@@ -95,9 +95,8 @@ namespace TungstenCore.DataAccess
             return group;
         }
 
-        public IAsyncEnumerable<Group> GetGroupsForUser(string userId) =>
-            UsersWithIncludedProperties().Where(u => u.Id == userId)
-            .FirstOrDefault()?.Groups.Select(ag => ag.Group).ToAsyncEnumerable();
+        public async Task<IEnumerable<Group>> GetGroupsForUserAsync(string userId) =>
+            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
 
         public async Task<bool> AddUserToGroupAsync(string userId, string groupId)
         {

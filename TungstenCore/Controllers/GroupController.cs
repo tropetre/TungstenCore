@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace TungstenCore.Controllers
 {
     [Authorize]
-    public class GroupController : Controller
+    public class GroupController : Controller // TODO: Use Viewmodels to minimize exposed data.
     {
         private const string teacherOrAdmin = "Teacher,Admin";
         private readonly ISchoolRepository _repository;
@@ -32,8 +32,8 @@ namespace TungstenCore.Controllers
         public async Task<IEnumerable<ScheduleSegment>> GetSchedule(string id) =>
             (await _repository.GetGroupWithLessonsAsync(id)).Schedule();
 
-        public IAsyncEnumerable<Group> GetGroups() =>
-            _repository.GetGroupsForUser(currentUserId);
+        public async Task<IEnumerable<Group>> GetGroups() =>
+            await _repository.GetGroupsForUserAsync(currentUserId);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
