@@ -8,6 +8,6 @@ namespace TungstenCore.Controllers
 
         // GetUserList Moved to Accounts with the name GetNotAssignedUsers.
 
-        //GetSchedule(id) moved to GroupController.
+        //GetSchedule(id) moved to GroupController. 
     }
 }
