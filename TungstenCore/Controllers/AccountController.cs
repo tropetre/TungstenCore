@@ -102,7 +102,7 @@ namespace TungstenCore.Controllers
         public async Task<HomePageViewModel> GetHomePage()
         {
             ApplicationUser identityUser = await _userManager.GetUserAsync(HttpContext.User);
-            ApplicationUser contextUser = await _repository.GetAttachedUserAsync(identityUser);
+            ApplicationUser contextUser = await _repository.GetAttachedUserAsync(identityUser.Id);
 
             IList<string> roles = await _userManager.GetRolesAsync(identityUser);
 
@@ -126,7 +126,7 @@ namespace TungstenCore.Controllers
                         {
                             Groups = groups,
                             Courses = courses,
-                            Assignments = assignments
+                            Assignments = assignments.OrderBy(a => a.EndTime)
                         };
                     }
             }
