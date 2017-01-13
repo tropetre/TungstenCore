@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="24.020538mm"
+   height="28.930086mm"
+   viewBox="0 0 85.112144 102.50818"
+   id="svg4193"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="tungstenstrokeanimation.svg">
+  <defs
+     id="defs4195">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path4754"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4769"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) translate(1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="50.279486"
+     inkscape:cy="52.061249"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     inkscape:window-x="1592"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4198">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-77.443928,-401.10811)">
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-opacity:1;stroke-width:5.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:round"
+       d="m 102.19104,458.28909 c 0,0 13.13795,2.30859 15.15229,-6.81853 2.01435,-9.12713 0.56206,-21.81805 -7.07106,-18.94036 -7.63313,2.8777 -2.27284,16.66752 1.76777,16.92005 4.04061,0.25254 16.35724,0.0946 22.72843,-1.76777 6.37119,-1.86235 4.71613,-16.9923 -3.28299,-15.65736 -5.25668,1.00128 -10.08492,9.86871 -4.04062,24.24366 6.0443,14.37496 32.74534,0.73292 32.07234,-20.45559 -0.673,-21.18851 -20.96066,-31.06218 -39.39594,-31.06218 -18.43528,0 -36.112962,11.86928 -38.385812,25.2538 -2.19848,12.94665 2.27285,35.10281 23.991132,38.63834 21.71828,3.53554 41.96009,0.83286 42.17387,6.81854 0.21378,5.98567 -50.255092,9.09136 -50.002552,4.29314 0.25253,-4.79823 48.487322,-1.01015 47.729712,6.56599 -0.75762,7.57615 -42.42641,9.59645 -42.42641,5.55584 0,-4.04061 35.31411,-3.73219 33.33503,2.77792 -1.97908,6.51011 -10.28127,5.99945 -17.04632,5.55584"
+       id="tungstenlogo"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="czzszczzssszssszc" />
+  </g>
+</svg>
