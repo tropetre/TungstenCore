@@ -8,9 +8,13 @@ namespace TungstenCore.DataAccess
 {
     public interface ISchoolRepository
     {
-        Task<ApplicationUser> GetAttachedUser(ApplicationUser identityUser);
+        Task<ApplicationUser> GetAttachedUserAsync(ApplicationUser identityUser);
         IQueryable<ApplicationUser> GetNotAssignedUsers();
-        Task<Group> GetGroupWithLessons(string id);
-        void AddFileDetails(IEnumerable<FileDetail> files);
+        Task<Group> GetGroupWithLessonsAsync(string id);
+        Group CreateGroup(Group group);
+        Group EditGroup(Group group);
+        IAsyncEnumerable<Group> GetGroupsForUser(string userId);
+        Task<bool> AddUserToGroupAsync(string userId, string groupId);
+        Task<bool> RemoveUserFromGroupAsync(string userId, string groupId);
     }
 }
