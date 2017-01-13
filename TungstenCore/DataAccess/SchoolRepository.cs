@@ -40,6 +40,12 @@ namespace TungstenCore.DataAccess
                     .ThenInclude(c => c.Lessons)
                     .Where(g => g.Id == id).FirstOrDefaultAsync();
 
+
+        public async void AddFileDetails(IEnumerable<FileDetail> files)
+        {
+            await _context.FilePaths.AddRangeAsync(files);
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 

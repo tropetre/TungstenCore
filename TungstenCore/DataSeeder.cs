@@ -12,7 +12,7 @@ namespace TungstenCore
 
     internal static class DataSeeder
     {
-        internal static void seedData(IServiceScope serviceScope)
+        internal static async void seedData(IServiceScope serviceScope)
         {
             var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
@@ -77,46 +77,46 @@ namespace TungstenCore
 
                 var teacher3 = new ApplicationUser { SSN = "531124-4375", PhoneNumber = "+46703399867", UserName = "petter.blank", Name = "Petter Blank", Email = "petter.blank@skola.com", Address = "Fingatan 39, 93793 Burtr?sk" };
 
-                userManager.CreateAsync(student0, "Default123#");
-                userManager.CreateAsync(student1, "Default123#");
-                userManager.CreateAsync(student2, "Default123#");
-                userManager.CreateAsync(student3, "Default123#");
-                userManager.CreateAsync(student4, "Default123#");
-                userManager.CreateAsync(student5, "Default123#");
-                userManager.CreateAsync(student6, "Default123#");
-                userManager.CreateAsync(student7, "Default123#");
-                userManager.CreateAsync(student8, "Default123#");
-                userManager.CreateAsync(student9, "Default123#");
-                userManager.CreateAsync(student10, "Default123#");
-                userManager.CreateAsync(student11, "Default123#");
-                userManager.CreateAsync(student12, "Default123#");
-                userManager.CreateAsync(student13, "Default123#");
-                userManager.CreateAsync(student14, "Default123#");
-                userManager.CreateAsync(student15, "Default123#");
-                userManager.CreateAsync(student16, "Default123#");
-                userManager.CreateAsync(student17, "Default123#");
-                userManager.CreateAsync(student18, "Default123#");
-                userManager.CreateAsync(student19, "Default123#");
-                userManager.CreateAsync(student20, "Default123#");
-                userManager.CreateAsync(student21, "Default123#");
-                userManager.CreateAsync(student22, "Default123#");
-                userManager.CreateAsync(student23, "Default123#");
-                userManager.CreateAsync(student24, "Default123#");
-                userManager.CreateAsync(student25, "Default123#");
-                userManager.CreateAsync(student26, "Default123#");
-                userManager.CreateAsync(student27, "Default123#");
-                userManager.CreateAsync(student28, "Default123#");
-                userManager.CreateAsync(student29, "Default123#");
+                await userManager.CreateAsync(student0, "Default123#");
+                await userManager.CreateAsync(student1, "Default123#");
+                await userManager.CreateAsync(student2, "Default123#");
+                await userManager.CreateAsync(student3, "Default123#");
+                await userManager.CreateAsync(student4, "Default123#");
+                await userManager.CreateAsync(student5, "Default123#");
+                await userManager.CreateAsync(student6, "Default123#");
+                await userManager.CreateAsync(student7, "Default123#");
+                await userManager.CreateAsync(student8, "Default123#");
+                await userManager.CreateAsync(student9, "Default123#");
+                await userManager.CreateAsync(student10, "Default123#");
+                await userManager.CreateAsync(student11, "Default123#");
+                await userManager.CreateAsync(student12, "Default123#");
+                await userManager.CreateAsync(student13, "Default123#");
+                await userManager.CreateAsync(student14, "Default123#");
+                await userManager.CreateAsync(student15, "Default123#");
+                await userManager.CreateAsync(student16, "Default123#");
+                await userManager.CreateAsync(student17, "Default123#");
+                await userManager.CreateAsync(student18, "Default123#");
+                await userManager.CreateAsync(student19, "Default123#");
+                await userManager.CreateAsync(student20, "Default123#");
+                await userManager.CreateAsync(student21, "Default123#");
+                await userManager.CreateAsync(student22, "Default123#");
+                await userManager.CreateAsync(student23, "Default123#");
+                await userManager.CreateAsync(student24, "Default123#");
+                await userManager.CreateAsync(student25, "Default123#");
+                await userManager.CreateAsync(student26, "Default123#");
+                await userManager.CreateAsync(student27, "Default123#");
+                await userManager.CreateAsync(student28, "Default123#");
+                await userManager.CreateAsync(student29, "Default123#");
 
-                userManager.CreateAsync(teacher1, "TeacherPwd123#");
-                userManager.CreateAsync(teacher2, "TeacherPwd123#");
-                userManager.CreateAsync(teacher3, "TeacherPwd123#");
+                await userManager.CreateAsync(teacher1, "TeacherPwd123#");
+                await userManager.CreateAsync(teacher2, "TeacherPwd123#");
+                await userManager.CreateAsync(teacher3, "TeacherPwd123#");
 
 
-                roleManager.CreateAsync(new IdentityRole("Teacher"));
-                userManager.AddToRoleAsync(teacher1, "Teacher");
-                userManager.AddToRoleAsync(teacher2, "Teacher");
-                userManager.AddToRoleAsync(teacher3, "Teacher");
+                await roleManager.CreateAsync(new IdentityRole("Teacher"));
+                await userManager.AddToRoleAsync(teacher1, "Teacher");
+                await userManager.AddToRoleAsync(teacher2, "Teacher");
+                await userManager.AddToRoleAsync(teacher3, "Teacher");
 
 
                 group1.Participants.Add(new ApplicationUserGroup { ApplicationUser = student0, Group = group1 });
@@ -242,7 +242,7 @@ namespace TungstenCore
                 ApplicationUser tommy = context.Users.FirstOrDefault(u => u.Email == "tommy@fakemail.com");
                 if (tommy != null)
                 {
-                    userManager.AddToRoleAsync(tommy, "Teacher");
+                    await userManager.AddToRoleAsync(tommy, "Teacher");
                 }
 
                 context.SaveChanges();

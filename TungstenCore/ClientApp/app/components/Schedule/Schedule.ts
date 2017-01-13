@@ -30,7 +30,7 @@ export class Schedule implements AfterViewInit {
     constructor( @Inject(ScheduleService) private scheduleService: ScheduleService) { }
 
     ngAfterViewInit(): void {
-        console.log('[ScheduleComponent] GroupID Passed: ' + this.groupId);
+        //console.log('[ScheduleComponent] GroupID Passed: ' + this.groupId);
         this.scheduleService.getSchedule(this.groupId)
             .subscribe(Segments => this.setupSchedule(Segments),
             error => console.error(error));
@@ -71,7 +71,7 @@ export class Schedule implements AfterViewInit {
         setInterval(() => {
             if (this.htmlCanvas.offsetWidth != this.ctx.canvas.width)
             {
-                console.log(this.htmlCanvas.offsetWidth);
+                //console.log(this.htmlCanvas.offsetWidth);
                 this.drawSchedule(segments);
             }
         }, 250);
@@ -131,8 +131,8 @@ export class Schedule implements AfterViewInit {
     renderDay(day: number, segments: ScheduleSegment[]): void {
 
         // Log data that was passed into the function
-        console.log('[ScheduleComponent] Day(' + day + ') rendering started. Segments passed:');
-        console.log(segments);
+        //console.log('[ScheduleComponent] Day(' + day + ') rendering started. Segments passed:');
+        //console.log(segments);
 
         // Save Position to translate origin back to once rendering is complete.
         this.ctx.save();

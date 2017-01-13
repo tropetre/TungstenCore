@@ -3,7 +3,7 @@
 }
 
 <lms-index> <!--asp-prerender-module="ClientApp/dist/main-server.js"-->Loading...</lms-index>
-
+<input id="isloggedin" value="@User.Identity.IsAuthenticated.ToString().ToLower()" hidden/>
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
     <script src="~/dist/main-client.js" asp-append-version="true"></script>

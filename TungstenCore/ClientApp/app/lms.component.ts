@@ -8,6 +8,7 @@ import { UserAnnouncer } from './services/UserAnnouncer';
 import { Subscription } from 'rxjs/Subscription';
 import { WindowSize } from './services/windowsize';
 
+
 @Component({
     selector: 'lms-index',
     template: require('./index.html'),
@@ -34,20 +35,20 @@ export class IndexPage implements OnInit, AfterViewChecked {
     public user: User;
     @ViewChild(Login) LoginView: Login;
     subscription: Subscription;
-    @ViewChild('navmenu') NavMenu: ElementRef;    
-
+    @ViewChild('navmenu') NavMenu: ElementRef;
+    @ViewChild('topnav') TopNav: ElementRef;
+    @ViewChild('bodycontent') BodyContent: ElementRef;
+    navopen: boolean = false;
     constructor( @Inject(ElementRef) private elementRef: ElementRef,
         @Inject(MembershipService) public membershipService: MembershipService,
         @Inject(ChangeDetectorRef) public changeDetectorRef: ChangeDetectorRef,
         @Inject(UserAnnouncer) private _UserAnnouncer: UserAnnouncer,
         @Inject(Renderer) private renderer: Renderer,
-        @Inject(WindowSize) private windowSize: WindowSize,
-        private thisref: ElementRef
+        @Inject(WindowSize) private windowSize: WindowSize
 
     ) {
         this.user = this.membershipService.getLoggedInUser() || new User('', '', '', '', []);
-        this.isuserloggedin = this.isUserLoggedIn();
-
+        this.isuserloggedin = (document.getElementById('isloggedin').attributes.getNamedItem("value").nodeValue === 'true');
     }
     
     isUserLoggedIn(): boolean {
@@ -73,25 +74,178 @@ export class IndexPage implements OnInit, AfterViewChecked {
         }
 
         this.windowSize.width$.subscribe(size => {
-            if (this.NavMenu)
+            //if (this.NavMenu) {
+            //    this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (size <= 768));
+            //}
+            if (this.BodyContent) {
+                this.renderer.setElementStyle(this.BodyContent.nativeElement, 'padding-right', this.isuserloggedin && (size > 768) ? '315px' : '15px');
+                this.renderer.animate(this.NavMenu.nativeElement, { styles: [] }, [], 1, 0, 'ease');
+            }
+            if (this.navopen === true && size > 768)
             {
-                this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (size <= 768));
-                if (this.isuserloggedin) {
-                    this.renderer.setElementStyle(this.thisref.nativeElement, 'padding-right', '300');
-                }
+                this.navopen = false;
+                this.renderer.invokeElementMethod(
+                    this.BodyContent.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(-300px)', 'padding-right': '0px' },
+                            { transform: 'translate(0px, 0px)', 'padding-right': '315px' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+                this.renderer.invokeElementMethod(
+                    this.TopNav.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(-300px)' },
+                            { transform: 'translate(0px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
             }
         });
-
-        //this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (window.innerWidth <= 768));
-
         this.changeDetectorRef.detectChanges();
+        //this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (window.innerWidth <= 768));
+    }
+
+    bodyStyle() {/*
+        if (window.innerWidth > 768 && this.isuserloggedin) {
+            return {
+                'padding-right': '315px'
+            }
+        } else {
+            return {
+                'padding-right': '15px'
+            }
+        }*/
+    }
+
+    isTeacher() {
+        return (this.user.Roles[0].toLowerCase() === 'teacher');
+    }
+
+    isStudent() {
+        return (this.user.Roles[0].toLowerCase() === 'student');
+    }
+
+    isAdmin() {
+        return (this.user.Roles[0].toLowerCase() === 'admin');
     }
 
     navmenuclass() {
-        if (window.innerWidth <= 768)
-            return true;
+        return false;//(window.innerWidth <= 768);
+    }
 
-        return false;
+    toggleNavMenu() {
+        if (window.innerWidth <= 768 && this.isuserloggedin) {
+            if (this.navopen === true) {
+                this.renderer.invokeElementMethod(
+                    this.NavMenu.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(-300px)' },
+                            { transform: 'translate(0, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+                this.renderer.invokeElementMethod(
+                    this.BodyContent.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(-300px)' },
+                            { transform: 'translate(0px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+                this.renderer.invokeElementMethod(
+                    this.TopNav.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(-300px)' },
+                            { transform: 'translate(0px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+            }
+            else {
+                this.renderer.invokeElementMethod(
+                    this.NavMenu.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(0px)' },
+                            { transform: 'translate(-300px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+                this.renderer.invokeElementMethod(
+                    this.BodyContent.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(0px)' },
+                            { transform: 'translate(-300px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+                this.renderer.invokeElementMethod(
+                    this.TopNav.nativeElement,
+                    'animate',
+                    [
+                        [
+                            { transform: 'translate(0px)' },
+                            { transform: 'translate(-300px, 0px)' }
+                        ],
+                        {
+                            duration: 100,
+                            delay: 0,
+                            fill: 'forwards'
+                        }
+                    ]
+                );
+            }
+            this.navopen = !this.navopen;
+        }
     }
 
     userUpdated(updatedUser: User) {

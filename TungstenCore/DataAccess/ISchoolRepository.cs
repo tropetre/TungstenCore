@@ -11,5 +11,6 @@ namespace TungstenCore.DataAccess
         Task<ApplicationUser> GetAttachedUser(ApplicationUser identityUser);
         IQueryable<ApplicationUser> GetNotAssignedUsers();
         Task<Group> GetGroupWithLessons(string id);
+        void AddFileDetails(IEnumerable<FileDetail> files);
     }
 }

@@ -27,7 +27,7 @@ export class Dashboard_Index implements OnInit, AfterViewInit {
             if (val instanceof NavigationStart)
                 this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'block');
 
-            console.log(this.LoadingAlert.nativeElement.offsetWidth);
+            //console.log(this.LoadingAlert.nativeElement.offsetWidth);
 
             if (val instanceof NavigationEnd || val instanceof NavigationError) {
                 this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'none');

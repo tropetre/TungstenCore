@@ -19,7 +19,7 @@ namespace TungstenCore.DataAccess
         public DbSet<Segment> Segments { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
-        public DbSet<FilePath> FilePaths { get; set; }
+        public DbSet<FileDetail> FilePaths { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -60,7 +60,7 @@ namespace TungstenCore.DataAccess
             #endregion
 
             #region FilePath Building
-            var filePath = modelBuilder.Entity<FilePath>();
+            var filePath = modelBuilder.Entity<FileDetail>();
 
             filePath
                 .HasOne(rel => rel.Owner)

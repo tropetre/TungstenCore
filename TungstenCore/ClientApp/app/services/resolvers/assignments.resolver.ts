@@ -22,7 +22,7 @@ export class AssignmentsResolver implements Resolve<Assignment[]> {
         }
         else {
             console.log('assignments get fail');
-            this._Router.navigate(['/']);
+            //this._Router.navigate(['/']);
             return null;
         }
     }

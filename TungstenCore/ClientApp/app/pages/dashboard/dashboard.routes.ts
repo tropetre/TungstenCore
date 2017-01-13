@@ -15,6 +15,7 @@ import { GroupsPage } from './pages/groups/groups.component';
 import { GroupPage } from './pages/group/group.component';
 import { CoursePage } from './pages/course/course.component';
 import { AddParticipantPage } from './pages/addparticipant/addparticipant.component';
+import { AssignmentPage } from './pages/assignment/assignment.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -83,7 +84,10 @@ const routes: Routes = [
             { path: 'admin', component: HomePage },
             { path: 'groups', component: GroupsPage, resolve: { user: userresolver } },
             { path: 'group/:id', component: GroupPage, resolve: { user: userresolver, group: GroupResolver } },
+            { path: 'course', component: CoursePage, resolve: { courses: CoursesResolver } },
             { path: 'course/:id', component: CoursePage, resolve: { course: CourseResolver } },
+            { path: 'assignment', component: AssignmentPage/*, resolve: { assignments: AssignmentsResolver } */},
+            { path: 'assignment/:id', component: AssignmentPage/*, resolve: { assignment: AssignmentResolver } */},
 
             // Create Routes
             { path: 'createparticipant', component: CreateParticipantPage, resolve: { groups: GroupsResolver } },

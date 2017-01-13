@@ -23,6 +23,6 @@ namespace TungstenCore.Models
         // EF7 Workaround
         //public virtual ICollection<ApplicationUserCourse> Courses { get; set; }
         public virtual ICollection<ApplicationUserGroup> Groups { get; set; }
-        public virtual ICollection<FilePath> FilePaths { get; set; }
+        public virtual ICollection<FileDetail> FilePaths { get; set; }
     }
 }

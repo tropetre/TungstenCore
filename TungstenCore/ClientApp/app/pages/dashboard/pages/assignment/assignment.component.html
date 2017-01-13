@@ -1,0 +1,25 @@
+﻿<div class="form-group form-group-lg" *ngIf="assignments">
+    <dropdownbox [title]="'Assignments'" [content]="assignments" [content-type]="'assignment'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createassignment']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+</div>
+
+<div>
+    <label>assignment.Name</label><br />
+    <label>assignment.Description</label><br />
+    <hr />
+    <div class="input-group">
+        <label class="input-group-btn">
+            <span class="btn btn-primary">
+                Browse&hellip; <input type="file" style="display: none;" (change)="onChange($event)">
+            </span>
+        </label>
+        <input type="text" class="form-control" readonly #fileresult>
+    </div>
+    <button class="btn btn-lg btn-danger" (Click)="Upload()">Upload</button>
+</div>
+
+
+

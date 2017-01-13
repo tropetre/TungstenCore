@@ -20,6 +20,7 @@ import { GroupsPage } from './pages/groups/groups.component';
 import { GroupPage } from './pages/group/group.component';
 import { CoursePage } from './pages/course/course.component';
 import { AddParticipantPage } from './pages/addparticipant/addparticipant.component';
+import { AssignmentPage } from './pages/assignment/assignment.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -60,6 +61,7 @@ import { MembershipService } from '../../services/membership.service';
 import { SegmentService } from '../../services/segment.service';
 import { LessonService } from '../../services/lesson.service';
 import { AssignmentService } from '../../services/assignment.service';
+import { UploadService } from '../../services/upload.service';
 
 // routing guards
 import { isProperRoleGuard } from '../../services/guards/isproperrole';
@@ -107,6 +109,7 @@ import { FilterUserByNamePipe } from '../../pipes/filterPipe';
         StudentHomePage,
         CoursePage,
         AddParticipantPage,
+        AssignmentPage,
 
         // Create
         CreateGroup,
@@ -157,7 +160,8 @@ import { FilterUserByNamePipe } from '../../pipes/filterPipe';
         GroupResolver,
         CourseResolver,
         GroupsResolver,
-        CoursesResolver
+        CoursesResolver,
+        UploadService
     ]
 })
 export class Dashboard { }
