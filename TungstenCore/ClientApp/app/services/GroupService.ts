@@ -20,7 +20,7 @@ export class GroupService {
     }
 
     getGroupById(id: string): Observable<IGroup> {
-        return this._http.post('/Group/GetGroup/', { id: id })
+        return this._http.post('/Group/GetGroup/', { Id: id })
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractGroup);
