@@ -16,5 +16,6 @@ namespace TungstenCore.DataAccess
         Task<IEnumerable<Group>> GetGroupsForUserAsync(string userId);
         Task<bool> AddUserToGroupAsync(string userId, string groupId);
         Task<bool> RemoveUserFromGroupAsync(string userId, string groupId);
+        Task<Course> GetCourseByIdAsync(string id);
     }
 }
