@@ -2,21 +2,21 @@
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/rx';
 import { DataService } from './data.service';
-import { Assignment } from '../classes/assignment';
+import { IAssignment } from '../interfaces/assignment';
 
 import 'rxjs/rx';
 
 @Injectable()
 export class AssignmentService {
-    private _AssignmentGetAllAPI: string = '/Home/GetAllAssignments';
-    private _AssignmentGetByIdAPI: string = '/Home/GetAssignment';
-    private _AssignmentCreateAPI: string = '/Home/CreateAssignment';
-    private _AssignmentDeleteAPI: string = '/Home/DeleteAssignment';
-    private _AssignmentEditAPI: string = '/Home/EditAssignment';
+    private _AssignmentGetAllAPI: string = '/Assignment/GetAll';
+    private _AssignmentGetByIdAPI: string = '/Assignment/GetById';
+    private _AssignmentCreateAPI: string = '/Assignment/Create';
+    private _AssignmentDeleteAPI: string = '/Assignment/Delete';
+    private _AssignmentEditAPI: string = '/Assignment/Edit';
 
     constructor( @Inject(DataService) private _DataService: DataService) { }
 
-    getAll(): Observable<Assignment[]> {
+    getAll(): Observable<IAssignment[]> {
         this._DataService.set(this._AssignmentGetAllAPI);
         return this._DataService.get()
             //.do(this.logData)
@@ -24,7 +24,7 @@ export class AssignmentService {
             .map(this.extractDatalist);
     }
 
-    getById(id: string): Observable<Assignment> {
+    getById(id: string): Observable<IAssignment> {
         this._DataService.set(this._AssignmentGetByIdAPI);
         return this._DataService.post({ id: id })
             //.do(this.logData)
@@ -32,7 +32,7 @@ export class AssignmentService {
             .map(this.extractData);
     }
 
-    Create(assignment: Assignment) {
+    Create(assignment: IAssignment) {
         this._DataService.set(this._AssignmentCreateAPI);
         return this._DataService.post(assignment)
             //.do(this.logData)
@@ -40,14 +40,14 @@ export class AssignmentService {
             .map(this.extractData);
     }
 
-    Delete(id: string) {
+    Delete(assignment: IAssignment) {
         this._DataService.set(this._AssignmentDeleteAPI);
-        return this._DataService.post(id)
+        return this._DataService.post(assignment)
             .do(this.logData)
             .catch(this.handleError);
     }
 
-    Edit(assignment: Assignment) {
+    Edit(assignment: IAssignment) {
         this._DataService.set(this._AssignmentEditAPI);
         return this._DataService.post(assignment)
             //.do(this.logData)
@@ -64,31 +64,13 @@ export class AssignmentService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    private extractDatalist(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Assignment[]>res.json();
+    private extractDatalist(res: IAssignment[]) {
+        let body = <IAssignment[]>res;
         return body || [];
     }
 
-    private extractData(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Assignment>res.json();
+    private extractData(res: IAssignment) {
+        let body = <IAssignment>res;
         return body || null;
     }
 }

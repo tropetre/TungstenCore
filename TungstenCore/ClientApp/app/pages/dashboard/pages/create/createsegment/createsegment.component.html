@@ -1,4 +1,16 @@
 ﻿<form class="form-horizontal" #csForm="ngForm">
+    <div *ngIf="courses">
+        <div class="form-group form-group-lg">
+            <label class="col-md-2 control-label" for="Courses">Course</label>
+            <div class="col-md-10">
+                <select name="Course" [(ngModel)]="segment.CourseId" class="form-control" required>
+                    <option *ngFor="let course of courses;let i = index" [value]="course.Id" title="Required" #courseid>
+                        {{course.Id}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="form-group">
         <label class="col-md-2 control-label" for="Subject">Subject</label>
         <div class="col-md-10">
@@ -9,15 +21,6 @@
         <label class="col-md-2 control-label" for="Description">Description</label>
         <div class="col-md-10">
             <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="segment.Description" required>
-        </div>
-    </div>
-    <div *ngIf="courses">
-        <div class="form-group form-group-lg">
-            <select multiple name="Courses" [ngModel]="lesson.CourseId" class="form-control" required>
-                <option *ngFor="let course of courses" [value]="course.ID" title="Required">
-                    {{course.Name}}
-                </option>
-            </select>
         </div>
     </div>
     <hr>

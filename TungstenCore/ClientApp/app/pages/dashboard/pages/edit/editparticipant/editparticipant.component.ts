@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../../../services/account.service';
 import { IGroup } from '../../../../../interfaces/group';
+import { IUser } from '../../../../../interfaces/user';
 import { User } from '../../../../../classes/user';
 import { OperationResult } from '../../../../../classes/operationResult';
 
@@ -10,8 +11,8 @@ import { OperationResult } from '../../../../../classes/operationResult';
 })
 export class EditParticipantPage implements OnInit {
     private groups: IGroup[];
-    private user: User = new User('', '', '', '', ['Student']);
-    private users: User[];
+    private user: IUser;
+    private users: IUser[];
     private statusmessage: string;
 
     constructor(
@@ -24,7 +25,7 @@ export class EditParticipantPage implements OnInit {
     ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { user: User, groups: IGroup[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { user: IUser, groups: IGroup[] }) => {
                 this.user = data.user;
                 this.groups = data.groups;
             }, error => console.error(error), () => {
@@ -33,11 +34,20 @@ export class EditParticipantPage implements OnInit {
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { users: User[], groups: IGroup[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { users: IUser[], groups: IGroup[] }) => {
                 this.users = data.users;
+
+                this.users.forEach((val, index, obj) => {
+                    val.Roles.push('Student');
+
+                });
+
+                this.user = this.users[0];
+                //this.users = data.users;
                 this.groups = data.groups;
             }, error => console.error(error), () => {
-
+                console.log(this.users);
+                console.log(this.user);
                 if (!this.users.length)
                     this._Router.navigate(['../']);
             });

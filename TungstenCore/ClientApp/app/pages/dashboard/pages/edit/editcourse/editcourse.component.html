@@ -1,48 +1,45 @@
-﻿<div *ngIf="Group">
-    <form class="form-horizontal" #ecForm="ngForm">
-        <div class="form-group form-group-lg" *ngIf="courses">
-            <select name="Course" [ngModel]="course" class="form-control" required>
-                <option *ngFor="let course of courses" [value]="course" title="Required">
-                    {{course.Name}}
+﻿<form class="form-horizontal" #ecForm="ngForm">
+    <div class="form-group form-group-lg" *ngIf="courses">
+        <label class="col-md-2 control-label" for="Course">Course</label>
+        <div class="col-md-10">
+            <select name="Course" [(ngModel)]="course" class="form-control" required>
+                <option *ngFor="let course of courses" [ngValue]="course" title="Required">
+                    {{course.Description}}
                 </option>
             </select>
         </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="Name">Name</label>
-            <div class="col-md-10">
-                <input class="form-control" id="Name" name="Name" type="text" value="" [(ngModel)]="course.Name" required>
-            </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Description</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="course.Description" required>
         </div>
-        <hr>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="Description">Description</label>
-            <div class="col-md-10">
-                <input class="form-control" id="Description" name="Description" type="text" [(ngModel)]="course.Description" required>
-            </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Subject</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Subject" name="Subject" type="text" [(ngModel)]="course.Subject" required>
         </div>
-        <hr>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="Description">Subject</label>
-            <div class="col-md-10">
-                <input class="form-control" id="Subject" name="Subject" type="text" [(ngModel)]="course.Subject" required>
-            </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="Description">Level</label>
+        <div class="col-md-10">
+            <input class="form-control" id="Level" name="Level" type="text" [(ngModel)]="course.Level" required>
         </div>
-        <hr>
-        <div class="form-group">
-            <label class="col-md-2 control-label" for="Description">Level</label>
-            <div class="col-md-10">
-                <input class="form-control" id="Level" name="Level" type="text" [(ngModel)]="course.Level" required>
-            </div>
-        </div>
-        <hr>
-        <div class="form-group form-group-lg">
-            <select multiple name="Group" [ngModel]="course.GroupId" class="form-control" required>
+    </div>
+    <hr>
+    <div class="form-group form-group-lg">
+        <label class="col-md-2 control-label" for="Group">Group</label>
+        <div class="col-md-10">
+            <select multiple name="Group" [(ngModel)]="course.GroupId" class="form-control" required>
                 <option *ngFor="let group of groups" [value]="group.Id" title="Required">
                     {{group.Name}}
                 </option>
             </select>
         </div>
-        <hr>
-        <button class="btn btn-primary" [disabled]="!ecForm.form.valid" (click)="Save()">Save</button>
-    </form>
-</div>
+    </div>
+    <hr>
+    <button class="btn btn-primary" [disabled]="!ecForm.form.valid" (click)="Save()">Save</button>
+</form>

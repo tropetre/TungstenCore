@@ -49,8 +49,13 @@ namespace TungstenCore.Controllers
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Group EditGroup([FromBody] Group group) =>
-            _repository.EditGroup(group);
+        public async Task<Group> EditGroup([FromBody] Group group) =>
+            await _repository.EditGroup(group);
+
+        [HttpPost]
+        [Authorize(Roles = teacherOrAdmin)]
+        public Group DeleteGroup([FromBody] Group group) =>
+            _repository.DeleteGroup(group);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]

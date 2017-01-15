@@ -1,15 +1,15 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LessonService } from '../../../../../services/lesson.service';
+import { ILesson } from '../../../../../interfaces/lesson';
+import { ICourse } from '../../../../../interfaces/course';
 import { Lesson } from '../../../../../classes/lesson';
-import { Course } from '../../../../../classes/course';
-
 @Component({
     template: require('./createlesson.component.html')
 })
 export class CreateLessonPage implements OnInit {
-    private lesson: Lesson;
-    private courses: Course[];
+    private lesson: ILesson = new Lesson('','');
+    private courses: ICourse[];
     private statusmessage: string;
 
     constructor(
@@ -25,7 +25,7 @@ export class CreateLessonPage implements OnInit {
             this.lesson.CourseId = id;
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { courses: Course[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { courses: ICourse[] }) => {
                 this.courses = data.courses;
             }, error => console.error(error), () => {
 
@@ -36,9 +36,10 @@ export class CreateLessonPage implements OnInit {
     }
 
     create() {
+        console.log(this.lesson);
         this._LessonService.Create(this.lesson).subscribe((result) => {
-            if (result.CourseId)
-                this._Router.navigate(['../']);
+            if (result.Id)
+                this._Router.navigate(['/dashboard']);
             else
                 this.statusmessage = 'failed try again!';
         });

@@ -1,15 +1,16 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
 import { CourseService } from '../../../../../services/course.service';
+import { ICourse } from '../../../../../interfaces/Course';
 import { Course } from '../../../../../classes/Course';
-import { Group } from '../../../../../classes/group';
+import { IGroup } from '../../../../../interfaces/group';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     template: require('./createcourse.component.html')
 })
 export class CreateCourse implements OnInit {
-    private course: Course = new Course('', '', '', '', '');
-    private groups: Group[];
+    private course: ICourse = new Course('','','','','');
+    private groups: IGroup[];
     constructor(
         @Inject(CourseService) private _CourseService: CourseService,
         @Inject(Router) private router: Router,
@@ -23,7 +24,7 @@ export class CreateCourse implements OnInit {
         }
         else
         {
-            this._ActivatedRoute.data.subscribe((data: { groups: Group[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { groups: IGroup[] }) => {
                 this.groups = data.groups;
             }, error => console.error(error), () => {
                 if (!this.groups.length)

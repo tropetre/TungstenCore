@@ -11,14 +11,16 @@ namespace TungstenCore.Controllers
     using DataAccess;
     using Models;
     using ViewModels.Wrappers;
-    public class CourseController : Controller
+
+    [Authorize]
+    public class AssignmentController : Controller // TODO: Use Viewmodels to minimize exposed data.
     {
         private const string teacherOrAdmin = "Teacher,Admin";
         private readonly ISchoolRepository _repository;
         private readonly UserManager<ApplicationUser> _userManager;
         private string currentUserId => _userManager.GetUserId(HttpContext.User);
 
-        public CourseController(
+        public AssignmentController(
             ISchoolRepository repository,
             UserManager<ApplicationUser> userManager)
         {
@@ -26,26 +28,27 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Course>> GetAll() =>
-            await _repository.GetCoursesForUserAsync(currentUserId);
+        public async Task<IEnumerable<Assignment>> GetAll() =>
+            await _repository.GetAssignmentsForUserAsync(currentUserId);
 
         [HttpPost]
-        public async Task<Course> GetById([FromBody] IdWrapper wrapper) =>
-            await _repository.GetCourseByIdAsync(wrapper.Id);
-
-        [HttpPost]
-        [Authorize(Roles = teacherOrAdmin)]
-        public Course Create([FromBody] Course course) =>
-            _repository.CreateCourse(course);
+        public async Task<Assignment> GetById([FromBody] IdWrapper wrapper) =>
+            await _repository.GetAssignmentByIdAsync(wrapper.Id);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Edit([FromBody] Course course) =>
-            _repository.EditCourse(course);
+        public Assignment Create([FromBody] Assignment assignment) =>
+            _repository.CreateAssignment(assignment);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Delete([FromBody] Course course) =>
-            _repository.DeleteCourse(course);
+        public Assignment Edit([FromBody] Assignment assignment) =>
+            _repository.EditAssignment(assignment);
+
+        [HttpPost]
+        [Authorize(Roles = teacherOrAdmin)]
+        public Assignment Delete([FromBody] Assignment assignment) =>
+            _repository.DeleteAssignment(assignment);
+
     }
 }

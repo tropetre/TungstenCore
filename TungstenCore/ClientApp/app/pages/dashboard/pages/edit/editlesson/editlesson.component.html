@@ -1,10 +1,9 @@
 ﻿<div class="row">
     <div class="col-md-12 col-xs-12">
         <form class="form-horizontal col-md-12 col-xs-12" #elForm="ngForm">
-
             <div class="form-group form-group-lg" *ngIf="lessons">
-                <select name="Lesson" [ngModel]="lesson" class="form-control" required>
-                    <option *ngFor="let lesson of lessons" [value]="lesson" title="Required">
+                <select name="Lesson" [(ngModel)]="lesson" class="form-control" required>
+                    <option *ngFor="let lesson of lessons" [ngValue]="lesson" title="Required">
                         {{lesson.Name}}
                     </option>
                 </select>
@@ -15,18 +14,18 @@
             </div>
 
             <div class="form-group form-group-lg">
-                <input type="datetime" class="form-control" name="StartTime" [(ngModel)]="lesson.StartTime" placeholder="Start Time" required />
+                <input type="datetime-local" class="form-control" name="StartTime" [(ngModel)]="lesson.StartTime" placeholder="Start Time" required />
             </div>
 
             <div class="form-group form-group-lg">
-                <input type="datetime" class="form-control" name="EndTime" [(ngModel)]="lesson.EndTime" placeholder="End Time" required />
+                <input type="datetime-local" class="form-control" name="EndTime" [(ngModel)]="lesson.EndTime" placeholder="End Time" required />
             </div>
 
 
             <div class="form-group form-group-lg">
                 <select multiple name="Courses" [ngModel]="lesson.CourseId" class="form-control" required>
                     <option *ngFor="let course of courses" [value]="course.ID" title="Required">
-                        {{course.Name}}
+                        {{course.Description}}
                     </option>
                 </select>
             </div>

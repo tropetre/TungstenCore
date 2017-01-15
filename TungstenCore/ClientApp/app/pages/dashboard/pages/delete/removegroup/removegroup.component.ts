@@ -35,7 +35,7 @@ export class RemoveGroupPage implements OnInit {
     }
 
     Remove() {
-        this._GroupService.deleteGroup(this.Group.Id).subscribe((group) => {
+        this._GroupService.deleteGroup(this.Group).subscribe((group) => {
             this.Group = group;
         }, error => console.error(error), () => {
             this._Router.navigate(['../']);

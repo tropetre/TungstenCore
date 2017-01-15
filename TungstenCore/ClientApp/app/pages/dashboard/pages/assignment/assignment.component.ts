@@ -2,13 +2,14 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UploadService } from '../../../../services/upload.service';
 import { Assignment } from '../../../../classes/assignment';
+import { IAssignment } from '../../../../interfaces/assignment';
 
 @Component({
     template: require('./assignment.component.html')
 })
 export class AssignmentPage implements OnInit {
-    private assignment: Assignment;
-    private assignments: Assignment[];
+    private assignment: IAssignment;
+    private assignments: IAssignment[];
     private statusmessage: string;
     private files: File[];
 
@@ -26,21 +27,23 @@ export class AssignmentPage implements OnInit {
             });
     };
 
-    ngOnInit() {/*
+    ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { assignment: Assignment }) => {
+            this._ActivatedRoute.data.subscribe((data: { assignment: IAssignment }) => {
                 this.assignment = data.assignment;
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { assignments: Assignment[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { assignments: IAssignment[] }) => {
+                console.log(data.assignments);
                 this.assignments = data.assignments;
+                this.assignment = this.assignments[0] || new Assignment('', '', '');
             }, error => console.error(error), () => {
-                //if (!this.assignments.length)
-                //    this._Router.navigate(['../']);
+                if (!this.assignments.length)
+                    this._Router.navigate(['../']);
             });
-        }*/
+        }
     }
 
     onChange(event) {

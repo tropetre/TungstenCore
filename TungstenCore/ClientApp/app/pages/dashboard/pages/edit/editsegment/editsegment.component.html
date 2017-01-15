@@ -1,10 +1,13 @@
 ﻿<form class="form-horizontal" #editgroupForm="ngForm">
-    <div class="form-group form-group-lg" *ngIf="segments">
-        <select name="Segment" [ngModel]="segment" class="form-control" required>
-            <option *ngFor="let segment of segments" [value]="segment" title="Required">
-                {{segment.Name}}
-            </option>
-        </select>
+    <div class="form-group" *ngIf="segments">
+        <label class="col-md-2 control-label" for="Segment">Segment</label>
+        <div class="col-md-10">
+            <select name="Segment" [(ngModel)]="segment" class="form-control" required>
+                <option *ngFor="let segment of segments" [value]="segment" title="Required">
+                    {{segment.Name}}
+                </option>
+            </select>
+        </div>
     </div>
     <div class="form-group">
         <label class="col-md-2 control-label" for="Name">Name</label>
@@ -19,11 +22,14 @@
         </div>
     </div>
     <div class="form-group form-group-lg">
-        <select name="Course" [ngModel]="courses" class="form-control" required>
-            <option *ngFor="let course of courses" [value]="course" title="Required">
-                {{course.Name}}
-            </option>
-        </select>
+        <label class="col-md-2 control-label" for="Course">Course</label>
+        <div class="col-md-10">
+            <select name="Course" [(ngModel)]="segment.CourseId" class="form-control" required>
+                <option *ngFor="let course of courses" [value]="course.Id" title="Required">
+                    {{course.Description}}
+                </option>
+            </select>
+        </div>
     </div>
     <hr>
     <button class="btn btn-primary" [disabled]="!editgroupForm.form.valid" (click)="Save()">Save</button>

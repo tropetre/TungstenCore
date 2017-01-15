@@ -2,21 +2,21 @@
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/rx';
 import { DataService } from './data.service';
-import { Lesson } from '../classes/lesson';
+import { ILesson } from '../interfaces/lesson';
 
 import 'rxjs/rx';
 
 @Injectable()
 export class LessonService {
-    private _LessonGetAllAPI: string = '/Home/GetAllLessons';
-    private _LessonGetByIdAPI: string = '/Home/GetLesson';
-    private _LessonCreateAPI: string = '/Home/CreateLesson';
-    private _LessonDeleteAPI: string = '/Home/DeleteLesson';
-    private _LessonEditAPI: string = '/Home/EditLesson';
+    private _LessonGetAllAPI: string = '/Lesson/GetAll';
+    private _LessonGetByIdAPI: string = '/Lesson/GetById';
+    private _LessonCreateAPI: string = '/Lesson/Create';
+    private _LessonDeleteAPI: string = '/Lesson/Delete';
+    private _LessonEditAPI: string = '/Lesson/Edit';
 
     constructor( @Inject(DataService) private _DataService: DataService) { }
 
-    getAll(): Observable<Lesson[]> {
+    getAll(): Observable<ILesson[]> {
         this._DataService.set(this._LessonGetAllAPI);
         return this._DataService.get()
             //.do(this.logData)
@@ -24,7 +24,7 @@ export class LessonService {
             .map(this.extractDatalist);
     }
 
-    getById(id: string): Observable<Lesson> {
+    getById(id: string): Observable<ILesson> {
         this._DataService.set(this._LessonGetByIdAPI);
         return this._DataService.post({ id: id })
             //.do(this.logData)
@@ -32,24 +32,24 @@ export class LessonService {
             .map(this.extractData);
     }
 
-    Create(group: Lesson) {
+    Create(lesson: ILesson) {
         this._DataService.set(this._LessonCreateAPI);
-        return this._DataService.post(group)
+        return this._DataService.post(lesson)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractData);
     }
 
-    Delete(id: string) {
+    Delete(lesson: ILesson) {
         this._DataService.set(this._LessonDeleteAPI);
-        return this._DataService.post(id)
+        return this._DataService.post(lesson)
             .do(this.logData)
             .catch(this.handleError);
     }
 
-    Edit(group: Lesson) {
+    Edit(lesson: ILesson) {
         this._DataService.set(this._LessonEditAPI);
-        return this._DataService.post(group)
+        return this._DataService.post(lesson)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractData);
@@ -64,31 +64,13 @@ export class LessonService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    private extractDatalist(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Lesson[]>res.json();
+    private extractDatalist(res: ILesson[]) {
+        let body = <ILesson[]>res;
         return body || [];
     }
 
-    private extractData(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Lesson>JSON.parse(res.json());
+    private extractData(res: ILesson) {
+        let body = <ILesson>res;
         return body || null;
     }
 }

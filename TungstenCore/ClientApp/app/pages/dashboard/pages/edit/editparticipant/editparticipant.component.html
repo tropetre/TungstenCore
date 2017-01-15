@@ -2,8 +2,8 @@
     <div class="col-md-12 col-xs-12">
         <form class="form-horizontal col-md-12 col-xs-12" #epForm="ngForm">
             <div class="form-group form-group-lg" *ngIf="users">
-                <select name="Users" [ngModel]="user" class="form-control" required>
-                    <option *ngFor="let user of users" [value]="user" title="Required">
+                <select name="Users" [(ngModel)]="user" class="form-control" required>
+                    <option *ngFor="let user of users; let i = index" [ngValue]="user" title="Required">
                         {{user.Name}}
                     </option>
                 </select>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="form-group form-group-lg">
-                <select multiple name="Groups" [ngModel]="user.Groups" class="form-control" required>
+                <select multiple name="Groups" [(ngModel)]="user.Groups" class="form-control" required>
                     <option *ngFor="let group of groups" [value]="group" title="Required">
                         {{group.Name}}
                     </option>
@@ -58,13 +58,13 @@
             <div class="form-group form-group-lg">
                 <div class="checkbox">
                     <label>
-                        <input type="radio" name="role" value="teacher" [ngModel]="user.Roles[0]">
+                        <input type="radio" name="role" value="Teacher" [(ngModel)]="user.Roles[0]">
                         Teacher
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input type="radio" name="role" value="student" [ngModel]="user.Roles[0]">
+                        <input type="radio" name="role" value="Student" [(ngModel)]="user.Roles[0]">
                         Student
                     </label>
                 </div>

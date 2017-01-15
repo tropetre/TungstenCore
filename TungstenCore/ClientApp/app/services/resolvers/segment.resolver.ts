@@ -1,12 +1,12 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Segment } from '../../classes/segment';
+import { ISegment } from '../../interfaces/segment';
 import { SegmentService } from '../segment.service';
 import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class SegmentResolver implements Resolve<Segment> {
+export class SegmentResolver implements Resolve<ISegment> {
 
     constructor(
         @Inject(SegmentService) private _SegmentService: SegmentService,
@@ -24,13 +24,13 @@ export class SegmentResolver implements Resolve<Segment> {
             }
             else {
                 console.log('segment get fail');
-                //this._Router.navigate(['/']);
+                this._Router.navigate(['/']);
                 return null;
             }
         }
         else {
             console.log('no id param');
-            //this._Router.navigate(['/']);
+            this._Router.navigate(['/']);
             return null;
         }
     }

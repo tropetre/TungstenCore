@@ -7,7 +7,8 @@ import { User } from './classes/User';
 import { UserAnnouncer } from './services/UserAnnouncer';
 import { Subscription } from 'rxjs/Subscription';
 import { WindowSize } from './services/windowsize';
-
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'lms-index',
@@ -38,18 +39,40 @@ export class IndexPage implements OnInit, AfterViewChecked {
     @ViewChild('navmenu') NavMenu: ElementRef;
     @ViewChild('topnav') TopNav: ElementRef;
     @ViewChild('bodycontent') BodyContent: ElementRef;
+    @ViewChild('logo') Logo: ElementRef;
+    @ViewChild('logos') Logo2: ElementRef;
+    @ViewChild('routeroutlet') routeroutlet: ElementRef;
     navopen: boolean = false;
+
     constructor( @Inject(ElementRef) private elementRef: ElementRef,
         @Inject(MembershipService) public membershipService: MembershipService,
         @Inject(ChangeDetectorRef) public changeDetectorRef: ChangeDetectorRef,
         @Inject(UserAnnouncer) private _UserAnnouncer: UserAnnouncer,
         @Inject(Renderer) private renderer: Renderer,
-        @Inject(WindowSize) private windowSize: WindowSize
+        @Inject(WindowSize) private windowSize: WindowSize,
+        @Inject(Router) private _Router: Router
 
     ) {
         this.user = this.membershipService.getLoggedInUser() || new User('', '', '', '', []);
         this.isuserloggedin = (document.getElementById('isloggedin').attributes.getNamedItem("value").nodeValue === 'true');
+        _Router.events.subscribe(event => {
+            if (this.isuserloggedin) {
+                if (event instanceof NavigationStart) {
+                    renderer.setElementClass(this.Logo.nativeElement, 'path', true);
+                    renderer.setElementClass(this.Logo2.nativeElement, 'path', true);
+                }
+                else if (event instanceof NavigationEnd) {
+                    renderer.setElementClass(this.Logo.nativeElement, 'path', false);
+                    renderer.setElementClass(this.Logo2.nativeElement, 'path', false);
+
+                }
+            }
+        });
+
+        
     }
+
+    
     
     isUserLoggedIn(): boolean {
         return this.membershipService.isUserAuthenticated();
@@ -74,48 +97,61 @@ export class IndexPage implements OnInit, AfterViewChecked {
         }
 
         this.windowSize.width$.subscribe(size => {
-            //if (this.NavMenu) {
-            //    this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (size <= 768));
-            //}
-            if (this.BodyContent) {
-                this.renderer.setElementStyle(this.BodyContent.nativeElement, 'padding-right', this.isuserloggedin && (size > 768) ? '315px' : '15px');
-                this.renderer.animate(this.NavMenu.nativeElement, { styles: [] }, [], 1, 0, 'ease');
+            if (this.NavMenu) {
+               // this.renderer.setElementClass(this.NavMenu.nativeElement, 'right-nav-hide', (size <= 768 && this.isuserloggedin && !this.navopen));
+               // this.renderer.setElementClass(this.NavMenu.nativeElement, 'right-nav-hide', (size <= 768 && this.navopen));
+               // this.renderer.setElementClass(this.NavMenu.nativeElement, 'right-nav-show', (size > 768 && !this.navopen));
+
             }
-            if (this.navopen === true && size > 768)
-            {
-                this.navopen = false;
-                this.renderer.invokeElementMethod(
-                    this.BodyContent.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(-300px)', 'padding-right': '0px' },
-                            { transform: 'translate(0px, 0px)', 'padding-right': '315px' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-                this.renderer.invokeElementMethod(
-                    this.TopNav.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(-300px)' },
-                            { transform: 'translate(0px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
+            if (this.BodyContent && this.NavMenu) {
+                if (this.isuserloggedin)
+                {
+                    if (size > 768)
+                    {
+                        this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', this.navopen ? 'translateX(0px)' : 'translateX(0px)');
+                        this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', this.navopen ? 'translateX(0px)' : 'translateX(0px)');
+                        this.renderer.setElementStyle(this.routeroutlet.nativeElement, 'padding-right', '175px');
+                    }
+                    else
+                    {
+                        this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', this.navopen ? 'translateX(-150px)' : 'translateX(0px)');
+                        this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', this.navopen ? 'translateX(0px)' : 'translateX(150px)');
+                        this.renderer.setElementStyle(this.routeroutlet.nativeElement, 'padding-right', '15px');
+                    }
+                }
+                else {
+                    if (size > 768) {
+                        this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', 'translateX(0px)');
+                        this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', 'translateX(150px)');
+                        this.renderer.setElementStyle(this.routeroutlet.nativeElement, 'padding-right', '0px');
+                        this.renderer.setElementStyle(this.routeroutlet.nativeElement, 'padding-right', '15px');
+
+                    }
+                    else {
+                        this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', 'translateX(150px)');
+                        this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', !this.navopen ? 'translateX(0px)' : 'translateX(-150px)');
+                        this.renderer.setElementStyle(this.routeroutlet.nativeElement, 'padding-right', '15px');
+
+                    }
+                }
+                //this.hideShownav();
+
+                //this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', this.navopen ? 'translateX(0px)' : 'translateX(-150px)');
+
+               // this.renderer.setElementStyle(this.BodyContent.nativeElement, 'padding-right', this.isuserloggedin && (size > 768) ? '150px' : '0px');
+              //  this.renderer.animate(this.NavMenu.nativeElement, { styles: [] }, [], 1, 0, 'ease');
             }
+            if (this.BodyContent && size < 768 && this.isuserloggedin) {
+
+                //this.renderer.setElementClass(this.NavMenu.nativeElement, 'right-nav-hide', true);
+            }
+            else if (size <= 768 && this.navopen) {
+                //this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', 'translateX(0px)');
+                //this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', 'translateX(-150px)');
+            }
+                
         });
+
         this.changeDetectorRef.detectChanges();
         //this.renderer.setElementClass(this.NavMenu.nativeElement, 'offcanvas', (window.innerWidth <= 768));
     }
@@ -148,103 +184,18 @@ export class IndexPage implements OnInit, AfterViewChecked {
         return false;//(window.innerWidth <= 768);
     }
 
+    hideShownav() {
+        this.renderer.setElementStyle(this.NavMenu.nativeElement, 'transform', this.navopen ? 'translateX(150px)' : 'translateX(0px)');
+        this.renderer.setElementStyle(this.BodyContent.nativeElement, 'transform', this.navopen ? 'translateX(0px)' : 'translateX(-150px)');
+        
+        this.navopen = !this.navopen;
+    }
+
     toggleNavMenu() {
         if (window.innerWidth <= 768 && this.isuserloggedin) {
-            if (this.navopen === true) {
-                this.renderer.invokeElementMethod(
-                    this.NavMenu.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(-300px)' },
-                            { transform: 'translate(0, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-                this.renderer.invokeElementMethod(
-                    this.BodyContent.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(-300px)' },
-                            { transform: 'translate(0px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-                this.renderer.invokeElementMethod(
-                    this.TopNav.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(-300px)' },
-                            { transform: 'translate(0px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-            }
-            else {
-                this.renderer.invokeElementMethod(
-                    this.NavMenu.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(0px)' },
-                            { transform: 'translate(-300px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-                this.renderer.invokeElementMethod(
-                    this.BodyContent.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(0px)' },
-                            { transform: 'translate(-300px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-                this.renderer.invokeElementMethod(
-                    this.TopNav.nativeElement,
-                    'animate',
-                    [
-                        [
-                            { transform: 'translate(0px)' },
-                            { transform: 'translate(-300px, 0px)' }
-                        ],
-                        {
-                            duration: 100,
-                            delay: 0,
-                            fill: 'forwards'
-                        }
-                    ]
-                );
-            }
-            this.navopen = !this.navopen;
+            //this.renderer.setElementClass(this.NavMenu.nativeElement, 'right-nav-hide', (this.navopen === true));
+            this.hideShownav();
+            
         }
     }
 

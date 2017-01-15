@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="form-group form-group-lg">
-                <select multiple name="Groups" [ngModel]="user.Groups" class="form-control" required>
+                <select multiple name="Groups" [(ngModel)]="user.Groups" class="form-control" required>
                     <option *ngFor="let group of groups" [value]="group" title="Required">
                         {{group.Name}}
                     </option>

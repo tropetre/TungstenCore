@@ -1,14 +1,14 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SegmentService } from '../../../../../services/segment.service';
-import { Segment } from '../../../../../classes/segment';
+import { ISegment } from '../../../../../interfaces/segment';
 
 @Component({
     template: require('./removesegment.component.html')
 })
 export class RemoveSegmentPage implements OnInit {
-    private segment: Segment;
-    private segments: Segment[];
+    private segment: ISegment;
+    private segments: ISegment[];
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -19,12 +19,12 @@ export class RemoveSegmentPage implements OnInit {
     ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { segment: Segment }) => {
+            this._ActivatedRoute.data.subscribe((data: { segment: ISegment }) => {
                 this.segment = data.segment;
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { segments: Segment[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { segments: ISegment[] }) => {
                 this.segments = data.segments;
             }, error => console.error(error), () => {
                 if (!this.segments.length)
@@ -34,7 +34,7 @@ export class RemoveSegmentPage implements OnInit {
     }
 
     Remove() {
-        this._SegmentService.Delete(this.segment.Id).subscribe((segment) => {
+        this._SegmentService.Delete(this.segment).subscribe((segment) => {
             this.segment = segment;
         }, error => console.error(error), () => {
             this._Router.navigate(['../']);

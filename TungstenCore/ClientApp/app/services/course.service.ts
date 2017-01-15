@@ -11,7 +11,7 @@ export class CourseService {
     constructor( @Inject(Http) private _http: Http) { }
 
     getCourses(): Observable<ICourse[]> {
-        return this._http.get('/Home/GetCourses')
+        return this._http.get('/Course/GetAll')
             .do(this.logData)
             .catch(this.handleError)
             .map(this.extractCourses);
@@ -19,27 +19,27 @@ export class CourseService {
     }
 
     getCourseById(id: string): Observable<ICourse> {
-        return this._http.post('/Home/GetCourse/', { id: id })
+        return this._http.post('/Course/GetById/', { id: id })
             .do(this.logData)
             .catch(this.handleError)
             .map(this.extractCourse);
     }
 
     createCourse(course: ICourse) {
-        return this._http.post('/Home/CreateCourse/', course)
+        return this._http.post('/Course/Create/', course)
             .do(this.logData)
             .catch(this.handleError)
             .map(this.extractCourse);
     }
 
-    deleteCourse(id: string) {
-        return this._http.post('/Home/DeleteCourse', id)
+    deleteCourse(course: ICourse) {
+        return this._http.post('/Course/Delete', course)
             .do(this.logData)
             .catch(this.handleError);
     }
 
-    edit(course: Course) {
-        return this._http.post('/Home/EditCourse', course)
+    edit(course: ICourse) {
+        return this._http.post('/Course/Edit', course)
             .do(this.logData)
             .catch(this.handleError);
     }

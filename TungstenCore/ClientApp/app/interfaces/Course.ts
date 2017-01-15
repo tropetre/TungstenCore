@@ -1,10 +1,13 @@
-﻿import { Segment } from '../classes/segment';
+﻿import { ISegment } from './segment';
+import { ILesson } from './lesson';
+import { IUser } from './user';
 export interface ICourse {
     Id: string;
-    Name: string;
     Description: string;
     Subject: string;
     Level: string;
     GroupId: string;
-    Segments: Segment[];
+    Segments: ISegment[];
+    Lessons: ILesson[];
+    Participants: IUser[];
 }

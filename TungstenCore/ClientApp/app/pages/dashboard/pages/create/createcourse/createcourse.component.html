@@ -24,7 +24,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="Groups">Group</label>
             <div class="col-md-10">
-                <select multiple name="Groups" [ngModel]="course.GroupId" class="form-control" required>
+                <select multiple name="Groups" [(ngModel)]="course.GroupId" class="form-control" required>
                     <option *ngFor="let group of groups" [value]="group.Id" title="Required">
                         {{group.Name}}
                     </option>

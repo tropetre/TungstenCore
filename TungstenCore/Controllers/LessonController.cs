@@ -4,21 +4,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
-// For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace TungstenCore.Controllers
 {
     using DataAccess;
     using Models;
     using ViewModels.Wrappers;
-    public class CourseController : Controller
+    public class LessonController: Controller
     {
         private const string teacherOrAdmin = "Teacher,Admin";
         private readonly ISchoolRepository _repository;
         private readonly UserManager<ApplicationUser> _userManager;
         private string currentUserId => _userManager.GetUserId(HttpContext.User);
 
-        public CourseController(
+        public LessonController(
             ISchoolRepository repository,
             UserManager<ApplicationUser> userManager)
         {
@@ -26,26 +24,26 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Course>> GetAll() =>
-            await _repository.GetCoursesForUserAsync(currentUserId);
+        public async Task<IEnumerable<Lesson>> GetAll() =>
+            await _repository.GetLessonsForUserAsync(currentUserId);
 
         [HttpPost]
-        public async Task<Course> GetById([FromBody] IdWrapper wrapper) =>
-            await _repository.GetCourseByIdAsync(wrapper.Id);
-
-        [HttpPost]
-        [Authorize(Roles = teacherOrAdmin)]
-        public Course Create([FromBody] Course course) =>
-            _repository.CreateCourse(course);
+        public async Task<Lesson> GetById([FromBody] IdWrapper wrapper) =>
+            await _repository.GetLessonByIdAsync(wrapper.Id);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Edit([FromBody] Course course) =>
-            _repository.EditCourse(course);
+        public async Task<Lesson> Create([FromBody] Lesson lesson) =>
+            await _repository.CreateLesson(lesson);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Delete([FromBody] Course course) =>
-            _repository.DeleteCourse(course);
+        public Lesson Edit([FromBody] Lesson lesson) =>
+            _repository.EditLesson(lesson);
+
+        [HttpPost]
+        [Authorize(Roles = teacherOrAdmin)]
+        public Lesson Delete([FromBody] Lesson lesson) =>
+            _repository.DeleteLesson(lesson);
     }
 }

@@ -2,21 +2,21 @@
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/rx';
 import { DataService } from './data.service';
-import { Segment } from '../classes/segment';
+import { ISegment } from '../interfaces/segment';
 
 import 'rxjs/rx';
 
 @Injectable()
 export class SegmentService {
-    private _SegmentGetAllAPI: string = '/Home/GetAllSegments';
-    private _SegmentGetByIdAPI: string = '/Home/GetSegment';
-    private _SegmentCreateAPI: string = '/Home/CreateSegment';
-    private _SegmentDeleteAPI: string = '/Home/DeleteSegment';
-    private _SegmentEditAPI: string = '/Home/EditSegment';
+    private _SegmentGetAllAPI: string = '/Segment/GetAll';
+    private _SegmentGetByIdAPI: string = '/Segment/GetById';
+    private _SegmentCreateAPI: string = '/Segment/Create';
+    private _SegmentDeleteAPI: string = '/Segment/Delete';
+    private _SegmentEditAPI: string = '/Segment/Edit';
 
     constructor( @Inject(DataService) private _DataService: DataService) { }
 
-    getAll(): Observable<Segment[]> {
+    getAll(): Observable<ISegment[]> {
         this._DataService.set(this._SegmentGetAllAPI);
         return this._DataService.get()
             //.do(this.logData)
@@ -24,7 +24,7 @@ export class SegmentService {
             .map(this.extractDatalist);
     }
 
-    getById(id: string): Observable<Segment> {
+    getById(id: string): Observable<ISegment> {
         this._DataService.set(this._SegmentGetByIdAPI);
         return this._DataService.post({ id: id })
             //.do(this.logData)
@@ -32,24 +32,24 @@ export class SegmentService {
             .map(this.extractData);
     }
 
-    Create(group: Segment) {
+    Create(segment: ISegment) {
         this._DataService.set(this._SegmentCreateAPI);
-        return this._DataService.post(group)
+        return this._DataService.post(segment)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractData);
     }
 
-    Delete(id: string) {
+    Delete(segment: ISegment) {
         this._DataService.set(this._SegmentDeleteAPI);
-        return this._DataService.post(id)
-            .do(this.logData)
+        return this._DataService.post(segment)
+            //.do(this.logData)
             .catch(this.handleError);
     }
 
-    Edit(group: Segment) {
+    Edit(segment: ISegment) {
         this._DataService.set(this._SegmentEditAPI);
-        return this._DataService.post(group)
+        return this._DataService.post(segment)
             //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractData);
@@ -64,31 +64,13 @@ export class SegmentService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
-    private extractDatalist(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Segment[]>res.json();
+    private extractDatalist(res: ISegment[]) {
+        let body = <ISegment[]>res;
         return body || [];
     }
 
-    private extractData(res: Response) {
-        if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] == '<') {
-            console.error('Response Invalid');
-            console.error({
-                Content_type: 'text/html; charset=utf-8',
-                URI: res.url,
-                Response: res
-            });
-            return null;
-        }
-        let body = <Segment>JSON.parse(res.json());
+    private extractData(res: ISegment) {
+        let body = <ISegment>res;
         return body || null;
     }
 }

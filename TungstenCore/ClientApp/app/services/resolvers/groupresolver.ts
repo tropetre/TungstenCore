@@ -12,11 +12,18 @@ export class GroupResolver implements Resolve<IGroup> {
         @Inject(Router) private _Router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IGroup> {
-        let group = this._GroupService.getGroupById(route.params['id']);
+        if (route.params['id']) {
+            let group = this._GroupService.getGroupById(route.params['id']);
 
-        if (group) {
-            return group;
-        } else {
+            if (group) {
+                return group;
+            } else {
+                this._Router.navigate(['/']);
+                return null;
+            }
+        }
+        else {
+            console.log('no id param');
             this._Router.navigate(['/']);
             return null;
         }

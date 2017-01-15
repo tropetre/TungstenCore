@@ -1,12 +1,12 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Lesson } from '../../classes/lesson';
+import { ILesson } from '../../interfaces/lesson';
 import { LessonService } from '../lesson.service';
 import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class LessonResolver implements Resolve<Lesson> {
+export class LessonResolver implements Resolve<ILesson> {
 
     constructor(
         @Inject(LessonService) private _LessonService: LessonService,
@@ -24,13 +24,13 @@ export class LessonResolver implements Resolve<Lesson> {
             }
             else {
                 console.log('lesson get fail');
-                //this._Router.navigate(['/']);
+                this._Router.navigate(['/']);
                 return null;
             }
         }
         else {
             console.log('no id param');
-            //this._Router.navigate(['/']);
+            this._Router.navigate(['/']);
             return null;
         }
 

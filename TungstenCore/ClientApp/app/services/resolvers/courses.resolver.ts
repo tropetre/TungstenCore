@@ -1,12 +1,12 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Course } from '../../classes/course';
+import { ICourse } from '../../interfaces/course';
 import { CourseService } from '../course.service';
 import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class CoursesResolver implements Resolve<Course[]> {
+export class CoursesResolver implements Resolve<ICourse[]> {
 
     constructor(
         @Inject(CourseService) private _CourseService: CourseService,

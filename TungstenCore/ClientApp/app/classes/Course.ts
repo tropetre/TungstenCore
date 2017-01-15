@@ -1,5 +1,7 @@
-﻿import { ICourse } from '../interfaces/Course';
-import { Segment } from './segment';
+﻿import { ICourse } from '../interfaces/course';
+import { ISegment } from '../interfaces/segment';
+import { ILesson } from '../interfaces/lesson';
+import { IUser } from '../interfaces/user';
 
 export class Course implements ICourse {
     Id: string;
@@ -8,7 +10,9 @@ export class Course implements ICourse {
     Subject: string;
     Level: string;
     GroupId: string;
-    Segments: Segment[];
+    Segments: ISegment[];
+    Lessons: ILesson[];
+    Participants: IUser[];
 
     constructor(name: string, description: string, subject: string, level: string, groupid: string) {
         this.Name = name;
@@ -16,5 +20,7 @@ export class Course implements ICourse {
         this.Subject = subject;
         this.Level = level;
         this.GroupId = groupid;
+        this.Segments = null;
+
     }
 }

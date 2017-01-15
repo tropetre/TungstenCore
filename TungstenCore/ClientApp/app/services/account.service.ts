@@ -1,6 +1,6 @@
 ﻿import { DataService } from './data.service';
 import { Injectable, Inject } from '@angular/core';
-import { User } from '../classes/user';
+import { IUser } from '../interfaces/user';
 
 @Injectable()
 export class AccountService {
@@ -12,12 +12,12 @@ export class AccountService {
 
 
 
-    CreateAccount(user: User) {
+    CreateAccount(user: IUser) {
         this._dataservice.set(this._CreateAccountAPI);
         return this._dataservice.post(user);
     }
 
-    EditAccount(user: User): any {
+    EditAccount(user: IUser): any {
         this._dataservice.set(this._EditAccountAPI);
         return this._dataservice.post(user);
     }

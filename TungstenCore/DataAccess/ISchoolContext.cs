@@ -2,6 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Models;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public interface ISchoolContext
     {
@@ -13,5 +15,6 @@
         DbSet<FileDetail> FilePaths { get; set; }
         DbSet<ApplicationUser> Users { get; set; }
         int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }

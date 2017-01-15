@@ -29,6 +29,7 @@ export class EditGroupPage implements OnInit {
         else {
             this._ActivatedRoute.data.subscribe((data: { user: User, groups: IGroup[] }) => {
                 this.Groups = data.groups;
+                this.Group = this.Groups[0];
                 this.user = data.user;
             }, error => console.error(error), () => {
 

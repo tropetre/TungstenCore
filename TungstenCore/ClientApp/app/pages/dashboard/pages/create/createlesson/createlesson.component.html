@@ -1,30 +1,29 @@
 ﻿<div class="row">
     <div class="col-md-12 col-xs-12">
         <form class="form-horizontal col-md-12 col-xs-12" (ngSubmit)="create()" #clForm="ngForm">
-            
+            <div *ngIf="courses">
+                <div class="form-group form-group-lg">
+                    <select name="Courses" [(ngModel)]="lesson.CourseId" class="form-control" required>
+                        <option *ngFor="let course of courses" [value]="course.Id" title="Required">
+                            {{course.Description}}
+                        </option>
+                    </select>
+                </div>
+            </div>
             <div class="form-group form-group-lg">
                 <input type="text" class="form-control" name="Classroom" [(ngModel)]="lesson.Classroom" placeholder="Classroom" required />
             </div>
 
             <div class="form-group form-group-lg">
-                <input type="datetime" class="form-control" name="StartTime" [(ngModel)]="lesson.StartTime" placeholder="Start Time" required />
+                <input type="datetime-local" class="form-control" name="StartTime" [(ngModel)]="lesson.StartTime" placeholder="Start Time" required />
             </div>
 
             <div class="form-group form-group-lg">
-                <input type="datetime" class="form-control" name="EndTime" [(ngModel)]="lesson.EndTime" placeholder="End Time" required />
+                <input type="datetime-local" class="form-control" name="EndTime" [(ngModel)]="lesson.EndTime" placeholder="End Time" required />
             </div>
 
             
-            <div *ngIf="courses">
-                <div class="form-group form-group-lg">
-                    <select multiple name="Courses" [ngModel]="lesson.CourseId" class="form-control" required>
-                        <option *ngFor="let course of courses" [value]="course.ID" title="Required">
-                            {{course.Name}}
-                        </option>
-                    </select>
-                </div>
-                
-            </div>
+            
         </form>
         <hr>
         <button class="btn btn-lg btn-primary" type="submit" (click)="create()" [disabled]="!clForm.form.valid">Create</button>

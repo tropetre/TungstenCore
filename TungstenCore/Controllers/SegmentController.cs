@@ -11,14 +11,14 @@ namespace TungstenCore.Controllers
     using DataAccess;
     using Models;
     using ViewModels.Wrappers;
-    public class CourseController : Controller
+    public class SegmentController : Controller
     {
         private const string teacherOrAdmin = "Teacher,Admin";
         private readonly ISchoolRepository _repository;
         private readonly UserManager<ApplicationUser> _userManager;
         private string currentUserId => _userManager.GetUserId(HttpContext.User);
 
-        public CourseController(
+        public SegmentController(
             ISchoolRepository repository,
             UserManager<ApplicationUser> userManager)
         {
@@ -26,26 +26,26 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Course>> GetAll() =>
-            await _repository.GetCoursesForUserAsync(currentUserId);
+        public async Task<IEnumerable<Segment>> GetAll() =>
+            await _repository.GetSegmentsForUserAsync(currentUserId);
 
         [HttpPost]
-        public async Task<Course> GetById([FromBody] IdWrapper wrapper) =>
-            await _repository.GetCourseByIdAsync(wrapper.Id);
-
-        [HttpPost]
-        [Authorize(Roles = teacherOrAdmin)]
-        public Course Create([FromBody] Course course) =>
-            _repository.CreateCourse(course);
+        public async Task<Segment> GetById([FromBody] IdWrapper wrapper) =>
+            await _repository.GetSegmentByIdAsync(wrapper.Id);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Edit([FromBody] Course course) =>
-            _repository.EditCourse(course);
+        public Segment Create([FromBody] Segment segment) =>
+            _repository.CreateSegment(segment);
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
-        public Course Delete([FromBody] Course course) =>
-            _repository.DeleteCourse(course);
+        public Segment Edit([FromBody] Segment segment) =>
+            _repository.EditSegment(segment);
+
+        [HttpPost]
+        [Authorize(Roles = teacherOrAdmin)]
+        public Segment Delete([FromBody] Segment segment) =>
+            _repository.DeleteSegment(segment);
     }
 }

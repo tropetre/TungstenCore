@@ -33,8 +33,8 @@ export class GroupService {
             .map(this.extractGroup);
     }
 
-    deleteGroup(id: string) {
-        return this._http.post('/Group/DeleteGroup', id)
+    deleteGroup(group: IGroup) {
+        return this._http.post('/Group/DeleteGroup', group)
             .do(this.logData)
             .catch(this.handleError);
     }

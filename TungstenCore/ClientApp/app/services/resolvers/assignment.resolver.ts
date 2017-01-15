@@ -1,12 +1,12 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 import { Resolve, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
-import { Assignment } from '../../classes/assignment';
+import { IAssignment } from '../../interfaces/assignment';
 import { AssignmentService } from '../assignment.service';
 import { Observable } from 'rxjs/Rx';
 
 
 @Injectable()
-export class AssignmentResolver implements Resolve<Assignment> {
+export class AssignmentResolver implements Resolve<IAssignment> {
 
     constructor(
         @Inject(AssignmentService) private _AssignmentService: AssignmentService,
@@ -24,7 +24,7 @@ export class AssignmentResolver implements Resolve<Assignment> {
             }
             else {
                 console.log('assignment get fail');
-                //this._Router.navigate(['/']);
+                this._Router.navigate(['/']);
                 return null;
             }
         }

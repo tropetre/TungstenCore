@@ -1,87 +1,83 @@
-﻿<div id="myNavmenu">
-    <nav class="navmenu navmenu-default navmenu-fixed-right" [class.offcanvas]="navmenuclass()" role="navigation" *ngIf="isuserloggedin"  #navmenu style="right:-300px;">
-        <ul class="nav navmenu-nav">
-            <li>
-                <a class="navmenu-brand" [routerLink]="['/']">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 19" width="40px">
-                        <path d="m12.4 14.6c2.4 0.3 2 1.1-0.1 1.6-9.1-2.1-11.8 2.9-0.1 1.1 0.7 0.3-2.2 0.9-3.1 0.9-0.9 0-0.9 0.8-0.9 0.8 1.8 0.2 6.5-0.7 5.2-2 2.8-0.7 2.6-2.7 0.8-2.9 8.8-5.3-13.8 1.8-13.1-8 0.6-9 16.6-8.2 16.5 1-0.1 4-5.8 4-6.4 0.6 6.9-0.5-1-9.8-1.3-0.7-0.3 0-0.6 0.1-0.9 0.1 0.2-9.2-7.4 0.4-1.1 0.9-0.4 1.3-2.2 0.9-2.8 0.8-0.6-0.1-0.8 0.6-0.9 0.8 0.7 0.2 3.8 1.1 4.7-1.7l1.1-0.1c1 5.3 8.8 3.9 8.8-0.6 0-11.1-18.6-11-18.8-1-0.2 10.2 19.3 4.7 12.8 7.4-10.8-2.3-15.4 3.7-0.4 1zm-1.4-7.7c-0.3-6.5 4.7-0.2 0 0zm-3 0.1c-3.8 0.2 0.4-5.8 0 0z" stroke-width="0.2px" />
-                    </svg>
-                    Tungsten
-                </a>
-            </li>
-        </ul>
-        <ul class="nav navmenu-nav">
-            <li *ngIf="user.Username"><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
-        </ul>
-        <ul></ul>
-        <ul class="nav navmenu-nav" *ngIf="isStudent()">
-            <li>
-                <a [routerLink]="['/dashboard', 'course']" routerLinkActive="active">My Courses</a>
-            </li>
-            <li>
-                <a [routerLink]="['/dashboard', 'assignment']" routerLinkActive="active">My Assignments</a>
-            </li>
-            <li>
-                <a [routerLink]="['/dashboard', 'lesson']" routerLinkActive="active">My Lessons</a>
-            </li>
-            <li>
-                <a [routerLink]="['/dashboard', 'segment']" routerLinkActive="active">My Segments</a>
-            </li>
-        </ul>
-        <ul class="nav navmenu-nav" *ngIf="isTeacher()">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
-                <ul class="dropdown-menu navmenu-nav">
-                    <li><a [routerLink]="['/dashboard','createparticipant']">Participant</a></li>
-                    <li><a [routerLink]="['/dashboard','creategroup']">Group</a></li>
-                    <li><a [routerLink]="['/dashboard','createcourse']">Course</a></li>
-                    <li><a [routerLink]="['/dashboard','createlesson']">Lesson</a></li>
-                    <li><a [routerLink]="['/dashboard','createsegment']">Segment</a></li>
-                    <li><a [routerLink]="['/dashboard','createassignment']">Assignment</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Edit <b class="caret"></b></a>
-                <ul class="dropdown-menu navmenu-nav">
-                    <li><a [routerLink]="['/dashboard','editparticipant']">Participant</a></li>
-                    <li><a [routerLink]="['/dashboard','editgroup']">Group</a></li>
-                    <li><a [routerLink]="['/dashboard','editcourse']">Course</a></li>
-                    <li><a [routerLink]="['/dashboard','editlesson']">Lesson</a></li>
-                    <li><a [routerLink]="['/dashboard','editsegment']">Segment</a></li>
-                    <li><a [routerLink]="['/dashboard','editassignment']">Assignment</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Delete <b class="caret"></b></a>
-                <ul class="dropdown-menu navmenu-nav">
-                    <li><a [routerLink]="['/dashboard','removeparticipant']">Participant</a></li>
-                    <li><a [routerLink]="['/dashboard','removegroup']">Group</a></li>
-                    <li><a [routerLink]="['/dashboard','removecourse']">Course</a></li>
-                    <li><a [routerLink]="['/dashboard','removelesson']">Lesson</a></li>
-                    <li><a [routerLink]="['/dashboard','removesegment']">Segment</a></li>
-                    <li><a [routerLink]="['/dashboard','removeassignment']">Assignment</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navmenu-nav">
-            <li><a [routerLink]="['/accountpage']">{{user.Username}}</a></li>
-            <li><a [routerLink]="['/']" (click)="logout()">Log off</a></li>
-        </ul>
-    </nav>
-</div>
+﻿<div class="body-container" [ngStyle]="bodyStyle()">
+    <div id="myNavmenu" #navmenu class="right-nav">
+        <nav [class.offcanvas]="navmenuclass()" role="navigation" *ngIf="isuserloggedin">
+            <ul class="nav navmenu-nav">
+                <li>
+                    <a [routerLink]="['/']">
+                        <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 85.1 102.5" version="1.1"><defs><marker orient="auto" refY="0" refX="0"><path d="M0 0L5-5 -12.5 0 5 5 0 0z" transform="scale(0.8) rotate(180) translate(12.5,0)" style="fill:#000;stroke-width:1;stroke:#000" /></marker><marker orient="auto" refY="0" refX="0"><path d="M8.7 4L-2.2 0 8.7-4C7-1.6 7 1.6 8.7 4z" transform="scale(1.1) translate(1,0)" style="fill:#000;stroke-linejoin:round;stroke-width:0.6;stroke:#000" /></marker></defs><g transform="translate(-77.443928,-401.10811)"><path #logo d="m102.2 458.3c0 0 13.1 2.3 15.2-6.8 2-9.1 0.6-21.8-7.1-18.9-7.6 2.9-2.3 16.7 1.8 16.9 4 0.3 16.4 0.1 22.7-1.8 6.4-1.9 4.7-17-3.3-15.7-5.3 1-10.1 9.9-4 24.2 6 14.4 32.7 0.7 32.1-20.5-0.7-21.2-21-31.1-39.4-31.1-18.4 0-36.1 11.9-38.4 25.3-2.2 12.9 2.3 35.1 24 38.6 21.7 3.5 42 0.8 42.2 6.8 0.2 6-50.3 9.1-50 4.3 0.3-4.8 48.5-1 47.7 6.6-0.8 7.6-42.4 9.6-42.4 5.6 0-4 35.3-3.7 33.3 2.8-2 6.5-10.3 6-17 5.6" style="fill:none;stroke-linecap:round;stroke-width:5.5;stroke:#000" /></g></svg>
 
-<div class="navbar navbar-inverse navbar-fixed-top" *ngIf="isuserloggedin" #topnav>
-    <div class="container">
-        <div class="nav navbar-nav">
+                        Tungsten
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navmenu-nav">
+                <li *ngIf="user.Username"><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
+            </ul>
+            <ul></ul>
+            <ul class="nav navmenu-nav" *ngIf="isStudent()">
+                <li>
+                    <a [routerLink]="['/dashboard', 'course']" routerLinkActive="active">My Courses</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard', 'assignment']" routerLinkActive="active">My Assignments</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard', 'lesson']" routerLinkActive="active">My Lessons</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/dashboard', 'segment']" routerLinkActive="active">My Segments</a>
+                </li>
+            </ul>
+            <ul class="nav navmenu-nav" *ngIf="isTeacher()">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Create <b class="caret"></b></a>
+                    <ul class="dropdown-menu navmenu-nav">
+                        <li><a [routerLink]="['/dashboard','createparticipant']">Participant</a></li>
+                        <li><a [routerLink]="['/dashboard','creategroup']">Group</a></li>
+                        <li><a [routerLink]="['/dashboard','createcourse']">Course</a></li>
+                        <li><a [routerLink]="['/dashboard','createlesson']">Lesson</a></li>
+                        <li><a [routerLink]="['/dashboard','createsegment']">Segment</a></li>
+                        <li><a [routerLink]="['/dashboard','createassignment']">Assignment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Edit <b class="caret"></b></a>
+                    <ul class="dropdown-menu navmenu-nav">
+                        <li><a [routerLink]="['/dashboard','editparticipant']">Participant</a></li>
+                        <li><a [routerLink]="['/dashboard','editgroup']">Group</a></li>
+                        <li><a [routerLink]="['/dashboard','editcourse']">Course</a></li>
+                        <li><a [routerLink]="['/dashboard','editlesson']">Lesson</a></li>
+                        <li><a [routerLink]="['/dashboard','editsegment']">Segment</a></li>
+                        <li><a [routerLink]="['/dashboard','editassignment']">Assignment</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Delete <b class="caret"></b></a>
+                    <ul class="dropdown-menu navmenu-nav">
+                        <li><a [routerLink]="['/dashboard','removeparticipant']">Participant</a></li>
+                        <li><a [routerLink]="['/dashboard','removegroup']">Group</a></li>
+                        <li><a [routerLink]="['/dashboard','removecourse']">Course</a></li>
+                        <li><a [routerLink]="['/dashboard','removelesson']">Lesson</a></li>
+                        <li><a [routerLink]="['/dashboard','removesegment']">Segment</a></li>
+                        <li><a [routerLink]="['/dashboard','removeassignment']">Assignment</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navmenu-nav">
+                <li><a [routerLink]="['/accountpage']">{{user.Username}}</a></li>
+                <li><a [routerLink]="['/']" (click)="logout()">Log off</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="body-content" #bodycontent>
+        <div class="navbar navbar-default" *ngIf="isuserloggedin" #topnav>
             <div class="navbar-header">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0">
-                    <path d="m12.4 14.6c2.4 0.3 2 1.1-0.1 1.6-9.1-2.1-11.8 2.9-0.1 1.1 0.7 0.3-2.2 0.9-3.1 0.9-0.9 0-0.9 0.8-0.9 0.8 1.8 0.2 6.5-0.7 5.2-2 2.8-0.7 2.6-2.7 0.8-2.9 8.8-5.3-13.8 1.8-13.1-8 0.6-9 16.6-8.2 16.5 1-0.1 4-5.8 4-6.4 0.6 6.9-0.5-1-9.8-1.3-0.7-0.3 0-0.6 0.1-0.9 0.1 0.2-9.2-7.4 0.4-1.1 0.9-0.4 1.3-2.2 0.9-2.8 0.8-0.6-0.1-0.8 0.6-0.9 0.8 0.7 0.2 3.8 1.1 4.7-1.7l1.1-0.1c1 5.3 8.8 3.9 8.8-0.6 0-11.1-18.6-11-18.8-1-0.2 10.2 19.3 4.7 12.8 7.4-10.8-2.3-15.4 3.7-0.4 1zm-1.4-7.7c-0.3-6.5 4.7-0.2 0 0zm-3 0.1c-3.8 0.2 0.4-5.8 0 0z" stroke-width="0.2px" />
-                </svg>
+                <svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 85.1 102.5" version="1.1"><defs><marker orient="auto" refY="0" refX="0"><path d="M0 0L5-5 -12.5 0 5 5 0 0z" transform="scale(0.8) rotate(180) translate(12.5,0)" style="fill:#000;stroke-width:1;stroke:#000" /></marker><marker orient="auto" refY="0" refX="0"><path d="M8.7 4L-2.2 0 8.7-4C7-1.6 7 1.6 8.7 4z" transform="scale(1.1) translate(1,0)" style="fill:#000;stroke-linejoin:round;stroke-width:0.6;stroke:#000" /></marker></defs><g transform="translate(-77.443928,-401.10811)"><path #logos d="m102.2 458.3c0 0 13.1 2.3 15.2-6.8 2-9.1 0.6-21.8-7.1-18.9-7.6 2.9-2.3 16.7 1.8 16.9 4 0.3 16.4 0.1 22.7-1.8 6.4-1.9 4.7-17-3.3-15.7-5.3 1-10.1 9.9-4 24.2 6 14.4 32.7 0.7 32.1-20.5-0.7-21.2-21-31.1-39.4-31.1-18.4 0-36.1 11.9-38.4 25.3-2.2 12.9 2.3 35.1 24 38.6 21.7 3.5 42 0.8 42.2 6.8 0.2 6-50.3 9.1-50 4.3 0.3-4.8 48.5-1 47.7 6.6-0.8 7.6-42.4 9.6-42.4 5.6 0-4 35.3-3.7 33.3 2.8-2 6.5-10.3 6-17 5.6" style="fill:none;stroke-linecap:round;stroke-width:5.5;stroke:#000" /></g></svg>
                 <a class="navbar-brand" [routerLink]="['/']">
                     Tungsten
                 </a>
             </div>
-            <div class="nav navbar-nav navbar-right">
+            <div class="navbar-right">
                 <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body" (click)="toggleNavMenu()">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -90,20 +86,21 @@
                 </button>
             </div>
         </div>
-    </div>
-</div>
+        <div class="router-outlet" #routeroutlet>
+            <div *ngIf="!isuserloggedin">
+                <div class="panel-group">
 
-<div class="container body-content" [ngStyle]="bodyStyle()" #bodycontent>
-    <div *ngIf="!isuserloggedin">
-        <div class="panel-group">
+                    <lms-login [LoginPanelIsOpen]="false" (userUpdated)="userUpdated($event)" [_UserAnnouncer]="_UserAnnouncer"></lms-login>
+                </div>
+            </div>
 
-            <lms-login [LoginPanelIsOpen]="false" (userUpdated)="userUpdated($event)" [_UserAnnouncer]="_UserAnnouncer"></lms-login>
+            <router-outlet></router-outlet>
         </div>
-    </div>
-    <router-outlet></router-outlet> <!-- Angular Rounting -->
+         <!-- Angular Rounting -->
 
-    <hr />
-    <footer>
-        <p>&copy; 2016 - Tungsten</p>
-    </footer>
+        <hr />
+        <footer>
+            <p>&copy; 2016 - Tungsten</p>
+        </footer>
+    </div>
 </div>

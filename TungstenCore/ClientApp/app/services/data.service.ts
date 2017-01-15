@@ -28,23 +28,25 @@ export class DataService {
 
     get(data?: any) {
         return this.http.get(this._baseUri, data)
-            .do(this.logData)
+            //.do(this.logData)
             .map(response => {
-                console.log(response);
+                //console.log(response.json());
                 return <Response>response.json();
             });
     }
 
-    post(data?: any) {
+    post(data: any) {
         return this.http.post(this._baseUri, data)
-            .do(this.logData)
+            //.do(this.logData)
             .catch(this.handleError)
             .map(this.extractData);
     }
 
-    delete(id: string) {
-        return this.http.delete(this._baseUri + '/' + id.toString())
-            .map(response => <any>(<Response>response).json())
+    delete(data: any) {
+        return this.http.delete(this._baseUri, data)
+            //.do(this.logData)
+            .catch(this.handleError)
+            .map(this.extractData);
     }
 
     private extractData(res: Response) {
@@ -69,5 +71,23 @@ export class DataService {
     private handleError(error: Response) {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
+    }
+
+    private extractDatalist(res: Response) {
+        if (res) {
+            if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] === '<') {
+                console.log(res);
+                console.error('Response Invalid');
+                console.error({
+                    Content_type: 'text/html; charset=utf-8',
+                    URI: res.url,
+                    Response: res
+                });
+                return null;
+            }
+            let body = <any[]>res.json();
+            return body;
+        }
+        return null;
     }
 }

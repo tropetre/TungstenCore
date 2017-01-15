@@ -1,5 +1,5 @@
-﻿@import 'mixins';
-@import 'variables';
+﻿@import '_mixins.scss';
+@import '_variables.scss';
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
@@ -16,16 +16,27 @@ body {
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    display:flex;
+    flex-flow:column;
+    padding:0;
+    margin:0;
+    overflow:hidden;
+    transition: all 0.2s;
 }
 
 footer{
 
 }
 
+
 .navbar {
     background-color: $color-primary;
+    border:none;
 }
 
 .navbar-inverse .navbar-nav > li > a 
@@ -45,6 +56,9 @@ footer{
     .navbar > .container .navbar-brand {
         margin-left: 0;
     }
+}
+.navbar-header{
+    position:absolute;
 }
 /*Set svg-logo to be behind brand name and always in the top left corner*/
 .navbar-header>svg {
@@ -142,10 +156,51 @@ footer{
     *** Dropdownbox Component
     ***
 */
+.navmenu-brand:focus{
+    background-color:transparent;
+}
+.right-nav {
+    background-color:#cacaca;
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    width:150px;
+    z-index: 1;
+    transition: all 0.2s;
+}
 
-.navbar-toggle {
-    float: left;
-    margin-left: 15px;
+.right-nav-show {
+    transform: translateX(-150px);
+}
+
+.right-nav-hide {
+    transform: translateX(150px);
+}
+
+.body-content-push {
+    transform: translateX(-150px);
+}
+
+.body-content-unpush {
+    transform: translateX(0px);
+}
+
+.body-container{
+    display:flex;
+    flex-flow:row;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+.router-outlet{
+    padding-left:15px;
+    padding-right:15px;
+    transition: all 0.2s;
 }
 
 @media (min-width: 0) { // small devices
@@ -162,15 +217,6 @@ footer{
     body {
         padding: 0;
     }
-    /*
-    .body-content {
-        padding-right: 315px;
-    }*/
-
-    .navbar-toggle {
-        display: block; /* force showing the toggle */
-    }
-
     .navbar {
         display: none;
     }
@@ -195,4 +241,18 @@ footer{
     background: white;
     cursor: inherit;
     display: block;
+}
+
+.path {
+  stroke-dasharray: 590;
+  stroke-dashoffset:590;
+  
+  animation: 0.5s ease-in-out 0s infinite alternate dash;
+}
+
+@keyframes dash {
+	
+  to {
+    stroke-dashoffset: 0;
+  }
 }

@@ -1,21 +1,17 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AssignmentService } from '../../../../../services/assignment.service';
-import { IGroup } from '../../../../../interfaces/group';
-import { User } from '../../../../../classes/user';
 import { OperationResult } from '../../../../../classes/operationResult';
-import { Lesson } from '../../../../../classes/lesson';
-import { Course } from '../../../../../classes/course';
-import { Segment } from '../../../../../classes/segment';
+import { ISegment } from '../../../../../interfaces/segment';
+import { IAssignment } from '../../../../../interfaces/assignment';
 import { Assignment } from '../../../../../classes/assignment';
 
 @Component({
     template: require('./createassignment.component.html')
 })
 export class CreateAssignmentPage implements OnInit {
-    private assignment: Assignment;
-    private segments: Segment[];
-    
+    private assignment: IAssignment = new Assignment('', '', '',);
+    private segments: ISegment[];
     private statusmessage: string;
 
     constructor(
@@ -31,7 +27,7 @@ export class CreateAssignmentPage implements OnInit {
             this.assignment.SegmentId = id;
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { segments: Segment[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { segments: ISegment[] }) => {
                 this.segments = data.segments;
             }, error => console.error(error), () => {
                 if (!this.segments.length)

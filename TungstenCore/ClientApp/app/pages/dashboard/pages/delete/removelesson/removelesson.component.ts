@@ -34,7 +34,7 @@ export class RemoveLessonPage implements OnInit {
     }
 
     Remove() {
-        this._LessonService.Delete(this.lesson.Id).subscribe((lesson) => {
+        this._LessonService.Delete(this.lesson).subscribe((lesson) => {
             this.lesson = lesson;
         }, error => console.error(error), () => {
             this._Router.navigate(['../']);

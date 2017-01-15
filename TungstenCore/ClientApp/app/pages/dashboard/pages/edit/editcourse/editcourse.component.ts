@@ -1,17 +1,17 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { User } from '../../../../../classes/user';
-import { Course } from '../../../../../classes/course';
+import { IUser } from '../../../../../interfaces/user';
+import { ICourse } from '../../../../../interfaces/course';
 import { CourseService } from '../../../../../services/course.service';
-import { Group } from '../../../../../classes/group';
+import { IGroup } from '../../../../../interfaces/group';
 
 @Component({
     template: require('./editcourse.component.html')
 })
 export class EditCoursePage implements OnInit {
-    private course: Course;
-    private courses: Course[];
-    private groups: Group[];
+    private course: ICourse;
+    private courses: ICourse[];
+    private groups: IGroup[];
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -22,14 +22,15 @@ export class EditCoursePage implements OnInit {
     ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { course: Course, groups: Group[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { course: ICourse, groups: IGroup[] }) => {
                 this.course = data.course;
                 this.groups = data.groups;
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { courses: Course[], groups: Group[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { courses: ICourse[], groups: IGroup[] }) => {
                 this.courses = data.courses;
+                this.course = this.courses[0];
                 this.groups = data.groups;
             }, error => console.error(error), () => {
 
@@ -38,7 +39,7 @@ export class EditCoursePage implements OnInit {
             });
         }
     }
-
+    
     Save() {
         this._CourseService.edit(this.course).subscribe((course) => {
             this.course = course;

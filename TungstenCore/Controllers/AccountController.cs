@@ -135,6 +135,9 @@ namespace TungstenCore.Controllers
         public IAsyncEnumerable<ApplicationUser> GetUserList() =>
             _repository.GetNotAssignedUsers().ToAsyncEnumerable(); // TODO: Not Role teacher Maybe move to seperate controller.
 
+        public IEnumerable<ApplicationUser> GetAllUsers() =>
+            _repository.GetAllUsers().ToList();
+
         // TODO: Implement Registration Logic.
         //[HttpPost]
         //[AllowAnonymous]
