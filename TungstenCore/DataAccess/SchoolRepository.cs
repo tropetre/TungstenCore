@@ -65,22 +65,20 @@ namespace TungstenCore.DataAccess
         }
 
         public async Task<ApplicationUser> GetAttachedUserAsync(string userId) =>
-            await UsersWithIncludedProperties().Where(u => u.Id == userId).FirstOrDefaultAsync();
+            await UsersWithIncludedProperties().SingleOrDefaultAsync(u => u.Id == userId);
 
 
         public IQueryable<ApplicationUser> GetNotAssignedUsers() =>
             _context.Users.Where(u => !u.Groups.Any()).AsNoTracking();
 
-        public IQueryable<ApplicationUser> GetAllUsers() =>
-            _context.Users.AsNoTracking();
-
-        public Task<Group> GetGroupWithLessonsAsync(string id) =>
+        public Task<Group> GetGroupWithLessonsAsync(string groupId) =>
             _context.Groups
-                .Include(g => g.Courses)
-                    .ThenInclude(c => c.Lessons)
-                    .Where(g => g.Id == id)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
+                .Include(group => group.Courses)
+                    .ThenInclude(course => course.Lessons)
+                        .AsNoTracking()
+                        .SingleOrDefaultAsync(group => group.Id == groupId);
+
+
 
         public Group CreateGroup(Group group)
         {
@@ -290,5 +288,8 @@ namespace TungstenCore.DataAccess
             _context.SaveChanges();
             return lesson;
         }
+
+        public async Task<Course> GetCourseByIdAsync(string id) =>
+            await _context.Courses.SingleOrDefaultAsync(c => c.Id == id);
     }
 }

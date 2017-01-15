@@ -45,7 +45,7 @@ namespace TungstenCore.Controllers
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
         public Group CreateGroup([FromBody] Group group) =>
-            _repository.CreateGroup(group);
+            _repository.CreateGroup(group); // TODO: Insert the teacher into the group.
 
         [HttpPost]
         [Authorize(Roles = teacherOrAdmin)]
