@@ -15,7 +15,7 @@
 })
 export class DropdownBox implements OnInit, AfterViewInit {
     @Input('title') Title: string;
-    @Input('content') Content: any[];
+    @Input('content') Content: any;
     @Input('content-type') ContentType: any;
     @Input('create-id') CreateId: string;
     @Input('role') role: string;
@@ -28,6 +28,7 @@ export class DropdownBox implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.isOpen = 'close';
+        console.log(this.Content);
     }
     
     OpenClose() {

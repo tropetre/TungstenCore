@@ -18,9 +18,9 @@ export class UploadService {
                 xhr: XMLHttpRequest = new XMLHttpRequest();
 
             for (let i = 0; i < files.length; i++) {
-                formData.append("uploads[]", files[i], files[i].name);
+                formData.append("f[]", files[i], files[i].name);
             }
-
+            console.log(files);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {
@@ -37,7 +37,7 @@ export class UploadService {
 
                 this.progressObserver.next(this.progress);
             };
-
+            console.log(formData);
             xhr.open('POST', 'file/Upload', true);
             var serverFileName = xhr.send(formData);
             return serverFileName;

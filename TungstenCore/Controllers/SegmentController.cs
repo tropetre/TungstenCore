@@ -10,6 +10,7 @@ namespace TungstenCore.Controllers
 {
     using DataAccess;
     using Models;
+    using System.Linq;
     using ViewModels.Wrappers;
     public class SegmentController : Controller
     {
@@ -26,8 +27,8 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Segment>> GetAll() =>
-            await _repository.GetSegmentsForUserAsync(currentUserId);
+        public IQueryable<Segment> GetAll() =>
+            _repository.GetSegmentsForUser(currentUserId);
 
         [HttpPost]
         public async Task<Segment> GetById([FromBody] IdWrapper wrapper) =>

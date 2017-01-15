@@ -10,6 +10,7 @@ namespace TungstenCore.Controllers
 {
     using DataAccess;
     using Models;
+    using System.Linq;
     using ViewModels.Wrappers;
 
     [Authorize]
@@ -28,8 +29,8 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Assignment>> GetAll() =>
-            await _repository.GetAssignmentsForUserAsync(currentUserId);
+        public IQueryable<Assignment> GetAll() =>
+            _repository.GetAssignmentsForUser(currentUserId);
 
         [HttpPost]
         public async Task<Assignment> GetById([FromBody] IdWrapper wrapper) =>

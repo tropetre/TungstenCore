@@ -8,11 +8,11 @@ import 'rxjs/rx';
 
 @Injectable()
 export class AssignmentService {
-    private _AssignmentGetAllAPI: string = '/Assignment/GetAll';
-    private _AssignmentGetByIdAPI: string = '/Assignment/GetById';
-    private _AssignmentCreateAPI: string = '/Assignment/Create';
-    private _AssignmentDeleteAPI: string = '/Assignment/Delete';
-    private _AssignmentEditAPI: string = '/Assignment/Edit';
+    private _AssignmentGetAllAPI: string = '/assignment/getall';
+    private _AssignmentGetByIdAPI: string = '/assignment/GetById';
+    private _AssignmentCreateAPI: string = '/assignment/Create';
+    private _AssignmentDeleteAPI: string = '/assignment/Delete';
+    private _AssignmentEditAPI: string = '/assignment/Edit';
 
     constructor( @Inject(DataService) private _DataService: DataService) { }
 

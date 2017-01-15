@@ -10,6 +10,7 @@ namespace TungstenCore.Controllers
 {
     using DataAccess;
     using Models;
+    using System.Linq;
     using ViewModels.Wrappers;
     public class CourseController : Controller
     {
@@ -26,8 +27,8 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IEnumerable<Course>> GetAll() =>
-            await _repository.GetCoursesForUserAsync(currentUserId);
+        public IQueryable<Course> GetAll() =>
+            _repository.GetCoursesForUser(currentUserId);
 
         [HttpPost]
         public async Task<Course> GetById([FromBody] IdWrapper wrapper) =>
