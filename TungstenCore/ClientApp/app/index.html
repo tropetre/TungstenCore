@@ -19,7 +19,7 @@
                 <li *ngIf="user.Username"><a [routerLink]="['/dashboard']" routerLinkActive="active">Dashboard</a></li>
             </ul>
             <ul></ul>
-            <ul class="nav navmenu-nav" *ngIf="isStudent()">
+            <ul class="nav navmenu-nav">
                 <li>
                     <a [routerLink]="['/dashboard', 'course']" routerLinkActive="active">My Courses</a>
                 </li>
@@ -108,7 +108,6 @@
         </div>
         <!-- Angular Rounting -->
 
-        <hr />
         <footer>
             <p>&copy; 2016 - Tungsten</p>
         </footer>

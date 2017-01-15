@@ -1,12 +1,12 @@
 ﻿<div class="form-group form-group-lg" *ngIf="segments">
-    <select name="Segment" [ngModel]="segment" class="form-control" required>
-        <option *ngFor="let segment of segments" [value]="segment" title="Required">
+    <select name="Segment" [(ngModel)]="segment" class="form-control" required>
+        <option *ngFor="let segment of segments" [ngValue]="segment" title="Required">
             {{segment.Name}}
         </option>
     </select>
 </div>
-
-<label>{{segment.Name}}</label><br />
-<label>{{segment.Description}}</label><br />
-
+<div *ngIf="segment">
+    <label>{{segment.Name}}</label><br />
+    <label>{{segment.Description}}</label><br />
+</div>
 <button class="btn btn-lg btn-danger" (Click)="Remove()">Remove</button>

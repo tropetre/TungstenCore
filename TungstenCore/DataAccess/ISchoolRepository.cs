@@ -15,8 +15,8 @@ namespace TungstenCore.DataAccess
         Group CreateGroup(Group group);
         Task<Group> EditGroup(Group group);
         Group DeleteGroup(Group croup);
-        Task<IEnumerable<Group>> GetGroupsForUserAsync(string userId);
-        Task<bool> AddUserToGroupAsync(string userId, string groupId);
+        IQueryable<Group> GetGroupsForUserAsync(string userId);
+        Task <bool> AddUserToGroupAsync(string userId, string groupId);
         Task<bool> RemoveUserFromGroupAsync(string userId, string groupId);
 
         Task<IEnumerable<Course>> GetCoursesForUserAsync(string userId);

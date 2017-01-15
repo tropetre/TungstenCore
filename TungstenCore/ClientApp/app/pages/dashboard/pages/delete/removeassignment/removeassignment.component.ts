@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AssignmentService } from '../../../../../services/assignment.service';
 import { IAssignment } from '../../../../../interfaces/assignment';
+import { Assignment } from '../../../../../classes/assignment';
 
 @Component({
     template: require('./removeassignment.component.html')
@@ -27,7 +28,7 @@ export class RemoveAssignmentPage implements OnInit {
         else {
             this._ActivatedRoute.data.subscribe((data: { assignments: IAssignment[] }) => {
                 this.assignments = data.assignments;
-            }, error => console.error(error), () => {
+                this.assignment = data.assignments[0] || new Assignment('', '','');
 
                 if (!this.assignments.length)
                     this._Router.navigate(['../']);

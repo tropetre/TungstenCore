@@ -9,6 +9,7 @@ textarea {
 }
 
 body {
+    text-align:center;
     padding-top: 65px;
     padding-bottom: 20px;
     background-color: $color-background;
@@ -29,17 +30,12 @@ body {
     transition: all 0.2s;
 }
 
-footer{
-
-}
-
-
 .navbar {
     background-color: $color-primary;
     border:none;
 }
 
-.navbar-inverse .navbar-nav > li > a 
+.navbar-nav > li > a 
 {
     color: $color-panel;
 }
@@ -169,6 +165,7 @@ footer{
     background-color:transparent;
 }
 .right-nav {
+    font-weight:700;
     background-color: $color-primary;
     border-left:solid 1px;
     position:absolute;
@@ -178,6 +175,20 @@ footer{
     width:150px;
     z-index: 1;
     transition: all 0.2s;
+    text-align:left;
+}
+
+.right-nav a{
+    color:#3e3e3e;
+}
+
+.right-nav a:hover, .right-nav a:focus{
+    color:#747474;
+    background-color: rgba(255, 255, 255, 0.65);
+}
+
+.right-nav ul{
+    margin-bottom:20px;
 }
 
 .right-nav-show {
@@ -211,6 +222,7 @@ footer{
     padding-left:15px;
     padding-right:15px;
     transition: all 0.2s;
+    flex-grow:10;
 }
 
 @media (min-width: 0) { // small devices

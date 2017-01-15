@@ -1,12 +1,14 @@
-﻿<div class="form-group form-group-lg" *ngIf="Groups">
-    <select name="Group" [ngModel]="Groups" class="form-control" required>
-        <option *ngFor="let group of Groups" [value]="group" title="Required">
+﻿<div class="form-group form-group-lg" *ngIf="groups">
+    <select name="Group" [(ngModel)]="group" class="form-control" required>
+        <option *ngFor="let group of groups" [ngValue]="group" title="Required">
             {{group.Name}}
         </option>
     </select>
 </div>
 
-<label>{{Group.Name}}</label><br />
-<label>{{Group.Description}}</label><br />
+<div *ngIf="group">
+    <label>{{group.Name}}</label><br />
+    <label>{{group.Description}}</label><br />
+</div>
 
 <button class="btn btn-lg btn-danger" (Click)="Remove()">Remove</button>

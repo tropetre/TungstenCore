@@ -2,6 +2,7 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { SegmentService } from '../../../../../services/segment.service';
 import { ISegment } from '../../../../../interfaces/segment';
+import { Segment } from '../../../../../classes/segment';
 
 @Component({
     template: require('./removesegment.component.html')
@@ -26,7 +27,8 @@ export class RemoveSegmentPage implements OnInit {
         else {
             this._ActivatedRoute.data.subscribe((data: { segments: ISegment[] }) => {
                 this.segments = data.segments;
-            }, error => console.error(error), () => {
+                this.segment = data.segments[0] || new Segment('', '', '');
+
                 if (!this.segments.length)
                     this._Router.navigate(['../']);
             });

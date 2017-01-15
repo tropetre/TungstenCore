@@ -5,8 +5,8 @@
         </option>
     </select>
 </div>
-
-<label>{{assignment.Name}}</label><br />
-<label>{{assignment.Description}}</label><br />
-
+<div *ngIf="assignment">
+    <label>{{assignment.Name}}</label><br />
+    <label>{{assignment.Description}}</label><br />
+</div>
 <button class="btn btn-lg btn-danger" (Click)="Remove()">Remove</button>

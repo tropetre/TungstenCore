@@ -1,98 +1,25 @@
-﻿<h1>Segments</h1>
-<div *ngIf="course">
-    <button class="btn btn-primary" [routerLink]="['/dashboard', 'createsegment', course.Id]">Create Segment</button>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Segment Id
-                </th>
-                <th>
-                    Subject
-                </th>
-                <th>
-                    Descreption
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let Segment of course.Segments">
-                <td>
-                    {{Segment.Id}}
-                </td>
-                <td>
-                    {{Segment.Name}}
-                </td>
-                <td>
-                    {{Segment.Description}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+﻿<div *ngIf="courses">
+    <dropdownbox [title]="'Courses'" [content]="courses" [content-type]="'course'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createcourse']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
 </div>
 
-<h1>Participants</h1>
 <div *ngIf="course">
-    <button class="btn btn-primary" [routerLink]="['/dashboard', { outlets: { dashboard: ['addparticipant', course.Id] } }]">Add Participant</button>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Participant Id
-                </th>
-                <th>
-                    Name
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let Participant of course.Participants">
-                <td>
-                    {{Participant.Id}}
-                </td>
-                <td>
-                    {{Participant.Name}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<h1>Lessons</h1>
-<div *ngIf="course">
-    <button class="btn btn-primary" [routerLink]="['/dashboard', { outlets: { dashboard: ['createlesson', course.Id] } }]">Create Lesson</button>
-    <table>
-        <thead>
-            <tr>
-                <th>
-                    Lesson Id
-                </th>
-                <th>
-                    StartTime
-                </th>
-                <th>
-                    EndTime
-                </th>
-                <th>
-                    Classroom
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let Lesson of course.Lessons">
-                <td>
-                    {{Lesson.Id}}
-                </td>
-                <td>
-                    {{Lesson.StartTime}}
-                </td>
-                <td>
-                    {{Lesson.EndTime}}
-                </td>
-                <td>
-                    {{Lesson.Classroom}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <dropdownbox [title]="'Segments'" [content]="course.Segments" [content-type]="'segment'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createsegment']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+    <dropdownbox [title]="'Segments'" [content]="course.Lessons" [content-type]="'segment'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createsegment']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+    <dropdownbox [title]="'Participants'" [content]="course.Participants" [content-type]="'participant'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createparticipant']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
 </div>

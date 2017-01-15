@@ -14,7 +14,7 @@ export class GroupResolver implements Resolve<IGroup> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IGroup> {
         if (route.params['id']) {
             let group = this._GroupService.getGroupById(route.params['id']);
-
+            console.log(group);
             if (group) {
                 return group;
             } else {

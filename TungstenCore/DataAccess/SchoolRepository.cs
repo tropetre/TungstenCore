@@ -105,8 +105,9 @@ namespace TungstenCore.DataAccess
             return group;
         }
 
-        public async Task<IEnumerable<Group>> GetGroupsForUserAsync(string userId) =>
-            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
+        public IQueryable<Group> GetGroupsForUserAsync(string userId) =>
+            _context.Groups.AsNoTracking();
+            //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
 
         public async Task<bool> AddUserToGroupAsync(string userId, string groupId)
         {
@@ -145,7 +146,7 @@ namespace TungstenCore.DataAccess
         // Course
         public async Task<IEnumerable<Course>> GetCoursesForUserAsync(string userId)
         {
-            var groups = await GetGroupsForUserAsync(userId);
+            var groups = GetGroupsForUserAsync(userId);
             List<Course> courses = new List<Course>();
             foreach(Group g in groups)
             {

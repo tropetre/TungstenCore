@@ -16,6 +16,8 @@ import { GroupPage } from './pages/group/group.component';
 import { CoursePage } from './pages/course/course.component';
 import { AddParticipantPage } from './pages/addparticipant/addparticipant.component';
 import { AssignmentPage } from './pages/assignment/assignment.component';
+import { LessonPage } from './pages/lesson/lesson.component';
+import { SegmentPage } from './pages/segment/segment.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -88,6 +90,10 @@ const routes: Routes = [
             { path: 'course/:id', component: CoursePage, resolve: { course: CourseResolver } },
             { path: 'assignment', component: AssignmentPage/*, resolve: { assignments: AssignmentsResolver } */},
             { path: 'assignment/:id', component: AssignmentPage/*, resolve: { assignment: AssignmentResolver } */},
+            { path: 'lesson', component: LessonPage, resolve: { lessons: LessonsResolver } },
+            { path: 'lesson/:id', component: LessonPage, resolve: { lesson: LessonResolver } },
+            { path: 'segment', component: SegmentPage, resolve: { segments: SegmentsResolver } },
+            { path: 'segment/:id', component: SegmentPage, resolve: { segment: SegmentResolver } },
 
             // Create Routes
             { path: 'createparticipant', component: CreateParticipantPage, resolve: { groups: GroupsResolver } },
@@ -126,7 +132,7 @@ const routes: Routes = [
             { path: 'editsegment/:id', component: EditSegmentPage, resolve: { segment: SegmentResolver, courses: CoursesResolver } },
 
             // Delete Routes
-            { path: 'removegroup', component: RemoveGroupPage, resolve: { user: userresolver, group: GroupsResolver } },
+            { path: 'removegroup', component: RemoveGroupPage, resolve: { user: userresolver, groups: GroupsResolver } },
             { path: 'removegroup/:id', component: RemoveGroupPage, resolve: { user: userresolver, group: GroupResolver } },
 
             { path: 'removecourse', component: RemoveCoursePage, resolve: { courses: CoursesResolver } },

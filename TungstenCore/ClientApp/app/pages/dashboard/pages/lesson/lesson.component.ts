@@ -1,13 +1,14 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ICourse } from '../../../../interfaces/course';
+import { ILesson } from '../../../../interfaces/lesson';
 
 @Component({
-    template: require('./course.component.html')
+    template: require('./lesson.component.html')
 })
-export class CoursePage implements OnInit {
-    private course: ICourse;
-    private courses: ICourse[];
+export class LessonPage implements OnInit {
+    private lesson: ILesson;
+    private lessons: ILesson[];
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -17,17 +18,17 @@ export class CoursePage implements OnInit {
     ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { course: ICourse }) => {
-                this.course = data.course;
-                console.log(data.course);
+            this._ActivatedRoute.data.subscribe((data: { lesson: ILesson }) => {
+                this.lesson = data.lesson;
+                console.log(data.lesson);
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { courses: ICourse[] }) => {
-                this.courses = data.courses;
-                console.log(data.courses);
+            this._ActivatedRoute.data.subscribe((data: { lessons: ILesson[] }) => {
+                this.lessons = data.lessons;
+                console.log(data.lessons);
             }, error => console.error(error), () => {
-                if (!this.courses.length)
+                if (!this.lessons.length)
                     this._Router.navigate(['../']);
             });
         }

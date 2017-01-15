@@ -27,11 +27,17 @@ export class isProperRoleGuard implements CanActivateChild {
         routes['teacher'] = [
             'dashboard',
             'teacher',
-            'assignments',
+            'assignment',
+            'assignment/:id',
             'groups',
             'group/:id',
+            'course',
             'course/:id',
             'addparticipant/:id',
+            'lesson',
+            'lesson/:id',
+            'segment',
+            'segment/:id',
 
             // Create
             'creategroup',

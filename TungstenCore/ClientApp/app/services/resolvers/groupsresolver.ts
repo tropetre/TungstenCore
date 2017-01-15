@@ -13,7 +13,6 @@ export class GroupsResolver implements Resolve<IGroup[]> {
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IGroup[]> {
         let groups = this._GroupService.getGroups();
-
         if (groups) {
             return groups;
         } else {

@@ -21,6 +21,8 @@ import { GroupPage } from './pages/group/group.component';
 import { CoursePage } from './pages/course/course.component';
 import { AddParticipantPage } from './pages/addparticipant/addparticipant.component';
 import { AssignmentPage } from './pages/assignment/assignment.component';
+import { LessonPage } from './pages/lesson/lesson.component';
+import { SegmentPage } from './pages/segment/segment.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -110,6 +112,8 @@ import { FilterUserByNamePipe } from '../../pipes/filterPipe';
         CoursePage,
         AddParticipantPage,
         AssignmentPage,
+        LessonPage,
+        SegmentPage,
 
         // Create
         CreateGroup,

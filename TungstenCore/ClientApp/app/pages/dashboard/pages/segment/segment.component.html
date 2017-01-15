@@ -1,0 +1,14 @@
+﻿<div *ngIf="segments">
+    <dropdownbox [title]="'Segments'" [content]="segments" [content-type]="'segment'">
+        <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createsegment']" ddb-create>
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </dropdownbox>
+</div>
+
+<div *ngIf="segment">
+    <div>
+        {{segment.Name}}
+        {{segment.Description}}
+    </div>
+</div>

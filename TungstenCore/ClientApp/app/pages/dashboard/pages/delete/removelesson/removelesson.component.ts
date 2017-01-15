@@ -2,13 +2,14 @@
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { LessonService } from '../../../../../services/lesson.service';
 import { Lesson } from '../../../../../classes/lesson';
+import { ILesson } from '../../../../../interfaces/lesson';
 
 @Component({
     template: require('./removelesson.component.html')
 })
 export class RemoveLessonPage implements OnInit {
-    private lesson: Lesson;
-    private lessons: Lesson[];
+    private lesson: ILesson;
+    private lessons: ILesson[];
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -19,14 +20,15 @@ export class RemoveLessonPage implements OnInit {
     ngOnInit() {
         let id = this._ActivatedRoute.snapshot.params['id'];
         if (id) {
-            this._ActivatedRoute.data.subscribe((data: { lesson: Lesson }) => {
+            this._ActivatedRoute.data.subscribe((data: { lesson: ILesson }) => {
                 this.lesson = data.lesson;
             });
         }
         else {
-            this._ActivatedRoute.data.subscribe((data: { lessons: Lesson[] }) => {
+            this._ActivatedRoute.data.subscribe((data: { lessons: ILesson[] }) => {
                 this.lessons = data.lessons;
-            }, error => console.error(error), () => {
+                this.lesson = data.lessons[0] || new Lesson('', '');
+
                 if (!this.lessons.length)
                     this._Router.navigate(['../']);
             });
