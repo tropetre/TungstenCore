@@ -12,9 +12,9 @@ namespace TungstenCore.DataAccess
 {
     public class SchoolRepository : ISchoolRepository, IDisposable
     {
-        private ISchoolContext _context;
+        private ApplicationDbContext _context;
 
-        public SchoolRepository(ISchoolContext context)
+        public SchoolRepository(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -54,18 +54,15 @@ namespace TungstenCore.DataAccess
         }
         #endregion
 
-        private IIncludableQueryable<ApplicationUser, dynamic> UsersWithIncludedProperties()
-        {
-            return _context.Users
+
+        public Task<ApplicationUser> GetAttachedUserAsync(string userId) =>
+            _context.Users
                 .Include(user => user.Groups)
                     .ThenInclude(userGroup => userGroup.Group)
                         .ThenInclude(group => group.Courses)
                         .ThenInclude(group => group.Segments)
-                            .ThenInclude(segment => segment.Assignments);
-        }
-
-        public async Task<ApplicationUser> GetAttachedUserAsync(string userId) =>
-            await UsersWithIncludedProperties().SingleOrDefaultAsync(u => u.Id == userId);
+                            .ThenInclude(segment => segment.Assignments)
+            .SingleOrDefaultAsync(u => u.Id == userId);
 
 
         public IQueryable<ApplicationUser> GetNotAssignedUsers() =>
@@ -76,12 +73,12 @@ namespace TungstenCore.DataAccess
                 .Include(group => group.Courses)
                     .ThenInclude(course => course.Lessons)
                         .AsNoTracking()
-                        .SingleOrDefaultAsync(group => group.Id == groupId);
+            .SingleOrDefaultAsync(group => group.Id == groupId);
 
 
 
 
-        public IQueryable<ApplicationUser> GetAllUsers() => 
+        public IQueryable<ApplicationUser> GetAllUsers() =>
             _context.Users.AsNoTracking();
 
         public Group CreateGroup(Group group)
@@ -107,7 +104,7 @@ namespace TungstenCore.DataAccess
 
         public IQueryable<Group> GetGroupsForUserAsync(string userId) =>
             _context.Groups.AsNoTracking();
-            //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
+        //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
 
         public async Task<bool> AddUserToGroupAsync(string userId, string groupId)
         {
@@ -148,7 +145,7 @@ namespace TungstenCore.DataAccess
         {
             var groups = GetGroupsForUserAsync(userId);
             List<Course> courses = new List<Course>();
-            foreach(Group g in groups)
+            foreach (Group g in groups)
             {
                 courses.AddRange(g.Courses);
             }
@@ -224,7 +221,7 @@ namespace TungstenCore.DataAccess
             IEnumerable<Segment> segments = await GetSegmentsForUserAsync(userId);
             List<Assignment> assignments = new List<Assignment>();
 
-            foreach(Segment s in segments)
+            foreach (Segment s in segments)
             {
                 assignments.AddRange(s.Assignments);
             }
@@ -234,7 +231,7 @@ namespace TungstenCore.DataAccess
 
         public async Task<Assignment> GetAssignmentByIdAsync(string Id) =>
             (await _context.Assignments.Where(a => a.Id == Id).FirstOrDefaultAsync());
-        
+
 
         public Assignment CreateAssignment(Assignment assignment)
         {

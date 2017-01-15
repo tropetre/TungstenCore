@@ -7,7 +7,7 @@ namespace TungstenCore.DataAccess
     using Models;
     using Models.JoinModels;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, ISchoolContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base (options)
         {
