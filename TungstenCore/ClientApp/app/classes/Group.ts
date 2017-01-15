@@ -1,9 +1,13 @@
 ﻿import { IGroup } from '../interfaces/Group';
+import { ICourse } from '../interfaces/course';
+import { IUser } from '../interfaces/user';
 
 export class Group implements IGroup {
     Id: string;
     Name: string;
     Description: string;
+    Participants: IUser[];
+    Courses: ICourse[];
 
     constructor(name: string, description: string) {
         this.Name = name;

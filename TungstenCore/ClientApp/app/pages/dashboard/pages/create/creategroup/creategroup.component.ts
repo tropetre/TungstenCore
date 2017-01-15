@@ -1,5 +1,7 @@
 ﻿import { Component, Inject } from '@angular/core';
 import { GroupService } from '../../../../../services/groupservice';
+import { IGroup } from '../../../../../interfaces/group';
+import { IUser } from '../../../../../interfaces/user';
 import { Group } from '../../../../../classes/group';
 import { User } from '../../../../../classes/user';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,8 +10,8 @@ import { Router, ActivatedRoute } from '@angular/router';
     template: require('./creategroup.component.html')
 })
 export class CreateGroup {
-    private group: Group = new Group('', '');
-    user: User;
+    private group: IGroup = new Group('', '');
+    user: IUser;
     constructor(
         @Inject(GroupService) private _GroupService: GroupService,
         @Inject(Router) private router: Router,
@@ -17,7 +19,7 @@ export class CreateGroup {
     ) { }
 
     ngOnInit() {
-        this._ActivatedRoute.data.subscribe((data: { user: User }) => {
+        this._ActivatedRoute.data.subscribe((data: { user: IUser }) => {
             this.user = data.user;
         });
     }

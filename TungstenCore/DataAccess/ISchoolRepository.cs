@@ -20,7 +20,7 @@ namespace TungstenCore.DataAccess
         Task<bool> RemoveUserFromGroupAsync(string userId, string groupId);
 
         Task<IEnumerable<Course>> GetCoursesForUserAsync(string userId);
-        Task<Course> GetCourseByIdAsync(string Id);
+        Task<Course> GetCourseByIdAsync(string id);
         Course CreateCourse(Course course);
         Course EditCourse(Course course);
         Course DeleteCourse(Course course);

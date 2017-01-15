@@ -80,6 +80,10 @@ namespace TungstenCore.DataAccess
 
 
 
+
+        public IQueryable<ApplicationUser> GetAllUsers() => 
+            _context.Users.AsNoTracking();
+
         public Group CreateGroup(Group group)
         {
             _context.Groups.Add(group);
@@ -141,8 +145,12 @@ namespace TungstenCore.DataAccess
         // Course
         public async Task<IEnumerable<Course>> GetCoursesForUserAsync(string userId)
         {
-            var groups = await GetGroupWithLessonsAsync(userId);
-            IEnumerable<Course> courses = groups.Courses;
+            var groups = await GetGroupsForUserAsync(userId);
+            List<Course> courses = new List<Course>();
+            foreach(Group g in groups)
+            {
+                courses.AddRange(g.Courses);
+            }
             return courses;
         }
 
@@ -288,8 +296,5 @@ namespace TungstenCore.DataAccess
             _context.SaveChanges();
             return lesson;
         }
-
-        public async Task<Course> GetCourseByIdAsync(string id) =>
-            await _context.Courses.SingleOrDefaultAsync(c => c.Id == id);
     }
 }

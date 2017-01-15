@@ -30,6 +30,11 @@ body {
 .navbar-inverse .navbar-nav > li > a {
   color: #ffdcc6; }
 
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: rgba(238, 238, 238, 0); }
+
 .navbar-inverse .navbar-brand {
   color: #ffdcc6; }
 
@@ -41,6 +46,9 @@ body {
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand {
     margin-left: 0; } }
+
+.navbar-brand > a:focus {
+  background-color: transparent; }
 
 .navbar-header {
   position: absolute; }
@@ -136,7 +144,8 @@ body {
   background-color: transparent; }
 
 .right-nav {
-  background-color: #cacaca;
+  background-color: #e46a1a;
+  border-left: solid 1px;
   position: absolute;
   top: 0;
   bottom: 0;

@@ -13,7 +13,6 @@ import { UserAnnouncer } from '../../services/UserAnnouncer';
 })
 export class Dashboard_Index implements OnInit, AfterViewInit {
     user: User;
-    @ViewChild('loadingalert') LoadingAlert: ElementRef;
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
         @Inject(Router) private router: Router,
@@ -24,13 +23,10 @@ export class Dashboard_Index implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         this.router.events.subscribe((val) => {
-            if (val instanceof NavigationStart)
-                this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'block');
-
+            
             //console.log(this.LoadingAlert.nativeElement.offsetWidth);
 
             if (val instanceof NavigationEnd || val instanceof NavigationError) {
-                this.renderer.setElementStyle(this.LoadingAlert.nativeElement, 'display', 'none');
                 if (val.url === '/dashboard')
                     this.reRoute();
             }

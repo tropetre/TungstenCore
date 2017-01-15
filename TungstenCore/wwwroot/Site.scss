@@ -43,6 +43,11 @@ footer{
 {
     color: $color-panel;
 }
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: rgba(238, 238, 238, 0.00);
+}
 .navbar-inverse .navbar-brand
 {
     color: $color-panel;
@@ -56,6 +61,10 @@ footer{
     .navbar > .container .navbar-brand {
         margin-left: 0;
     }
+}
+
+.navbar-brand > a:focus{
+    background-color:transparent;
 }
 .navbar-header{
     position:absolute;
@@ -160,7 +169,8 @@ footer{
     background-color:transparent;
 }
 .right-nav {
-    background-color:#cacaca;
+    background-color: $color-primary;
+    border-left:solid 1px;
     position:absolute;
     top:0;
     bottom:0;

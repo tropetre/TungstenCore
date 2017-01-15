@@ -62,9 +62,10 @@ export class IndexPage implements OnInit, AfterViewChecked {
                     renderer.setElementClass(this.Logo2.nativeElement, 'path', true);
                 }
                 else if (event instanceof NavigationEnd) {
-                    renderer.setElementClass(this.Logo.nativeElement, 'path', false);
-                    renderer.setElementClass(this.Logo2.nativeElement, 'path', false);
-
+                    setTimeout(() => {
+                        renderer.setElementClass(this.Logo.nativeElement, 'path', false);
+                        renderer.setElementClass(this.Logo2.nativeElement, 'path', false);
+                    }, 500);
                 }
             }
         });

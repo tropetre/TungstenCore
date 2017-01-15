@@ -113,8 +113,8 @@ const routes: Routes = [
             { path: 'editcourse', component: EditCoursePage, resolve: { courses: CoursesResolver, groups: GroupsResolver } },
             { path: 'editcourse/:id', component: EditCoursePage, resolve: { course: CourseResolver, groups: GroupsResolver } },
 
-            { path: 'editassignment', component: EditAssignmentPage, resolve: { assignments: AssignmentsResolver } },
-            { path: 'editassignment/:id', component: EditAssignmentPage, resolve: { assignment: AssignmentResolver } },
+            { path: 'editassignment', component: EditAssignmentPage, resolve: { assignments: AssignmentsResolver, segments: SegmentsResolver} },
+            { path: 'editassignment/:id', component: EditAssignmentPage, resolve: { assignment: AssignmentResolver, segments: SegmentsResolver } },
 
             { path: 'editlesson', component: EditLessonPage, resolve: { lessons: LessonsResolver, courses: CoursesResolver } },
             { path: 'editlesson/:id', component: EditLessonPage, resolve: { lesson: LessonResolver, courses: CoursesResolver } },
@@ -132,8 +132,8 @@ const routes: Routes = [
             { path: 'removecourse', component: RemoveCoursePage, resolve: { courses: CoursesResolver } },
             { path: 'removecourse/:id', component: RemoveCoursePage, resolve: { course: CourseResolver } },
 
-            { path: 'removeparticipant', component: RemoveParticipantPage, resolve: { users: userresolver, group: GroupResolver } },
-            { path: 'removeparticipant/:id', component: RemoveParticipantPage, resolve: { user: userresolver, group: GroupResolver } },
+            { path: 'removeparticipant', component: RemoveParticipantPage, resolve: { users: userresolver, groups: GroupsResolver } },
+            { path: 'removeparticipant/:id', component: RemoveParticipantPage, resolve: { user: userresolver, groups: GroupsResolver } },
 
             { path: 'removeassignment', component: RemoveAssignmentPage, resolve: { assignments: AssignmentsResolver } },
             { path: 'removeassignment/:id', component: RemoveAssignmentPage, resolve: { assignment: AssignmentResolver } },
