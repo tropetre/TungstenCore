@@ -6,13 +6,5 @@
   {
     "outputFile": "ClientApp/app/components/dropdownbox/dropdownbox.css",
     "inputFile": "ClientApp/app/components/dropdownbox/dropdownbox.scss"
-  },
-  {
-    "outputFile": "wwwroot/_variables.css",
-    "inputFile": "wwwroot/_variables.scss"
-  },
-  {
-    "outputFile": "wwwroot/_mixins.css",
-    "inputFile": "wwwroot/_mixins.scss"
   }
 ]
