@@ -75,7 +75,7 @@ namespace TungstenCore
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddScoped<ISchoolContext, ApplicationDbContext>();
+            services.AddSingleton<ApplicationDbContext>();
             services.AddScoped<ISchoolRepository, SchoolRepository>();
         }
 
