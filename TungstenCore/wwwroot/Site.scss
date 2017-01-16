@@ -26,10 +26,16 @@ body {
     flex-flow:column;
     padding:0;
     margin:0;
-    overflow:hidden;
+    
     transition: all 0.2s;
 }
-
+.router-outlet{
+    overflow-x:hidden;
+}
+#myNavmenu {
+    overflow-x:hidden;
+    overflow-y:scroll;
+}
 .navbar {
     background-color: $color-primary;
     border:none;
