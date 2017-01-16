@@ -38,26 +38,38 @@ namespace TungstenCore.Controllers
         //file/Upload
 
         [HttpPost]
-        public async Task<ActionResult> Upload([FromForm] IFormFile f)
+        public async Task<List<FileDetail>> Upload()
         {
-            var form = await Request.ReadFormAsync();
-            
-            if (form.Files.Count > 0)
+            List<FileDetail> fileDetails = new List<FileDetail>();
+            int count = Request.Form.Files.Count;
+            var req = await Request.ReadFormAsync();
+            for (int i = 0; i < count; i++)
             {
-                var targetDirectory = Path.Combine(env.WebRootPath, string.Format("Uploads\\Assignments\\" + currentUserId));
-                FileDetail file;
-                var fileName = form.Files[0].FileName;
-                var savePath = Path.Combine(targetDirectory, fileName);
+                var file = req.Files[i];
 
-                using (var fileStream = System.IO.File.Create(savePath))
+                if (file != null && file.Length > 0)
                 {
-                    await form.Files[0].CopyToAsync(fileStream);
-                    file = await _repository.Savefile(new FileDetail { Extension = form.Files[0].ContentType, FileName = form.Files[0].FileName, OwnerId = currentUserId });
-                }
+                    var fileName = Path.GetFileName(file.FileName);
+                    FileDetail FileDetail = await _repository.Savefile(new FileDetail
+                    {
+                        Extension = Path.GetExtension(fileName),
+                        FileName = fileName,
+                        OwnerId = currentUserId
+                    });
+                    
+                    var path = Path.Combine(env.ContentRootPath, "\\Uploads\\" + currentUserId + "\\" + FileDetail.FilePathId + FileDetail.Extension);
 
-                return Json(new { Status = "Ok" });
+
+                    using (var fileStream = System.IO.File.Create(path))
+                    {
+                        await file.CopyToAsync(fileStream);
+                        fileDetails.Add(FileDetail);
+                    }
+
+                    return fileDetails;
+                }
             }
-            return Json(new { Status = "Error" });
+            return fileDetails;
         }
 
         [HttpPost]
