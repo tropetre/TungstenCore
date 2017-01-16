@@ -18,9 +18,9 @@
     padding: 0;
     display: flex;
     flex-flow: column;
-    border-radius: 7px;
+    /*border-radius: 7px;*/
     @include box-shadow($shadow-panel);
-    text-shadow: 1px 1px 3px #b3b3b3;
+    /*text-shadow: 1px 1px 3px #b3b3b3;*/
 }
 
 :host /deep/ div{
@@ -66,8 +66,10 @@
     display: flex;
     position:relative;
     flex-flow: row;
-    background-color: rgba(228, 106, 26, 0.21);
-    margin-top:1px;
+    background-color:$color-panel;
+    /*background-color: rgba(228, 106, 26, 0.21);
+    */
+        margin-top:1px;
     border-radius: 3px;
     width:100%;
 }

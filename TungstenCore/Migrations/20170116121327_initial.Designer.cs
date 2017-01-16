@@ -9,8 +9,8 @@ using TungstenCore.Models.Enums;
 namespace TungstenCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170109123236_Initial")]
-    partial class Initial
+    [Migration("20170116121327_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,16 +225,21 @@ namespace TungstenCore.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("TungstenCore.Models.FilePath", b =>
+            modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
                     b.Property<string>("FilePathId");
 
+                    b.Property<string>("Extension");
+
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasMaxLength(255);
 
                     b.Property<int>("FileType");
 
-                    b.Property<string>("OwnderId")
+                    b.Property<Guid>("Id");
+
+                    b.Property<string>("OwnerId")
                         .IsRequired();
 
                     b.HasKey("FilePathId");
@@ -264,8 +269,6 @@ namespace TungstenCore.Migrations
                     b.Property<string>("CourseId");
 
                     b.HasKey("ApplicationUserId", "CourseId");
-
-                    b.HasIndex("CourseId");
 
                     b.ToTable("ApplicationUserCourse");
                 });
@@ -376,7 +379,7 @@ namespace TungstenCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TungstenCore.Models.FilePath", b =>
+            modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
                     b.HasOne("TungstenCore.Models.ApplicationUser", "Owner")
                         .WithMany("FilePaths")
@@ -386,14 +389,14 @@ namespace TungstenCore.Migrations
 
             modelBuilder.Entity("TungstenCore.Models.JoinModels.ApplicationUserCourse", b =>
                 {
-                    b.HasOne("TungstenCore.Models.Course", "Course")
-                        .WithMany("Participants")
+                    b.HasOne("TungstenCore.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TungstenCore.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("Courses")
-                        .HasForeignKey("CourseId")
+                    b.HasOne("TungstenCore.Models.Course", "Course")
+                        .WithMany("Participants")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TungstenCore.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -169,9 +169,11 @@ namespace TungstenCore.Migrations
                 columns: table => new
                 {
                     FilePathId = table.Column<string>(nullable: false),
-                    FileName = table.Column<string>(maxLength: 255, nullable: true),
+                    Extension = table.Column<string>(nullable: true),
+                    FileName = table.Column<string>(maxLength: 255, nullable: false),
                     FileType = table.Column<int>(nullable: false),
-                    OwnderId = table.Column<string>(nullable: false)
+                    Id = table.Column<Guid>(nullable: false),
+                    OwnerId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -240,15 +242,15 @@ namespace TungstenCore.Migrations
                 {
                     table.PrimaryKey("PK_ApplicationUserCourse", x => new { x.ApplicationUserId, x.CourseId });
                     table.ForeignKey(
-                        name: "FK_ApplicationUserCourse_Courses_ApplicationUserId",
+                        name: "FK_ApplicationUserCourse_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
-                        principalTable: "Courses",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ApplicationUserCourse_AspNetUsers_CourseId",
-                        column: x => x.CourseId,
-                        principalTable: "AspNetUsers",
+                        name: "FK_ApplicationUserCourse_Courses_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "Courses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -361,11 +363,6 @@ namespace TungstenCore.Migrations
                 name: "IX_Courses_GroupId",
                 table: "Courses",
                 column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ApplicationUserCourse_CourseId",
-                table: "ApplicationUserCourse",
-                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserGroup_GroupId",
