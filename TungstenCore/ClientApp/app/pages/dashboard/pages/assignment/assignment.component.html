@@ -12,13 +12,26 @@
     <div class="input-group">
         <label class="input-group-btn">
             <span class="btn btn-primary">
-                Browse&hellip; <input type="file" #fileinput style="display: none;" (change)="onChange($event)" accept=".doc,.txt" [(ngModel)]="file">
+                Browse&hellip; <input type="file" #fileinput style="display: none;" (change)="onChange($event)" accept=".doc,.txt" [(ngModel)]="file" ng2FileSelect>
             </span>
         </label>
-        <input type="text" class="form-control" readonly>
+        <input type="text" class="form-control" readonly #fileresult>
     </div>
-    <textarea #fileresult [(ngModel)]="fileresultstring">
-
-    </textarea>
+    <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+    </div>
+    <button type="button" class="btn btn-success btn-s"
+            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+        <span class="glyphicon glyphicon-upload"></span> Upload all
+    </button>
+    <button type="button" class="btn btn-warning btn-s"
+            (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+    </button>
+    <button type="button" class="btn btn-danger btn-s"
+            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+        <span class="glyphicon glyphicon-trash"></span> Remove all
+    </button>
+    <textarea [(ngModel)]="fileresultstring"></textarea>
     <button class="btn btn-lg btn-danger" (click)="Upload()">Upload</button>
 </div>

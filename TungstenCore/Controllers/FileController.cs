@@ -38,19 +38,21 @@ namespace TungstenCore.Controllers
         //file/Upload
 
         [HttpPost]
-        public async Task<ActionResult> Upload([FromForm] IFormFileCollection f)
+        public async Task<ActionResult> Upload([FromForm] IFormFile f)
         {
-            if (f.Count > 0)
+            var form = await Request.ReadFormAsync();
+            
+            if (form.Files.Count > 0)
             {
                 var targetDirectory = Path.Combine(env.WebRootPath, string.Format("Uploads\\Assignments\\" + currentUserId));
                 FileDetail file;
-                var fileName = f[0].FileName;
+                var fileName = form.Files[0].FileName;
                 var savePath = Path.Combine(targetDirectory, fileName);
 
                 using (var fileStream = System.IO.File.Create(savePath))
                 {
-                    await f[0].CopyToAsync(fileStream);
-                    file = await _repository.Savefile(new FileDetail { Extension = f[0].ContentType, FileName = f[0].FileName, OwnerId = currentUserId });
+                    await form.Files[0].CopyToAsync(fileStream);
+                    file = await _repository.Savefile(new FileDetail { Extension = form.Files[0].ContentType, FileName = form.Files[0].FileName, OwnerId = currentUserId });
                 }
 
                 return Json(new { Status = "Ok" });

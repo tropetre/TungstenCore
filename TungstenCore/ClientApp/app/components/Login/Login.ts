@@ -22,6 +22,7 @@ export class Login implements OnInit {
     public loginmodel: LoginModel;
     LoggedIn: boolean;
     @Output() userUpdated = new EventEmitter();
+    loginresult: string = '';
 
     constructor( @Inject(MembershipService) public membershipService: MembershipService,
         //public notificationService: NotificationService,
@@ -55,6 +56,7 @@ export class Login implements OnInit {
 
     login(): void {
         var _authenticationResult: OperationResult = new OperationResult(false, '');
+        this.loginresult = '';
         this.membershipService.login({ Username: this.loginmodel.Username, Password: this.loginmodel.Password, RememberMe: this.loginmodel.RememberMe })
             .subscribe(res => {
                 _authenticationResult = res;
@@ -83,6 +85,7 @@ export class Login implements OnInit {
                         });
                 }
                 else {
+                    this.loginresult = 'username or password is wrong';
                     // login unsuccessful
                 }
                 

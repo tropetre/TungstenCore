@@ -225,7 +225,7 @@ namespace TungstenCore.DataAccess
 
         public Assignment CreateAssignment(Assignment assignment)
         {
-            _context.Assignments.Add(assignment);
+            _context.Set<Assignment>().Add(assignment);
             _context.SaveChanges();
             return assignment;
         }

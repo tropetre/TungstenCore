@@ -19,31 +19,33 @@
 
 <div class="panel panel-default text-center">
     <div class="panel-heading">
-            <h4 class="panel-title">
-        <a href="#" data-toggle="collapse" data-target="#login">
+        <h4 class="panel-title">
+            <a href="#" data-toggle="collapse" data-target="#login">
                 Log In
-        </a>
-            </h4>
+            </a>
+        </h4>
 
     </div>
-    
-        <div id="login" class="panel-collapse collapse">
+
+    <div id="login" class="panel-collapse collapse">
         <div class="panel-collapse-content">
 
-        <form #loginForm="ngForm">
-            <input type="text" placeholder="User Name" [(ngModel)]="loginmodel.Username" name="username" [autofocus] required />
-            <input type="password" placeholder="Password" [(ngModel)]="loginmodel.Password" name="password" required />
-            <div class="checkbox">
-                <input class="checkbox-inline" type="checkbox" [(ngModel)]="loginmodel.RememberMe" name="remember">
-                <label for="remember">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-primary" [disabled]="!loginForm.form.valid" (click)="login()">Login</button>
-        </form>
+            <form #loginForm="ngForm">
+                <input type="text" placeholder="User Name" [(ngModel)]="loginmodel.Username" name="username" [autofocus] required />
+                <input type="password" placeholder="Password" [(ngModel)]="loginmodel.Password" name="password" required />
+                <div class="checkbox">
+                    <input class="checkbox-inline" type="checkbox" [(ngModel)]="loginmodel.RememberMe" name="remember">
+                    <label for="remember">
+                        Remember me
+                    </label>
+                </div>
+                <button class="btn btn-primary" [disabled]="!loginForm.form.valid" (click)="login()">Login</button>
+            </form>
         </div>
-    
+        <div>
+            {{loginresult}}
         </div>
+    </div>
 </div>
 
 

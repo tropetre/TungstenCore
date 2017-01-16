@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UploadService } from '../../../../services/upload.service';
 import { Assignment } from '../../../../classes/assignment';
 import { IAssignment } from '../../../../interfaces/assignment';
+import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
 
 @Component({
     template: require('./assignment.component.html')
@@ -16,6 +17,13 @@ export class AssignmentPage implements OnInit {
     fileresultstring: string;
     @ViewChild('fileinput') fileinput: ElementRef;
     @ViewChild('fileresult') fileresult: ElementRef;
+    FileUploaderOptions: FileUploaderOptions = {
+        allowedFileType: ['txt', 'doc'],
+        maxFileSize: 2000,
+        url: 'file/upload'
+    };
+    public uploader: FileUploader = new FileUploader(this.FileUploaderOptions);
+    
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -51,11 +59,23 @@ export class AssignmentPage implements OnInit {
         let inputEl: HTMLInputElement = this.fileinput.nativeElement;
         let fileCount: number = inputEl.files.length;
         this.files = new Array<File>();
+        let filesnames: string;
+
         for (let i = 0; i < fileCount; i += 1)
         {
             this.files.push(inputEl.files.item(i));
+            filesnames += inputEl.files.item(i).name + ' | ';
         }
+        
+        for (let i = 0; i < this.files.length; i += 1) {
+            filesnames = this.files[i].name;
+            console.log(this.files[i]);
+        }
+
+        this._Renderer.setElementAttribute(this.fileresult.nativeElement, 'value', filesnames)
+
         console.log(this.files);
+        this.uploader.addToQueue(this.files);
         //this.files = inputEl.files.item;
 
         /*
@@ -91,6 +111,8 @@ export class AssignmentPage implements OnInit {
     }
 
     Upload() {
+        console.log(this.files);
+        
         this._UploadService.makeFileRequest(this.files).subscribe((result) => {
             if (result.Id)
                 this._Router.navigate(['../']);

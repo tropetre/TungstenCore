@@ -34,7 +34,8 @@ module.exports = {
             'jquery',
             'zone.js',
             'jasny-bootstrap/dist/js/jasny-bootstrap.js',
-            'jasny-bootstrap/dist/css/jasny-bootstrap.css'
+            'jasny-bootstrap/dist/css/jasny-bootstrap.css',
+            'ng2-file-upload'
         ]
     },
     output: {
