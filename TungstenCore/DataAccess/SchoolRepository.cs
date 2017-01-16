@@ -31,6 +31,8 @@ namespace TungstenCore.DataAccess
                     // TODO: dispose managed state (managed objects).
                 }
 
+                _context.Dispose();
+
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
 
@@ -39,10 +41,11 @@ namespace TungstenCore.DataAccess
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~SchoolRepository() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
+        ~SchoolRepository()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(false);
+        }
 
         // This code added to correctly implement the disposable pattern.
         public void Dispose()
@@ -50,7 +53,7 @@ namespace TungstenCore.DataAccess
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
             // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
 
@@ -108,7 +111,7 @@ namespace TungstenCore.DataAccess
         }
 
         public IQueryable<Group> GetGroupsForUser(string userId) =>
-            _context.Groups.Include(g => g.Courses).AsNoTracking();
+            _context.Groups.Include(g => g.Courses).AsNoTracking().Where(groups => groups.Participants.Select(p => p.ApplicationUserId).Contains(userId));
             //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
 
         public async Task<bool> AddUserToGroupAsync(string userId, string groupId)
@@ -146,13 +149,8 @@ namespace TungstenCore.DataAccess
         }
 
         // Course
-        public IQueryable<Course> GetCoursesForUser(string userId)
-        {
-            var groups = GetGroupsForUser(userId);
-            IQueryable<Course> courses = groups.SelectMany(c => c.Courses);
-            
-            return courses;
-        }
+        public IQueryable<Course> GetCoursesForUser(string userId) => 
+            GetGroupsForUser(userId).SelectMany(c => c.Courses);
 
         public async Task<Course> GetCourseByIdAsync(string Id) =>
             (await _context.Courses.Where(c => c.Id == Id).FirstOrDefaultAsync());
@@ -179,16 +177,11 @@ namespace TungstenCore.DataAccess
         }
 
         // Segments
-        public IQueryable<Segment> GetSegmentsForUser(string userId)
-        {
-            IQueryable<Course> courses = GetCoursesForUser(userId);
-            IQueryable<Segment> segments = courses.SelectMany(s => s.Segments);
-            
-            return segments;
-        }
+        public IQueryable<Segment> GetSegmentsForUser(string userId) =>
+            GetCoursesForUser(userId).SelectMany(s => s.Segments);
 
         public async Task<Segment> GetSegmentByIdAsync(string Id) =>
-            (await _context.Segments.Where(s => s.Id == Id).FirstOrDefaultAsync());
+            (await _context.Segments.AsNoTracking().SingleOrDefaultAsync(s => s.Id == Id));
 
         public Segment CreateSegment(Segment segment)
         {
@@ -213,13 +206,8 @@ namespace TungstenCore.DataAccess
         }
 
         // Assignments
-        public IQueryable<Assignment> GetAssignmentsForUser(string userId)
-        {
-            IQueryable<Segment> segments = GetSegmentsForUser(userId);
-            IQueryable<Assignment> assignments = segments.SelectMany(s => s.Assignments);
-            
-            return assignments;
-        }
+        public IQueryable<Assignment> GetAssignmentsForUser(string userId) =>
+            GetSegmentsForUser(userId).SelectMany(s => s.Assignments);
 
         public async Task<Assignment> GetAssignmentByIdAsync(string Id) =>
             (await _context.Assignments.Where(a => a.Id == Id).FirstOrDefaultAsync());
@@ -247,18 +235,13 @@ namespace TungstenCore.DataAccess
         }
 
         // Lessons
-        public IQueryable<Lesson> GetLessonsForUser(string userId)
-        {
-            IQueryable<Course> courses = GetCoursesForUser(userId);
-            IQueryable<Lesson> lessons = courses.SelectMany(s => s.Lessons);
-            
-            return lessons;
-        }
+        public IQueryable<Lesson> GetLessonsForUser(string userId) =>
+            GetCoursesForUser(userId).SelectMany(s => s.Lessons);
 
         public async Task<Lesson> GetLessonByIdAsync(string Id) =>
             (await _context.Lessons.Where(l => l.Id == Id).FirstOrDefaultAsync());
 
-        public async Task<Lesson> CreateLesson(Lesson lesson)
+        public async Task<Lesson> CreateLesson(Lesson lesson) //TODO: Check what's up.
         {
             Course course = await _context.Courses.FindAsync(lesson.CourseId);
             await _context.Lessons.AddAsync(lesson);
