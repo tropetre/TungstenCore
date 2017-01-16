@@ -69,13 +69,15 @@ namespace TungstenCore.DataAccess
 
 
         public IQueryable<ApplicationUser> GetNotAssignedUsers() =>
-            _context.Users.Where(u => !u.Groups.Any()).AsNoTracking();
+            _context.Users.AsNoTracking().Where(u => !u.Groups.Any());
 
         public Task<Group> GetGroupWithLessonsAsync(string groupId) =>
             _context.Groups
+                .AsNoTracking()
+                .Include(group => group.Participants)
+                    .ThenInclude(ag => ag.ApplicationUser)
                 .Include(group => group.Courses)
                     .ThenInclude(course => course.Lessons)
-                        .AsNoTracking()
                         .SingleOrDefaultAsync(group => group.Id == groupId);
 
 

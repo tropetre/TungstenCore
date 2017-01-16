@@ -24,12 +24,12 @@ export class AddParticipantPage implements OnInit {
             //console.log(this.users);
             this.Group = data.group;
 
-            this.users = this.users.filter((user) => {
-                let tempgroups = user.Groups.filter((group) => {
-                    return group.Id == this.Group.Id
-                })
-                return (tempgroups.length < 1);
-            })
+            //this.users = this.users.filter((user) => {
+            //    let tempgroups = user.Groups.filter((group) => {
+            //        return group.Id == this.Group.Id
+            //    })
+            //    return (tempgroups.length < 1);
+            //})
         });
     }
 

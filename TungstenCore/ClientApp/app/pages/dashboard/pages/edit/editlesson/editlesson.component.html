@@ -4,7 +4,7 @@
             <div class="form-group form-group-lg" *ngIf="lessons">
                 <select name="Lesson" [(ngModel)]="lesson" class="form-control" required>
                     <option *ngFor="let lesson of lessons" [ngValue]="lesson" title="Required">
-                        {{lesson.Name}}
+                        {{lesson.Classroom}} {{lesson.StartTime}}
                     </option>
                 </select>
             </div>
@@ -30,6 +30,6 @@
                 </select>
             </div>
         </form>
-        <button class="btn btn-lg btn-primary" type="submit" (click)="save()" [disabled]="!elForm.form.valid">Save</button>
+        <button class="btn btn-lg btn-primary" type="submit" (click)="Save()" [disabled]="!elForm.form.valid">Save</button>
     </div>
 </div>
