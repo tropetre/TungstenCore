@@ -12,9 +12,9 @@ namespace TungstenCore.DataAccess
 {
     public class SchoolRepository : ISchoolRepository, IDisposable
     {
-        private ISchoolContext _context;
+        private ApplicationDbContext _context;
 
-        public SchoolRepository(ISchoolContext context)
+        public SchoolRepository(ApplicationDbContext context)
         {
             _context = context;
         }
