@@ -43,7 +43,7 @@ body {
 
 .navbar-nav > li > a 
 {
-    color: $color-panel;
+    color: $color-panel !important;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -58,6 +58,7 @@ body {
     font-family: 'Baloo', cursive;
     padding-left: 40px;
     vertical-align: middle;
+    color:$color-nav-text !important;
 }
 @media (min-width: 768px){
     .navbar > .container .navbar-brand {
@@ -185,11 +186,11 @@ body {
 }
 
 .right-nav a{
-    color:#3e3e3e;
+    color:$color-button;
 }
 
 .right-nav a:hover, .right-nav a:focus{
-    color:#747474;
+    color:$color-background;
     background-color: rgba(255, 255, 255, 0.65);
 }
 
