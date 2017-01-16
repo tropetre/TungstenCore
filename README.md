@@ -11,5 +11,8 @@ Node.js >= 4.0
 Before building the vendor-specific scripts need to be bundled. To bundle the files run: 
 > webpack --config webpack.config.vendor.js
 
+Make sure the folder is correct!
+
 Should WebPack not run simply install it globally on the system by running: 
-> npm install webpack -g
+> npm install -g webpack
+
