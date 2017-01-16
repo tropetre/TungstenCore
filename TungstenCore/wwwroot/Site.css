@@ -31,7 +31,7 @@ body {
   overflow-y: scroll; }
 
 .navbar {
-  background-color: #e46a1a;
+  background-color: #f46524;
   border: none; }
 
 .navbar-nav > li > a {
@@ -86,7 +86,7 @@ body {
   border-color: white; }
 
 .navbar-toggle:hover, .navbar-toggle:focus {
-  background-color: #e46a1a !important; }
+  background-color: #f46524 !important; }
 
 .panel-group .panel {
   /*Simple boxshadow for extra skeuomorphism*/
@@ -152,7 +152,7 @@ body {
 
 .right-nav {
   font-weight: 700;
-  background-color: #e46a1a;
+  background-color: #f46524;
   border-left: solid 1px;
   position: absolute;
   top: 0;
