@@ -17,6 +17,6 @@
         [Required, ForeignKey("Owner")]
         public string OwnerId { get; set; }
         public virtual ApplicationUser Owner { get; set; }
-
+        public Guid Id { get; internal set; }
     }
 }
