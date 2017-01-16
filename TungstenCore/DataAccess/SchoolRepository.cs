@@ -284,8 +284,9 @@ namespace TungstenCore.DataAccess
         public async Task<FileDetail> Savefile(FileDetail file)
         {
             var result = await _context.FilePaths.AddAsync(file);
-            file.FilePathId = result.Entity.FilePathId;
-            
+            file.Id = result.Entity.Id;
+            await _context.SaveChangesAsync();
+
             return file;
         }
 

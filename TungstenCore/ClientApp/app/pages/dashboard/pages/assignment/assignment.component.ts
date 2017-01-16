@@ -76,6 +76,8 @@ export class AssignmentPage implements OnInit {
 
         console.log(this.files);
         this.uploader.addToQueue(this.files);
+            
+        
         //this.files = inputEl.files.item;
 
         /*
@@ -112,13 +114,14 @@ export class AssignmentPage implements OnInit {
 
     Upload() {
         console.log(this.files);
-        
-        this._UploadService.makeFileRequest(this.files).subscribe((result) => {
+        /*
+        this._UploadService.makeFileRequest(this.files, this.assignment.Id).subscribe((result) => {
+            console.log(result);
             if (result.Id)
                 this._Router.navigate(['../']);
             else
                 this.statusmessage = 'failed try again!';
 
-        });
+        });*/
     }
 }

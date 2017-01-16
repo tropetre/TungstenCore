@@ -37,48 +37,41 @@ namespace TungstenCore.Controllers
         }
         //file/Upload
 
-        [HttpPost]
-        public async Task<List<FileDetail>> Upload()
+        //[HttpPost]
+        public async Task<FileDetail> Upload()
         {
-            List<FileDetail> fileDetails = new List<FileDetail>();
+            FileDetail filedetail = new FileDetail();
             int count = Request.Form.Files.Count;
             var req = await Request.ReadFormAsync();
+            string assignmentid = req["AssignmentId"];
             for (int i = 0; i < count; i++)
             {
-                var file = req.Files[i];
+                IFormFile file = req.Files[i];
 
                 if (file != null && file.Length > 0)
                 {
                     var fileName = Path.GetFileName(file.FileName);
-                    FileDetail FileDetail = await _repository.Savefile(new FileDetail
-                    {
-                        Extension = Path.GetExtension(fileName),
-                        FileName = fileName,
-                        OwnerId = currentUserId
-                    });
-                    
-                    var path = Path.Combine(env.ContentRootPath, "\\Uploads\\" + currentUserId + "\\" + FileDetail.FilePathId + FileDetail.Extension);
 
+                    filedetail.Extension = Path.GetExtension(fileName);
+                    filedetail.FileName = fileName;
+                    filedetail.OwnerId = currentUserId;
+                    filedetail.AssignmentId = assignmentid;
+                    filedetail.File = new byte[file.Length];
 
-                    using (var fileStream = System.IO.File.Create(path))
-                    {
-                        await file.CopyToAsync(fileStream);
-                        fileDetails.Add(FileDetail);
-                    }
-
-                    return fileDetails;
+                    await file.OpenReadStream().ReadAsync(filedetail.File, 0, filedetail.File.Length);
+                    filedetail = await _repository.Savefile(filedetail);
                 }
             }
-            return fileDetails;
+            return filedetail;
         }
 
         [HttpPost]
         public async Task<FileContentResult> Getfile([FromBody] FileDetail filedetail)
         {
-            filedetail = await _repository.Getfile(filedetail.FilePathId);
+            filedetail = await _repository.Getfile(filedetail.Id);
             
             var targetDirectory = Path.Combine(env.WebRootPath, string.Format("Uploads\\Assignments\\" + currentUserId));
-            var filepath = Path.Combine(targetDirectory, filedetail.FileName + filedetail.FileType);
+            var filepath = Path.Combine(targetDirectory, filedetail.FileName + filedetail.Extension);
 
             var fileContents = System.IO.File.ReadAllBytes(filepath);
             return new FileContentResult(fileContents, "application/octet-stream");
