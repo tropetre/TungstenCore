@@ -224,16 +224,21 @@ namespace TungstenCore.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("TungstenCore.Models.FilePath", b =>
+            modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
                     b.Property<string>("FilePathId");
 
+                    b.Property<string>("Extension");
+
                     b.Property<string>("FileName")
+                        .IsRequired()
                         .HasMaxLength(255);
 
                     b.Property<int>("FileType");
 
-                    b.Property<string>("OwnderId")
+                    b.Property<Guid>("Id");
+
+                    b.Property<string>("OwnerId")
                         .IsRequired();
 
                     b.HasKey("FilePathId");
@@ -373,7 +378,7 @@ namespace TungstenCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TungstenCore.Models.FilePath", b =>
+            modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
                     b.HasOne("TungstenCore.Models.ApplicationUser", "Owner")
                         .WithMany("FilePaths")

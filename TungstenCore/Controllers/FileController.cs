@@ -37,36 +37,41 @@ namespace TungstenCore.Controllers
         }
         //file/Upload
 
-        [HttpPost]
-        public async Task<ActionResult> Upload([FromForm] IFormFile f)
+        //[HttpPost]
+        public async Task<FileDetail> Upload()
         {
-            var form = await Request.ReadFormAsync();
-            
-            if (form.Files.Count > 0)
+            FileDetail filedetail = new FileDetail();
+            int count = Request.Form.Files.Count;
+            var req = await Request.ReadFormAsync();
+            string assignmentid = req["AssignmentId"];
+            for (int i = 0; i < count; i++)
             {
-                var targetDirectory = Path.Combine(env.WebRootPath, string.Format("Uploads\\Assignments\\" + currentUserId));
-                FileDetail file;
-                var fileName = form.Files[0].FileName;
-                var savePath = Path.Combine(targetDirectory, fileName);
+                IFormFile file = req.Files[i];
 
-                using (var fileStream = System.IO.File.Create(savePath))
+                if (file != null && file.Length > 0)
                 {
-                    await form.Files[0].CopyToAsync(fileStream);
-                    file = await _repository.Savefile(new FileDetail { Extension = form.Files[0].ContentType, FileName = form.Files[0].FileName, OwnerId = currentUserId });
-                }
+                    var fileName = Path.GetFileName(file.FileName);
 
-                return Json(new { Status = "Ok" });
+                    filedetail.Extension = Path.GetExtension(fileName);
+                    filedetail.FileName = fileName;
+                    filedetail.OwnerId = currentUserId;
+                    filedetail.AssignmentId = assignmentid;
+                    filedetail.File = new byte[file.Length];
+
+                    await file.OpenReadStream().ReadAsync(filedetail.File, 0, filedetail.File.Length);
+                    filedetail = await _repository.Savefile(filedetail);
+                }
             }
-            return Json(new { Status = "Error" });
+            return filedetail;
         }
 
         [HttpPost]
         public async Task<FileContentResult> Getfile([FromBody] FileDetail filedetail)
         {
-            filedetail = await _repository.Getfile(filedetail.FilePathId);
+            filedetail = await _repository.Getfile(filedetail.Id);
             
             var targetDirectory = Path.Combine(env.WebRootPath, string.Format("Uploads\\Assignments\\" + currentUserId));
-            var filepath = Path.Combine(targetDirectory, filedetail.FileName + filedetail.FileType);
+            var filepath = Path.Combine(targetDirectory, filedetail.FileName + filedetail.Extension);
 
             var fileContents = System.IO.File.ReadAllBytes(filepath);
             return new FileContentResult(fileContents, "application/octet-stream");

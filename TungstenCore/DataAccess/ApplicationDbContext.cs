@@ -65,7 +65,7 @@ namespace TungstenCore.DataAccess
             filePath
                 .HasOne(rel => rel.Owner)
                 .WithMany(rel => rel.FilePaths)
-                .HasForeignKey(rel => rel.FilePathId);
+                .HasForeignKey(rel => rel.Id);
 
             #endregion
         }

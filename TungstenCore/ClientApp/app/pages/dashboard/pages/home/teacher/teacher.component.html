@@ -19,8 +19,8 @@
         </dropdownbox>
 
         <div *ngFor="let item of page.Courses">
-            <dropdownbox [title]="item.Description" [content]="item.Segments" [content-type]="'course'">
-                <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createcourse', item.GroupId]" ddb-create>
+            <dropdownbox [title]="item.Description" [content]="item.Segments" [content-type]="'segment'">
+                <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'createsegment', item.Id]" ddb-create>
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
             </dropdownbox>
