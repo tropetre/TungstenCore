@@ -272,6 +272,10 @@ body {
     display: block;
 }
 
+path{
+    stroke:$color-dark;
+}
+
 .path {
   stroke-dasharray: 590;
   stroke-dashoffset:590;

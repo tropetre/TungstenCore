@@ -80,6 +80,7 @@ export class IndexPage implements OnInit, AfterViewChecked {
     }
 
     logout(): void {
+        this.toggleNavMenu();
         this.membershipService.logout()
             .subscribe(res => {
                 localStorage.removeItem('user');

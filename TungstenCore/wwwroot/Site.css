@@ -235,6 +235,9 @@ body {
   cursor: inherit;
   display: block; }
 
+path {
+  stroke: #7e2700; }
+
 .path {
   stroke-dasharray: 590;
   stroke-dashoffset: 590;
