@@ -33,6 +33,11 @@
     margin-top:10px;
 }
 
+.titlecontainer{
+    cursor:pointer;
+    
+}
+
 :host /deep/ .top-container {
     display: flex;
     flex-flow: row;
