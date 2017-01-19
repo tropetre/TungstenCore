@@ -100,6 +100,7 @@ body {
 }
 .navbar-toggle:hover, .navbar-toggle:focus{
     background-color: $color-primary !important;
+    border-color: $color-dark;
 }
 
 .panel-group .panel {
@@ -140,6 +141,11 @@ body {
   color: $color-button-text;
   background-color: $color-button;
   border-color: $color-button-border;
+}
+.btn.btn-primary.login-button {
+    background-color:$color-primary;
+    color:$color-nav-text;
+    border-color: transparent;
 }
 
 .btn-primary.disabled,
@@ -270,6 +276,10 @@ body {
     background: white;
     cursor: inherit;
     display: block;
+}
+
+path{
+    stroke:$color-dark;
 }
 
 .path {
