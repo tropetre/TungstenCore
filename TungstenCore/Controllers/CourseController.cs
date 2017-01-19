@@ -27,8 +27,8 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public IQueryable<Course> GetAll() =>
-            _repository.GetCoursesForUser(currentUserId);
+        public async Task<IEnumerable<Course>> GetAll() =>
+            await _repository.GetCoursesForUser(currentUserId);
 
         [HttpPost]
         public async Task<Course> GetById([FromBody] IdWrapper wrapper) =>

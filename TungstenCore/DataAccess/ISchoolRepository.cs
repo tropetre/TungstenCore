@@ -15,36 +15,39 @@ namespace TungstenCore.DataAccess
         Group CreateGroup(Group group);
         Task<Group> EditGroup(Group group);
         Group DeleteGroup(Group croup);
-        IQueryable<Group> GetGroupsForUser(string userId);
+        Task<IEnumerable<Group>> GetGroupsForUser(string userId);
         Task <bool> AddUserToGroupAsync(string userId, string groupId);
         Task<bool> RemoveUserFromGroupAsync(string userId, string groupId);
 
-        IQueryable<Course> GetCoursesForUser(string userId);
+        Task<IEnumerable<Course>> GetCoursesForUser(string userId);
         Task<Course> GetCourseByIdAsync(string id);
         Course CreateCourse(Course course);
         Course EditCourse(Course course);
         Course DeleteCourse(Course course);
 
-        IQueryable<Segment> GetSegmentsForUser(string userId);
+        Task<IEnumerable<Segment>> GetSegmentsForUser(string userId);
         Task<Segment> GetSegmentByIdAsync(string Id);
         Segment CreateSegment(Segment segment);
         Segment EditSegment(Segment segment);
         Segment DeleteSegment(Segment segment);
 
-        IQueryable<Assignment> GetAssignmentsForUser(string userId);
+        Task<IEnumerable<Assignment>> GetAssignmentsForUser(string userId);
         Task<Assignment> GetAssignmentByIdAsync(string Id);
         Assignment CreateAssignment(Assignment assignment);
         Assignment EditAssignment(Assignment assignment);
         Assignment DeleteAssignment(Assignment assignment);
 
-        IQueryable<Lesson> GetLessonsForUser(string userId);
+        Task<IEnumerable<Lesson>> GetLessonsForUser(string userId);
         Task<Lesson> GetLessonByIdAsync(string Id);
         Task<Lesson> CreateLesson(Lesson lesson);
         Lesson EditLesson(Lesson lesson);
         Lesson DeleteLesson(Lesson lesson);
 
+        Task<File> UploadFile(File file);
+        Task<File> Getfile(string Id);
         Task<FileDetail> Savefile(FileDetail file);
-        Task<FileDetail> Getfile(string id);
+        Task<FileDetail> GetfileDetail(string id);
         IQueryable<FileDetail> Getfiles(string userId);
+        Task<IQueryable<FileDetail>> GetGroupFiles(string currentUserId);
     }
 }

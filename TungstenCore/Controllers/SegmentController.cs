@@ -27,8 +27,8 @@ namespace TungstenCore.Controllers
             _userManager = userManager;
         }
 
-        public IQueryable<Segment> GetAll() =>
-            _repository.GetSegmentsForUser(currentUserId);
+        public async Task<IEnumerable<Segment>> GetAll() =>
+            await _repository.GetSegmentsForUser(currentUserId);
 
         [HttpPost]
         public async Task<Segment> GetById([FromBody] IdWrapper wrapper) =>

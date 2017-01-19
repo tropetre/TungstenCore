@@ -57,7 +57,11 @@ export class DataService {
                 URI: this._baseUri,
                 Response: res
             });
-            return null;
+            return res;
+        }
+        else if (res.headers.get('Content-Type') === 'application/octet-stream')
+        {
+            return res.text();
         }
         let body = <any>res.json();
         return body || [];
@@ -72,7 +76,7 @@ export class DataService {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
-
+    /*
     private extractDatalist(res: Response) {
         if (res) {
             if (res.headers.get('Content-Type') === 'text/html; charset=utf-8' && res.text()[0] === '<') {
@@ -83,11 +87,11 @@ export class DataService {
                     URI: res.url,
                     Response: res
                 });
-                return null;
+                return res;
             }
             let body = <any[]>res.json();
             return body;
         }
         return null;
-    }
+    }*/
 }

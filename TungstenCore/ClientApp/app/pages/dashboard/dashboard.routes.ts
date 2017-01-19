@@ -18,6 +18,7 @@ import { AddParticipantPage } from './pages/addparticipant/addparticipant.compon
 import { AssignmentPage } from './pages/assignment/assignment.component';
 import { LessonPage } from './pages/lesson/lesson.component';
 import { SegmentPage } from './pages/segment/segment.component';
+import { FilePage } from './pages/file/file.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -72,6 +73,10 @@ import { SegmentsResolver } from '../../services/resolvers/segments.resolver';
 import { AssignmentResolver } from '../../services/resolvers/assignment.resolver';
 import { AssignmentsResolver } from '../../services/resolvers/assignments.resolver';
 
+import { FileResolver } from '../../services/resolvers/file.resolver';
+import { FilesResolver } from '../../services/resolvers/files.resolver';
+import { GroupFilesResolver } from '../../services/resolvers/files.group.resolver';
+
 
 // Note:
 // implement is teacherguard, ( problem adding canActivate on a child )
@@ -94,7 +99,8 @@ const routes: Routes = [
             { path: 'lesson/:id', component: LessonPage, resolve: { lesson: LessonResolver } },
             { path: 'segment', component: SegmentPage, resolve: { segments: SegmentsResolver } },
             { path: 'segment/:id', component: SegmentPage, resolve: { segment: SegmentResolver } },
-
+            { path: 'file', component: FilePage, resolve: { files: FilesResolver, publicfiles: GroupFilesResolver } },
+            { path: 'file/:id', component: FilePage, resolve: { file: FileResolver, publicfiles: GroupFilesResolver } },
             // Create Routes
             { path: 'createparticipant', component: CreateParticipantPage, resolve: { groups: GroupsResolver } },
             { path: 'addparticipant/:id', component: AddParticipantPage, resolve: { users: usersresolver, group: GroupResolver } },

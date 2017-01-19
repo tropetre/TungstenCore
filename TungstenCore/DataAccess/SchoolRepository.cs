@@ -25,8 +25,18 @@ namespace TungstenCore.DataAccess
                 .Include(user => user.Groups)
                     .ThenInclude(userGroup => userGroup.Group)
                         .ThenInclude(group => group.Courses)
+                            .ThenInclude(group => group.Lessons)
+                .Include(user => user.Groups)
+                    .ThenInclude(userGroup => userGroup.Group)
+                        .ThenInclude(group => group.Courses)
                         .ThenInclude(group => group.Segments)
-                            .ThenInclude(segment => segment.Assignments);
+                            .ThenInclude(segment => segment.Assignments)
+                .Include(user => user.Groups)
+                    .ThenInclude(userGroup => userGroup.Group)
+                        .ThenInclude(group => group.Participants)
+                            .ThenInclude(ag => ag.ApplicationUser)
+                                .ThenInclude(g => g.FilePaths);
+
         }
 
         public async Task<ApplicationUser> GetAttachedUserAsync(string userId) =>
@@ -34,11 +44,10 @@ namespace TungstenCore.DataAccess
 
 
         public IQueryable<ApplicationUser> GetNotAssignedUsers() =>
-            _context.Users.AsNoTracking().Where(u => !u.Groups.Any());
+            _context.Users.Where(u => !u.Groups.Any());
 
         public Task<Group> GetGroupWithLessonsAsync(string groupId) =>
             _context.Groups
-                .AsNoTracking()
                 .Include(group => group.Participants)
                     .ThenInclude(ag => ag.ApplicationUser)
                 .Include(group => group.Courses)
@@ -48,8 +57,8 @@ namespace TungstenCore.DataAccess
 
 
 
-        public IQueryable<ApplicationUser> GetAllUsers() => 
-            _context.Users.AsNoTracking();
+        public IQueryable<ApplicationUser> GetAllUsers() =>
+            _context.Users;
 
         public Group CreateGroup(Group group)
         {
@@ -72,9 +81,9 @@ namespace TungstenCore.DataAccess
             return group;
         }
 
-        public IQueryable<Group> GetGroupsForUser(string userId) =>
-            _context.Groups.Include(g => g.Courses).AsNoTracking().Where(groups => groups.Participants.Select(p => p.ApplicationUserId).Contains(userId));
-            //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
+        public async Task<IEnumerable<Group>> GetGroupsForUser(string userId) =>
+            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
+        //(await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group);
 
         public async Task<bool> AddUserToGroupAsync(string userId, string groupId)
         {
@@ -111,11 +120,11 @@ namespace TungstenCore.DataAccess
         }
 
         // Course
-        public IQueryable<Course> GetCoursesForUser(string userId) => 
-            GetGroupsForUser(userId).SelectMany(c => c.Courses);
+        public async Task<IEnumerable<Course>> GetCoursesForUser(string userId) =>
+            (await GetGroupsForUser(userId)).SelectMany(c => c.Courses);
 
         public async Task<Course> GetCourseByIdAsync(string Id) =>
-            (await _context.Courses.Where(c => c.Id == Id).FirstOrDefaultAsync());
+            (await _context.Courses.Where(c => c.Id == Id).Include(c => c.Segments).Include(c => c.Lessons).Include(c => c.Participants).FirstOrDefaultAsync());
 
         public Course CreateCourse(Course course)
         {
@@ -139,11 +148,11 @@ namespace TungstenCore.DataAccess
         }
 
         // Segments
-        public IQueryable<Segment> GetSegmentsForUser(string userId) =>
-            GetCoursesForUser(userId).SelectMany(s => s.Segments);
+        public async Task<IEnumerable<Segment>> GetSegmentsForUser(string userId) =>
+            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group).SelectMany(gr => gr.Courses).SelectMany(c => c.Segments);
 
         public async Task<Segment> GetSegmentByIdAsync(string Id) =>
-            (await _context.Segments.AsNoTracking().SingleOrDefaultAsync(s => s.Id == Id));
+            (await _context.Segments.SingleOrDefaultAsync(s => s.Id == Id));
 
         public Segment CreateSegment(Segment segment)
         {
@@ -168,12 +177,12 @@ namespace TungstenCore.DataAccess
         }
 
         // Assignments
-        public IQueryable<Assignment> GetAssignmentsForUser(string userId) =>
-            GetSegmentsForUser(userId).SelectMany(s => s.Assignments);
+        public async Task<IEnumerable<Assignment>> GetAssignmentsForUser(string userId) =>
+            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group).SelectMany(gr => gr.Courses).SelectMany(c => c.Segments).SelectMany(s => s.Assignments);
 
         public async Task<Assignment> GetAssignmentByIdAsync(string Id) =>
             (await _context.Assignments.Where(a => a.Id == Id).FirstOrDefaultAsync());
-        
+
 
         public Assignment CreateAssignment(Assignment assignment)
         {
@@ -197,8 +206,8 @@ namespace TungstenCore.DataAccess
         }
 
         // Lessons
-        public IQueryable<Lesson> GetLessonsForUser(string userId) =>
-            GetCoursesForUser(userId).SelectMany(s => s.Lessons);
+        public async Task<IEnumerable<Lesson>> GetLessonsForUser(string userId) =>
+            (await GetAttachedUserAsync(userId)).Groups.Select(g => g.Group).SelectMany(gr => gr.Courses).SelectMany(c => c.Lessons);
 
         public async Task<Lesson> GetLessonByIdAsync(string Id) =>
             (await _context.Lessons.Where(l => l.Id == Id).FirstOrDefaultAsync());
@@ -228,20 +237,35 @@ namespace TungstenCore.DataAccess
         }
 
         // File
-        public async Task<FileDetail> Savefile(FileDetail file)
+        public async Task<File> UploadFile(File file)
         {
-            var result = await _context.FilePaths.AddAsync(file);
-            file.Id = result.Entity.Id;
+            await _context.Files.AddAsync(file);
             await _context.SaveChangesAsync();
-
             return file;
         }
 
-        public async Task<FileDetail> Getfile(string id) =>
+        public async Task<FileDetail> Savefile(FileDetail file)
+        {
+            //file.Owner = await _context.Users.FindAsync(file.OwnerId);
+            //file.Assignment = await _context.Assignments.FindAsync(file.AssignmentId);
+            await _context.FilePaths.AddAsync(file);
+            await _context.SaveChangesAsync();
+            return file;
+        }
+
+        public async Task<File> Getfile(string Id) =>
+            await _context.Files.FindAsync(Id);
+
+        public async Task<FileDetail> GetfileDetail(string id) =>
             await _context.FilePaths.FindAsync(id);
 
         public IQueryable<FileDetail> Getfiles(string userId) =>
            _context.FilePaths.Where(f => f.OwnerId == userId);
 
+        public async Task<IQueryable<FileDetail>> GetGroupFiles(string currentUserId) =>
+            (await GetAttachedUserAsync(currentUserId))
+            .Groups.Select(g => g.Group)
+                .SelectMany(p => p.Participants.Select(pa => pa.ApplicationUser))
+                    .SelectMany(p => p.FilePaths).Where(f => f.AssignmentId == null).AsQueryable();
     }
 }

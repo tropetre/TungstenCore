@@ -213,7 +213,7 @@ export class IndexPage implements OnInit, AfterViewChecked {
         // this is the antiforgery token DON't REMOVE
         console.log('Anti Forgery Token passed from the razor Home/Index View');
         //console.log(document.getElementById('antiForgeryForm').childNodes[1].attributes.getNamedItem("value").nodeValue);
-
+        
         this.subscription = this._UserAnnouncer.userAnnounced.subscribe(
             user => {
                 //console.log('user from lms.component event:')

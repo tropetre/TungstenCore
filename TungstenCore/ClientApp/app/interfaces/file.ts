@@ -1,7 +1,8 @@
 ﻿import { IUser } from './user';
 import { IAssignment } from './assignment';
 
-export interface FileDetail {
+
+export interface IFileDetail {
     Id: string;
     FileName: string;
     Extension: string;
@@ -9,4 +10,5 @@ export interface FileDetail {
     Owner: IUser;
     AssignmentId: string;
     Assignment: IAssignment;
+    FileId: string;
 }

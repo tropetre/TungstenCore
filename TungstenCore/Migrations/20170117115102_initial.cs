@@ -165,28 +165,6 @@ namespace TungstenCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FilePaths",
-                columns: table => new
-                {
-                    FilePathId = table.Column<string>(nullable: false),
-                    Extension = table.Column<string>(nullable: true),
-                    FileName = table.Column<string>(maxLength: 255, nullable: false),
-                    FileType = table.Column<int>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    OwnerId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FilePaths", x => x.FilePathId);
-                    table.ForeignKey(
-                        name: "FK_FilePaths_AspNetUsers_FilePathId",
-                        column: x => x.FilePathId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -317,6 +295,53 @@ namespace TungstenCore.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "FilePaths",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AssignmentId = table.Column<string>(nullable: false),
+                    Extension = table.Column<string>(nullable: true),
+                    FileId = table.Column<string>(nullable: false),
+                    FileName = table.Column<string>(maxLength: 255, nullable: false),
+                    OwnerId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FilePaths", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FilePaths_Assignments_AssignmentId",
+                        column: x => x.AssignmentId,
+                        principalTable: "Assignments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FilePaths_AspNetUsers_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Files",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Content = table.Column<byte[]>(nullable: false),
+                    FileDetailId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Files", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Files_FilePaths_FileDetailId",
+                        column: x => x.FileDetailId,
+                        principalTable: "FilePaths",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
@@ -365,6 +390,26 @@ namespace TungstenCore.Migrations
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Files_FileDetailId",
+                table: "Files",
+                column: "FileDetailId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FilePaths_AssignmentId",
+                table: "FilePaths",
+                column: "AssignmentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FilePaths_FileId",
+                table: "FilePaths",
+                column: "FileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FilePaths_OwnerId",
+                table: "FilePaths",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUserGroup_GroupId",
                 table: "ApplicationUserGroup",
                 column: "GroupId");
@@ -378,10 +423,30 @@ namespace TungstenCore.Migrations
                 name: "IX_Segments_CourseId",
                 table: "Segments",
                 column: "CourseId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_FilePaths_Files_FileId",
+                table: "FilePaths",
+                column: "FileId",
+                principalTable: "Files",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_FilePaths_AspNetUsers_OwnerId",
+                table: "FilePaths");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Assignments_Segments_SegmentId",
+                table: "Assignments");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Files_FilePaths_FileDetailId",
+                table: "Files");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -398,12 +463,6 @@ namespace TungstenCore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Assignments");
-
-            migrationBuilder.DropTable(
-                name: "FilePaths");
-
-            migrationBuilder.DropTable(
                 name: "ApplicationUserCourse");
 
             migrationBuilder.DropTable(
@@ -416,16 +475,25 @@ namespace TungstenCore.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Segments");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Segments");
 
             migrationBuilder.DropTable(
                 name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "Groups");
+
+            migrationBuilder.DropTable(
+                name: "FilePaths");
+
+            migrationBuilder.DropTable(
+                name: "Assignments");
+
+            migrationBuilder.DropTable(
+                name: "Files");
         }
     }
 }

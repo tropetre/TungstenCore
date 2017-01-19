@@ -35,7 +35,9 @@ export class isProperRoleGuard implements CanActivateChild {
             'segment',
             'segment/:id',
             'lesson',
-            'lesson/:id'
+            'lesson/:id',
+            'file',
+            'file/:id'
 
         ];
         routes['teacher'] = [
@@ -52,6 +54,8 @@ export class isProperRoleGuard implements CanActivateChild {
             'lesson/:id',
             'segment',
             'segment/:id',
+            'file',
+            'file/:id',
 
             // Create
             'creategroup',

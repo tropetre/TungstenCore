@@ -21,16 +21,19 @@
             <ul></ul>
             <ul class="nav navmenu-nav">
                 <li>
-                    <a [routerLink]="['/dashboard', 'course']" routerLinkActive="active">My Courses</a>
+                    <a [routerLink]="['/dashboard', 'course']" routerLinkActive="active">Courses</a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard', 'assignment']" routerLinkActive="active">My Assignments</a>
+                    <a [routerLink]="['/dashboard', 'assignment']" routerLinkActive="active">Assignments</a>
+                </li>
+                <!--<li>
+                    <a [routerLink]="['/dashboard', 'lesson']" routerLinkActive="active">Lessons</a>
+                </li>-->
+                <li>
+                    <a [routerLink]="['/dashboard', 'segment']" routerLinkActive="active">Segments</a>
                 </li>
                 <li>
-                    <a [routerLink]="['/dashboard', 'lesson']" routerLinkActive="active">My Lessons</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/dashboard', 'segment']" routerLinkActive="active">My Segments</a>
+                    <a [routerLink]="['/dashboard', 'file']" routerLinkActive="active">Files</a>
                 </li>
             </ul>
             <ul class="nav navmenu-nav" *ngIf="isTeacher()">

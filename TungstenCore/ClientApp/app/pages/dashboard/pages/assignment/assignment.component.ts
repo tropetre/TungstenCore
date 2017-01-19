@@ -1,6 +1,6 @@
 ﻿import { Component, Inject, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { UploadService } from '../../../../services/upload.service';
+import { FileService } from '../../../../services/file.service';
 import { Assignment } from '../../../../classes/assignment';
 import { IAssignment } from '../../../../interfaces/assignment';
 import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
@@ -27,11 +27,11 @@ export class AssignmentPage implements OnInit {
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
-        @Inject(UploadService) private _UploadService: UploadService,
+        @Inject(FileService) private _FileService: FileService,
         @Inject(Router) private _Router: Router,
         @Inject(Renderer) private _Renderer: Renderer
     ) { 
-        _UploadService.progress$.subscribe(
+        _FileService.progress$.subscribe(
             data => {
                 console.log('progress = ' + data);
             });
@@ -114,14 +114,14 @@ export class AssignmentPage implements OnInit {
 
     Upload() {
         console.log(this.files);
-        /*
-        this._UploadService.makeFileRequest(this.files, this.assignment.Id).subscribe((result) => {
+        
+        this._FileService.Upload(this.files, this.assignment.Id).subscribe((result) => {
             console.log(result);
             if (result.Id)
                 this._Router.navigate(['../']);
             else
                 this.statusmessage = 'failed try again!';
 
-        });*/
+        });
     }
 }

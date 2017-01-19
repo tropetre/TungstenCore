@@ -1,7 +1,5 @@
 ﻿namespace TungstenCore.Models
 {
-    using Enums;
-
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -16,9 +14,11 @@
         [Required, ForeignKey("Owner")]
         public string OwnerId { get; set; }
         public virtual ApplicationUser Owner { get; set; }
-        [Required, ForeignKey("Assignment")]
+        [ForeignKey("Assignment")]
         public string AssignmentId { get; set; }
         public virtual Assignment Assignment { get; set; }
-        public byte[] File { get; set; }
+        [Required, ForeignKey("File")]
+        public string FileId { get; set; }
+        public virtual File File { get; set; }
     }
 }

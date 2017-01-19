@@ -1,10 +1,10 @@
 ﻿import { ICourse } from './course';
-import { IUser } from './user';
+import { IUserGroup } from './usergroup';
 
 export interface IGroup {
     Id: string;
     Name: string;
     Description: string;
-    Participants: IUser[];
+    Participants: any[];
     Courses: ICourse[];
 }

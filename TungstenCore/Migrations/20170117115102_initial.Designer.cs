@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using TungstenCore.DataAccess;
-using TungstenCore.Models.Enums;
 
 namespace TungstenCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170116121327_initial")]
+    [Migration("20170117115102_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,24 +224,50 @@ namespace TungstenCore.Migrations
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("TungstenCore.Models.File", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("Content")
+                        .IsRequired();
+
+                    b.Property<string>("FileDetailId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileDetailId");
+
+                    b.ToTable("Files");
+                });
+
             modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
-                    b.Property<string>("FilePathId");
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AssignmentId")
+                        .IsRequired();
 
                     b.Property<string>("Extension");
+
+                    b.Property<string>("FileId")
+                        .IsRequired();
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255);
 
-                    b.Property<int>("FileType");
-
-                    b.Property<Guid>("Id");
-
                     b.Property<string>("OwnerId")
                         .IsRequired();
 
-                    b.HasKey("FilePathId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignmentId");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("FilePaths");
                 });
@@ -379,11 +404,28 @@ namespace TungstenCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("TungstenCore.Models.File", b =>
+                {
+                    b.HasOne("TungstenCore.Models.FileDetail", "FileDetail")
+                        .WithMany()
+                        .HasForeignKey("FileDetailId");
+                });
+
             modelBuilder.Entity("TungstenCore.Models.FileDetail", b =>
                 {
+                    b.HasOne("TungstenCore.Models.Assignment", "Assignment")
+                        .WithMany("Submissions")
+                        .HasForeignKey("AssignmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TungstenCore.Models.File", "File")
+                        .WithMany()
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("TungstenCore.Models.ApplicationUser", "Owner")
                         .WithMany("FilePaths")
-                        .HasForeignKey("FilePathId")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -1,5 +1,5 @@
 <div *ngIf="Group">
-    <dropdownbox [title]="'Participants'" [content]="Group.Participants"  [role]="user.Roles" [content-type]="'participant'">
+    <dropdownbox [title]="'Participants'" [content]="groupparticipants"  [role]="user.Roles" [content-type]="'participant'">
         <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'addparticipant', Group.Id]" ddb-create>
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         </button>

@@ -1,0 +1,35 @@
+﻿<div>
+    <dropdownbox [title]="'Files'" [content]="filedetails" [content-type]="'file'" *ngIf="filedetails">
+
+    </dropdownbox>
+    <dropdownbox [title]="'Public Files'" [content]="publicfiles" [content-type]="'file'" *ngIf="publicfiles.length">
+
+    </dropdownbox>
+</div>
+    
+<div *ngIf="filedetail">
+    <label>{{filedetail.FileName}}</label><br />
+    <a class="btn btn-success"
+            (click)="Download()" #downloadbutton>
+        <span class="glyphicon glyphicon-download"></span> Open
+    </a>
+</div>
+<div class="well" style="margin-top:10px;" *ngIf="!filedetail">
+    <div class="input-group">
+        <label class="input-group-btn">
+            <span class="btn btn-primary">
+                Browse&hellip; <input type="file" #fileinput style="display: none;" (change)="onChange($event)" accept=".doc,.txt" [(ngModel)]="file" ng2FileSelect>
+            </span>
+        </label>
+        <input type="text" class="form-control" readonly #fileresult>
+    </div>
+    <hr />
+    <div class="progress" style="">
+        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': progress + '%' }"></div>
+    </div>
+    <hr />
+    <button type="button" class="btn btn-success"
+            (click)="Upload()">
+        <span class="glyphicon glyphicon-upload"></span> Upload
+    </button>
+</div>

@@ -18,7 +18,7 @@
                 <div *ngFor="let item of Content; let i = index">
                     <div class="item">
                         <div class="item-link-container" [routerLink]="['/dashboard', ContentType, item.Id]">
-                            <a class="item-link"><h3>{{item.Name || item.Subject || item.Classroom}}</h3></a>
+                            <a class="item-link"><h3>{{item.Name || item.Subject || item.Classroom || item.FileName}}</h3></a>
                         </div>
                         <div class="btn-group item-buttons">
                             <button class="btn btn-default btn-lg" [routerLink]="['/dashboard', 'edit'+ContentType, item.Id]">

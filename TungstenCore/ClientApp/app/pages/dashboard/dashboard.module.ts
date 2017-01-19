@@ -23,6 +23,7 @@ import { AddParticipantPage } from './pages/addparticipant/addparticipant.compon
 import { AssignmentPage } from './pages/assignment/assignment.component';
 import { LessonPage } from './pages/lesson/lesson.component';
 import { SegmentPage } from './pages/segment/segment.component';
+import { FilePage } from './pages/file/file.component';
 
 // Create Pages
 import { CreateGroup } from './pages/create/creategroup/creategroup.component';
@@ -64,6 +65,7 @@ import { SegmentService } from '../../services/segment.service';
 import { LessonService } from '../../services/lesson.service';
 import { AssignmentService } from '../../services/assignment.service';
 import { UploadService } from '../../services/upload.service';
+import { FileService } from '../../services/file.service';
 
 // routing guards
 import { isProperRoleGuard } from '../../services/guards/isproperrole';
@@ -89,6 +91,9 @@ import { SegmentsResolver } from '../../services/resolvers/segments.resolver';
 import { AssignmentResolver } from '../../services/resolvers/assignment.resolver';
 import { AssignmentsResolver } from '../../services/resolvers/assignments.resolver';
 
+import { FileResolver } from '../../services/resolvers/file.resolver';
+import { FilesResolver } from '../../services/resolvers/files.resolver';
+import { GroupFilesResolver } from '../../services/resolvers/files.group.resolver';
 
 // Pipes
 import { FilterUserByNamePipe } from '../../pipes/filterPipe';
@@ -114,6 +119,7 @@ import { FilterUserByNamePipe } from '../../pipes/filterPipe';
         AssignmentPage,
         LessonPage,
         SegmentPage,
+        FilePage,
 
         // Create
         CreateGroup,
@@ -165,7 +171,11 @@ import { FilterUserByNamePipe } from '../../pipes/filterPipe';
         CourseResolver,
         GroupsResolver,
         CoursesResolver,
-        UploadService
+        UploadService,
+        FileResolver,
+        FilesResolver,
+        FileService,
+        GroupFilesResolver
     ]
 })
 export class Dashboard { }

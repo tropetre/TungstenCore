@@ -1,8 +1,9 @@
 ﻿import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User } from '../../../../classes/user';
 import { GroupService } from '../../../../services/groupservice';
 import { IGroup } from '../../../../interfaces/group';
+import { IUser } from '../../../../interfaces/user';
+import { User } from '../../../../classes/user';
 
 import 'rxjs/add/operator/switchMap';
 
@@ -11,7 +12,8 @@ import 'rxjs/add/operator/switchMap';
 })
 export class GroupPage implements OnInit {
     private Group: IGroup;
-    private user: User;
+    private user: IUser;
+    private groupparticipants: IUser[] = new Array<User>();
 
     constructor(
         @Inject(ActivatedRoute) private _ActivatedRoute: ActivatedRoute,
@@ -19,9 +21,13 @@ export class GroupPage implements OnInit {
         ) { };
 
         ngOnInit() {
-            this._ActivatedRoute.data.subscribe((data: { user:User, group: IGroup }) => {
+            this._ActivatedRoute.data.subscribe((data: { user: IUser, group: IGroup }) => {
                 this.user = data.user;
                 this.Group = data.group;
+                console.log(this.Group);
+                this.Group.Participants.map(participant => {
+                    //this.groupparticipants.push(participant.ApplicationUser);
+                });
             });
         }
 }

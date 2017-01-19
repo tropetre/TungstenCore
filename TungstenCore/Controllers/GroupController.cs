@@ -35,8 +35,8 @@ namespace TungstenCore.Controllers
         public async Task<IEnumerable<ScheduleSegment>> GetSchedule([FromBody] IdWrapper wrapper) =>
             (await _repository.GetGroupWithLessonsAsync(wrapper.Id)).Schedule();
 
-        public IQueryable<Group> GetGroups() =>
-            _repository.GetGroupsForUser(currentUserId);
+        public async Task<IEnumerable<Group>> GetGroups() =>
+            await _repository.GetGroupsForUser(currentUserId);
 
         [HttpPost]
         public async Task<Group> GetGroup([FromBody] IdWrapper wrapper) =>
